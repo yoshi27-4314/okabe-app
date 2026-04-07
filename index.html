@@ -197,7 +197,17 @@ body {
     <div class="login-sub">業務管理システム</div>
   </div>
 
-  <div class="login-label">ログインするアカウントを選択</div>
+  <!-- 実ログインフォーム -->
+  <div id="loginForm" style="width:100%; margin-bottom: 24px;">
+    <input type="email" id="loginEmail" placeholder="メールアドレス" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;margin-bottom:8px;outline:none;">
+    <input type="password" id="loginPassword" placeholder="パスワード" style="width:100%;padding:12px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;margin-bottom:8px;outline:none;">
+    <button onclick="handleLogin()" style="width:100%;padding:14px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">ログイン</button>
+    <div id="loginError" style="color:var(--danger);font-size:12px;margin-top:8px;text-align:center;display:none;"></div>
+  </div>
+
+  <div style="font-size:12px;color:var(--sub);margin-bottom:16px;text-align:center;">— または デモモードで確認 —</div>
+
+  <div class="login-label">デモ用アカウント選択</div>
   <div class="role-select">
     <button class="role-btn staff" onclick="loginAs('staff')">
       <div class="role-icon">🔧</div>
@@ -471,7 +481,48 @@ body {
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
 <script>
+// 実ログイン
+async function handleLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const errorEl = document.getElementById('loginError');
+  errorEl.style.display = 'none';
+
+  if (!email || !password) {
+    errorEl.textContent = 'メールアドレスとパスワードを入力してください';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  const result = await signIn(email, password);
+  if (result.error) {
+    errorEl.textContent = 'ログインに失敗しました。メールアドレスまたはパスワードを確認してください。';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  if (result.staff) {
+    loginAs(result.staff.role === 'worker' ? 'staff' : result.staff.role);
+  } else {
+    errorEl.textContent = 'スタッフ情報が見つかりません。管理者に連絡してください。';
+    errorEl.style.display = 'block';
+  }
+}
+
+// セッション復元
+(async () => {
+  const session = await getCurrentSession();
+  if (session?.staff) {
+    const roleMap = { worker: 'staff', office: 'office', sales: 'sales', manager: 'manager' };
+    loginAs(roleMap[session.staff.role] || 'staff');
+  }
+})();
+
+// デモモード
 function loginAs(role) {
   document.getElementById('loginScreen').style.display = 'none';
   var screens = { staff: 'homeStaff', office: 'homeOffice', sales: 'homeSales', manager: 'homeManager' };
@@ -480,9 +531,12 @@ function loginAs(role) {
   }
 }
 
-function logout() {
+async function logout() {
+  await signOut();
   document.querySelectorAll('.home-screen').forEach(el => el.classList.remove('active'));
   document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
 }
 </script>
 
