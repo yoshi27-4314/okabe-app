@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タイヤホテル OKABE — Vol.1 方向性確認資料</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0d1b2a;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --text: #1e293b;
+  --sub: #64748b;
+  --border: #e2e8f0;
+  --bg: #f8fafc;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--text);
+  background: #fff;
+  line-height: 1.8;
+  font-size: 15px;
+}
+.page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* 表紙 */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--primary);
+  color: #fff;
+  padding: 40px 24px;
+}
+.cover-badge {
+  display: inline-block;
+  padding: 6px 20px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+.cover-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.cover-title span { color: var(--accent); }
+.cover-sub {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #94a3b8;
+}
+.cover-vol {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 32px 0 8px;
+  color: var(--accent);
+}
+.cover-vol-sub {
+  font-size: 16px;
+  color: #94a3b8;
+}
+.cover-date {
+  margin-top: 48px;
+  font-size: 14px;
+  color: #64748b;
+}
+.cover-from {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+/* セクション */
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 48px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--accent);
+}
+h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 24px 0 8px;
+}
+p { margin-bottom: 12px; }
+
+/* 課題カード */
+.issue-card {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border-left: 4px solid var(--danger);
+}
+.issue-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--danger);
+  margin-bottom: 4px;
+}
+.issue-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.issue-detail {
+  font-size: 14px;
+  color: var(--sub);
+  line-height: 1.6;
+}
+
+/* 解決カード */
+.solve-card {
+  background: #f0fdf4;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border-left: 4px solid var(--success);
+}
+.solve-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--success);
+  margin-bottom: 4px;
+}
+.solve-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.solve-detail {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* テーブル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+}
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+th {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+tr:nth-child(even) { background: var(--bg); }
+
+/* フロー図 */
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+.flow-step {
+  background: var(--accent-light);
+  color: var(--primary);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.flow-arrow { color: var(--accent); font-size: 20px; font-weight: 700; }
+
+/* フェーズ */
+.phase-card {
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.phase-card.current {
+  border-color: var(--accent);
+  box-shadow: 0 2px 12px rgba(37,99,235,0.12);
+}
+.phase-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.phase-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.phase-items {
+  list-style: none;
+  padding: 0;
+}
+.phase-items li {
+  font-size: 14px;
+  padding: 4px 0;
+  padding-left: 20px;
+  position: relative;
+}
+.phase-items li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--success);
+  font-weight: 700;
+}
+
+/* 確認事項 */
+.confirm-card {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+.confirm-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #92400e;
+  margin-bottom: 4px;
+}
+.confirm-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #92400e;
+  margin-bottom: 4px;
+}
+.confirm-detail {
+  font-size: 13px;
+  color: #92400e;
+  line-height: 1.6;
+}
+
+/* デモリンク */
+.demo-box {
+  background: var(--accent-light);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin: 24px 0;
+}
+.demo-box a {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  margin-top: 8px;
+}
+.demo-note {
+  font-size: 12px;
+  color: var(--sub);
+  margin-top: 8px;
+}
+
+/* フッター */
+.footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 12px;
+  color: var(--sub);
+  line-height: 1.8;
+}
+
+@media print {
+  .cover { min-height: auto; padding: 60px 24px; page-break-after: always; }
+  h2 { page-break-before: always; }
+  .issue-card, .solve-card, .phase-card, .confirm-card { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 表紙 ===== -->
+<div class="cover">
+  <div class="cover-badge">CONFIDENTIAL</div>
+  <div class="cover-title">タイヤホテル <span>OKABE</span></div>
+  <div class="cover-sub">業務管理システム開発プロジェクト</div>
+  <div class="cover-vol">Vol.1</div>
+  <div class="cover-vol-sub">方向性確認資料</div>
+  <div class="cover-date">2026年4月7日</div>
+  <div class="cover-from">
+    アスカラ 伴走型AIX事業部<br>
+    よし
+  </div>
+</div>
+
+<!-- ===== 本文 ===== -->
+<div class="page">
+
+  <!-- 目的 -->
+  <h2>1. 本資料の目的</h2>
+  <p>本資料は、タイヤホテルOKABE業務管理システムの<strong>開発方向性</strong>について、社長にご確認いただくためのものです。</p>
+  <p>ヒアリングで伺った業務課題に対し、どのように解決していくかの全体像と、現時点で動作するモックアップ（デモ画面）をご用意しました。</p>
+  <p>方向性に問題がなければ、この方針で開発を進めます。ズレがあれば早い段階で修正します。</p>
+
+  <!-- 現状の課題 -->
+  <h2>2. ヒアリングで伺った業務課題</h2>
+
+  <div class="issue-card">
+    <div class="issue-num">課題 1</div>
+    <div class="issue-title">手書き＋Excel入力 → 基幹システムとの連携が取れていない</div>
+    <div class="issue-detail">
+      タイヤホテルの管理は手書きの申込書とExcel。基幹システムとはデータがつながっておらず、転記作業が発生している。情報が二重管理になっている。
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-num">課題 2</div>
+    <div class="issue-title">タイヤ交換の判断がスタッフごとにバラバラ</div>
+    <div class="issue-detail">
+      残溝の判定基準が統一されておらず、サービススタッフによって「交換推奨」の判断が異なる。そのため、シーズン切替時に山田工場長が全タイヤを1本ずつ再確認する作業が発生している。
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-num">課題 3</div>
+    <div class="issue-title">台数割引の紐付けが複雑</div>
+    <div class="issue-detail">
+      預かり台数に応じた割引があるが、法人（5台）と経営者個人（1台）で合計6台、のように人と会社をまたいだカウントが必要。現状は手作業で把握している。
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-num">課題 4</div>
+    <div class="issue-title">タイヤ発注時のサイズミス</div>
+    <div class="issue-detail">
+      タイヤ発注時に手入力でサイズを転記するため、誤発注が発生している。
+    </div>
+  </div>
+
+  <div class="issue-card">
+    <div class="issue-num">課題 5</div>
+    <div class="issue-title">タイヤホテル事業の売上が見えない</div>
+    <div class="issue-detail">
+      フロント事務からの要望。タイヤホテル事業単体の売上・利益がシートとして確認できる状態になっていない。事業判断ができない。
+    </div>
+  </div>
+
+  <!-- 解決の方向性 -->
+  <h2>3. 解決の方向性</h2>
+
+  <div class="solve-card">
+    <div class="solve-label">課題1 → 解決策</div>
+    <div class="solve-title">アプリで一元管理 → エクスポート機能で基幹システムへ連携</div>
+    <div class="solve-detail">
+      手書き＋Excelをアプリに置き換え、データベースで一元管理します。基幹システムへのデータ連携は、<strong>エクスポート機能</strong>（CSVまたはExcelシートへの自動転記）で対応します。連携フォーマットは基幹システムの仕様を確認した上で設計します。
+    </div>
+  </div>
+
+  <div class="solve-card">
+    <div class="solve-label">課題2 → 解決策</div>
+    <div class="solve-title">残溝測定の統一化 ＋ システムによる自動判定</div>
+    <div class="solve-detail">
+      <strong>方法A:</strong> スマホで定規をタイヤ溝に当てて撮影 → OCRで残溝を読み取り → システムが自動判定（良好/要注意/交換推奨）<br><br>
+      <strong>方法B:</strong> Bluetooth対応の溝深さゲージ（デプスゲージ）を導入 → 測定値がスマホアプリに自動転送 → より正確な数値で判定<br><br>
+      どちらの方法でも、<strong>判定基準はシステムで統一</strong>されるため、スタッフごとのバラつきがなくなります。山田工場長の全数確認作業は、異常値があるものだけに絞れます。<br><br>
+      <strong>※ Bluetooth対応デプスゲージの機種選定・費用は別途調査してご報告します。</strong>
+    </div>
+  </div>
+
+  <div class="solve-card">
+    <div class="solve-label">課題3 → 解決策</div>
+    <div class="solve-title">顧客の紐付け機能（グループ化）</div>
+    <div class="solve-detail">
+      個人と法人を「グループ」として紐付けられる機能を作ります。事務員または営業が、顧客情報画面から「この個人はこの法人に関連」と設定できます。台数割引のカウントは、グループ内の合計台数で自動計算されます。<br><br>
+      この仕組みは将来的に、OKABE GROUPの他の事業（車検・保険・鈑金）で顧客を横断的に把握する基盤にもなります。
+    </div>
+  </div>
+
+  <div class="solve-card">
+    <div class="solve-label">課題4 → 解決策</div>
+    <div class="solve-title">タイヤ情報をOCRで読み取り → 発注伝票にエクスポート</div>
+    <div class="solve-detail">
+      タイヤ側面を撮影するだけで、メーカー名・サイズ・パターンを自動読み取り。発注時は、システムに登録済みの正確なサイズ情報から<strong>エクスポートボタン一つ</strong>で発注伝票（Excel or CSV）に出力します。手入力による転記ミスがゼロになります。
+    </div>
+  </div>
+
+  <div class="solve-card">
+    <div class="solve-label">課題5 → 解決策</div>
+    <div class="solve-title">タイヤホテル事業の売上レポート</div>
+    <div class="solve-detail">
+      管理者画面のダッシュボードから、タイヤホテル事業の売上を確認できるシートを出力します。預かり料金・交換作業料金・タイヤ販売を集計し、月次・年次で利益が見える状態にします。
+    </div>
+  </div>
+
+  <!-- システム概要 -->
+  <h2>4. システムの全体像</h2>
+
+  <h3>4つのロール（利用者の種類）</h3>
+  <table>
+    <tr><th>ロール</th><th>主な操作</th><th>デバイス</th></tr>
+    <tr><td><strong>サービススタッフ</strong></td><td>作業一覧・タイヤチェック・OCR読取・Bot質問</td><td>スマホ</td></tr>
+    <tr><td><strong>フロント事務</strong></td><td>顧客管理・予約受付・預かり台帳・新規登録・売上シート</td><td>PC（+スマホ）</td></tr>
+    <tr><td><strong>営業</strong></td><td>顧客情報・交換推奨リスト・訪問記録</td><td>スマホ（+PC）</td></tr>
+    <tr><td><strong>管理者</strong></td><td>上記すべて＋ダッシュボード・マスター設定・スタッフ管理</td><td>PC＋スマホ</td></tr>
+  </table>
+
+  <h3>お客様からの入口</h3>
+  <p>既存のLINE公式アカウントをお客様の窓口として活用します。</p>
+
+  <h3>サービススタッフの作業フロー（アプリ導入後）</h3>
+  <div class="flow">
+    <div class="flow-step">📷 ナンバー撮影</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">顧客・車両を自動表示</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">📷 タイヤ撮影</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">サイズ・残溝を自動入力</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">システムが自動判定</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">✅ 確認して保存</div>
+  </div>
+  <p style="font-size:14px; color:var(--sub);">手書き・Excel転記がゼロになり、判定基準が統一されます。</p>
+
+  <h3>データの管理方法</h3>
+  <table>
+    <tr><th>データ</th><th>内容</th></tr>
+    <tr><td>顧客</td><td>氏名・フリガナ・電話・携帯・住所・LINE・WEB登録・個人/法人・グループ紐付け</td></tr>
+    <tr><td>車両</td><td>車種・ナンバー・色 ※1人のお客様に複数台</td></tr>
+    <tr><td>タイヤセット</td><td>夏/冬・保管場所No.・料金・預かり期間 ※1台に複数セット</td></tr>
+    <tr><td>タイヤ（4本）</td><td>メーカー・パターン・サイズ・残溝・測定日・ホイール種別（純正/社外）・素材（アルミ/鉄）・キャップ有無・ナット（別/共用）</td></tr>
+    <tr><td>作業</td><td>種別（履き替え/点検/預かり/返却）・予定日・完了日・ステータス・担当者</td></tr>
+    <tr><td>約款</td><td>契約条項（アプリ内で閲覧＋PDF共有可能）</td></tr>
+  </table>
+  <p style="font-size:14px; color:var(--sub);">※ 現在の申込書（3枚綴り）に記載されている全項目を網羅しています。</p>
+
+  <!-- 開発フェーズ -->
+  <h2>5. 開発フェーズ</h2>
+
+  <div class="phase-card current">
+    <div class="phase-num">第1フェーズ（現在）</div>
+    <div class="phase-title">基本管理台帳 — Excelの置き換え</div>
+    <ul class="phase-items">
+      <li>顧客・車両・タイヤの登録・検索・閲覧</li>
+      <li>作業一覧・ステータス管理</li>
+      <li>OCR読取（ナンバー・タイヤサイズ・残溝）</li>
+      <li>残溝の統一判定基準（管理者が設定変更可能）</li>
+      <li>チャットBot（業務質問・画像質問対応）</li>
+      <li>約款閲覧・PDF共有</li>
+      <li>ロール別ホーム画面</li>
+      <li>ヘルプ機能（❓マークで判定基準・使い方を確認）</li>
+    </ul>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-num">第2フェーズ</div>
+    <div class="phase-title">業務効率化 — 連携と自動化</div>
+    <ul class="phase-items">
+      <li>基幹システムへのエクスポート（CSV/Excel）</li>
+      <li>台数割引の自動計算（グループ紐付け）</li>
+      <li>発注伝票へのエクスポート（サイズミス防止）</li>
+      <li>タイヤホテル売上レポート</li>
+      <li>LINE公式アカウント連携</li>
+      <li>通知・リマインド（返却予定日、交換推奨）</li>
+      <li>Bluetoothデプスゲージ連携（調査結果による）</li>
+    </ul>
+  </div>
+
+  <div class="phase-card">
+    <div class="phase-num">第3フェーズ</div>
+    <div class="phase-title">付加価値 — 他にないシステムへ</div>
+    <ul class="phase-items">
+      <li>顧客関係性ネットワーク（個人⇔法人⇔家族の可視化）</li>
+      <li>営業支援（1つの訪問で複数の接点に気づける）</li>
+      <li>アクセシビリティ対応（障害者・年配者・外国人労働者）</li>
+      <li>多言語対応</li>
+    </ul>
+  </div>
+
+  <!-- 確認事項 -->
+  <h2>6. 確認・ご相談事項</h2>
+
+  <div class="confirm-card">
+    <div class="confirm-label">確認 1</div>
+    <div class="confirm-title">基幹システムとの連携フォーマット</div>
+    <div class="confirm-detail">現在の基幹システムにデータを取り込む際のフォーマット（CSV、Excelのどの列に何を入れるか等）を確認させてください。エクスポート機能の設計に必要です。</div>
+  </div>
+
+  <div class="confirm-card">
+    <div class="confirm-label">確認 2</div>
+    <div class="confirm-title">台数割引のルール</div>
+    <div class="confirm-detail">何台からどの割引率が適用されるか、グループの紐付けルール（家族・法人の範囲）を教えてください。</div>
+  </div>
+
+  <div class="confirm-card">
+    <div class="confirm-label">確認 3</div>
+    <div class="confirm-title">Bluetooth対応デプスゲージ</div>
+    <div class="confirm-detail">導入意向がおありとのことですので、対応機種・価格帯・スマホとの接続方法を調査してご報告します。購入判断はその後で問題ありません。</div>
+  </div>
+
+  <div class="confirm-card">
+    <div class="confirm-label">確認 4</div>
+    <div class="confirm-title">サービススタッフの構成</div>
+    <div class="confirm-detail">現在の作業員の人数・使用言語を教えてください。多言語対応の優先度と対象言語の判断に必要です。</div>
+  </div>
+
+  <div class="confirm-card">
+    <div class="confirm-label">確認 5</div>
+    <div class="confirm-title">発注伝票のフォーマット</div>
+    <div class="confirm-detail">タイヤ発注時に使用している伝票のフォーマットを共有いただければ、エクスポート機能の設計に反映します。</div>
+  </div>
+
+  <!-- デモ -->
+  <h2>7. デモ画面</h2>
+  <p>現時点で動作するモックアップをご用意しました。実際のスマホ・PCのブラウザでご確認いただけます。</p>
+
+  <div class="demo-box">
+    <div style="font-size:14px; font-weight:700; margin-bottom:8px;">ロール別ホーム画面＋サービススタッフ画面</div>
+    <a href="https://yoshi27-4314.github.io/okabe-app/">デモを開く</a>
+    <div class="demo-note">※ ダミーデータで動作確認用です。実際のお客様データは含まれていません。</div>
+  </div>
+
+  <p>デモ画面では以下をご確認いただけます：</p>
+  <table>
+    <tr><th>画面</th><th>確認できること</th></tr>
+    <tr><td>ログイン画面</td><td>4つのロールでログイン → それぞれ異なるホーム画面</td></tr>
+    <tr><td>サービススタッフ ホーム</td><td>今日のサマリー・全機能ボタン・次の作業プレビュー</td></tr>
+    <tr><td>作業一覧</td><td>作業カードのステータス変更（予約→受付→作業中→完了）</td></tr>
+    <tr><td>作業詳細</td><td>タイヤ4本の状態表示・📷カメラボタン・❓ヘルプ</td></tr>
+    <tr><td>顧客情報</td><td>申込書全項目の表示・夏/冬タイヤセット切替</td></tr>
+    <tr><td>チャットBot</td><td>テキスト＋📷写真で質問できるUI</td></tr>
+    <tr><td>約款</td><td>契約条項の閲覧</td></tr>
+  </table>
+
+  <!-- フッター -->
+  <div class="footer">
+    本資料は株式会社OKABE GROUPとの業務管理システム開発プロジェクトに関する機密資料です。<br>
+    アスカラ 伴走型AIX事業部<br>
+    2026年4月7日
+  </div>
+
+</div>
+
+</body>
+</html>
