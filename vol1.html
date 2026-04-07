@@ -373,6 +373,14 @@ tr:nth-child(even) { background: var(--bg); }
     </div>
   </div>
 
+  <div class="issue-card">
+    <div class="issue-num">課題 6</div>
+    <div class="issue-title">既存データ（Excel/手書き）の正確性が不明</div>
+    <div class="issue-detail">
+      これまでの運用で入力ミスが蓄積している可能性がある。Excelと手書きのどちらが正しいかもわからない。新システムに移行する際、このデータをどう扱うかが課題。
+    </div>
+  </div>
+
   <!-- 解決の方向性 -->
   <h2>3. 解決の方向性</h2>
 
@@ -417,6 +425,21 @@ tr:nth-child(even) { background: var(--bg); }
     <div class="solve-title">タイヤホテル事業の売上レポート</div>
     <div class="solve-detail">
       管理者画面のダッシュボードから、タイヤホテル事業の売上を確認できるシートを出力します。預かり料金・交換作業料金・タイヤ販売を集計し、月次・年次で利益が見える状態にします。
+    </div>
+  </div>
+
+  <div class="solve-card">
+    <div class="solve-label">課題6 → 解決策</div>
+    <div class="solve-title">既存データの簡易インポート ＋ 自動整合チェック</div>
+    <div class="solve-detail">
+      既存のExcelデータをシステムに取り込むインポート機能を用意します。取り込み時に、システムが<strong>自動で矛盾・不整合をチェック</strong>します。<br><br>
+      <strong>チェック例：</strong><br>
+      ・同じナンバーで異なる車種が登録されている<br>
+      ・タイヤサイズが車種の標準サイズと合わない<br>
+      ・電話番号の桁数がおかしい<br>
+      ・同一顧客の重複登録<br><br>
+      問題があるデータだけをリスト表示し、確認・修正できるようにします。<strong>インポート作業自体は、Excelファイルを選択してボタンを押すだけ</strong>です。手間はかけません。<br><br>
+      新システムへの移行が、同時に<strong>既存データの棚卸し・精査</strong>にもなります。
     </div>
   </div>
 
@@ -485,6 +508,7 @@ tr:nth-child(even) { background: var(--bg); }
     <div class="phase-num">第2フェーズ</div>
     <div class="phase-title">業務効率化 — 連携と自動化</div>
     <ul class="phase-items">
+      <li>既存Excelデータのインポート＋自動整合チェック</li>
       <li>基幹システムへのエクスポート（CSV/Excel）</li>
       <li>台数割引の自動計算（グループ紐付け）</li>
       <li>発注伝票へのエクスポート（サイズミス防止）</li>
@@ -537,6 +561,12 @@ tr:nth-child(even) { background: var(--bg); }
     <div class="confirm-label">確認 5</div>
     <div class="confirm-title">発注伝票のフォーマット</div>
     <div class="confirm-detail">タイヤ発注時に使用している伝票のフォーマットを共有いただければ、エクスポート機能の設計に反映します。</div>
+  </div>
+
+  <div class="confirm-card">
+    <div class="confirm-label">確認 6</div>
+    <div class="confirm-title">既存データの形式</div>
+    <div class="confirm-detail">現在管理に使用しているExcelファイルを共有いただければ、インポート機能の設計と、データ整合チェックのルールを作成します。手書き台帳との突合が必要な箇所があれば教えてください。</div>
   </div>
 
   <!-- デモ -->
