@@ -83,6 +83,6 @@ function isSales() {
   return getRole() === 'sales';
 }
 
-function isWorker() {
-  return getRole() === 'worker';
+function isService() {
+  return getRole() === 'service';
 }

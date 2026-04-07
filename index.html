@@ -137,7 +137,7 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
       <div class="role-name">フロント事務</div>
       <div class="role-desc">受付・台帳</div>
     </div>
-    <div class="role-card" onclick="loginAs('worker')">
+    <div class="role-card" onclick="loginAs('service')">
       <div class="role-icon">🔧</div>
       <div class="role-name">サービススタッフ</div>
       <div class="role-desc">現場作業</div>
@@ -409,7 +409,7 @@ function loginAs(role) {
     sales: 'homeSales',
     factory_manager: 'homeFactoryManager',
     office: 'homeOffice',
-    worker: 'homeWorker'
+    service: 'homeWorker'
   };
   if (screens[role]) document.getElementById(screens[role]).classList.add('active');
 }
