@@ -115,91 +115,14 @@
   </div>
 
   <div class="date-filter">
-    <div class="date-chip active" onclick="selectDate(this)">今日（6件）</div>
-    <div class="date-chip" onclick="selectDate(this)">明日（3件）</div>
-    <div class="date-chip" onclick="selectDate(this)">今週（14件）</div>
+    <div class="date-chip active" onclick="selectDate(this); loadWorks('today')">今日</div>
+    <div class="date-chip" onclick="selectDate(this); loadWorks('tomorrow')">明日</div>
+    <div class="date-chip" onclick="selectDate(this); loadWorks('week')">今週</div>
   </div>
 
-  <!-- ナンバー読取バナー -->
-  <div class="camera-banner" onclick="alert('カメラ起動 → ナンバー読取')">
-    <div class="camera-banner-icon">📷</div>
-    <div>
-      <div class="camera-banner-text">ナンバー読取で作業を開始</div>
-      <div class="camera-banner-sub">ナンバープレートを撮影 → 顧客・作業を自動表示</div>
-    </div>
-  </div>
-
-  <!-- 作業中 -->
-  <div class="section-title">作業中</div>
-  <div class="work-card status-working" onclick="openDetail('working')">
-    <div class="work-card-top">
-      <span class="work-status working">作業中</span>
-      <span class="work-time">09:30〜</span>
-    </div>
-    <div class="work-customer">田中建設株式会社</div>
-    <div class="work-vehicle">ハイエース ・ 岐阜 300 さ 5678</div>
-    <div class="work-type">冬→夏 履き替え</div>
-    <div class="work-action">
-      <button class="work-action-btn complete" onclick="event.stopPropagation(); changeStatus(this, 'done')">✅ 完了</button>
-    </div>
-  </div>
-
-  <!-- 予約 -->
-  <div class="section-title">予約</div>
-  <div class="work-card status-reserved" onclick="openDetail('reserved')">
-    <div class="work-card-top">
-      <span class="work-status reserved">予約</span>
-      <span class="work-time">10:00〜</span>
-    </div>
-    <div class="work-customer">鈴木一郎 様</div>
-    <div class="work-vehicle">プリウス ・ 岐阜 500 あ 1234</div>
-    <div class="work-type">冬→夏 履き替え</div>
-    <div class="work-action">
-      <button class="work-action-btn accept" onclick="event.stopPropagation(); changeStatus(this, 'accepted')">📋 受付</button>
-    </div>
-  </div>
-
-  <div class="work-card status-reserved" onclick="openDetail('reserved2')">
-    <div class="work-card-top">
-      <span class="work-status reserved">予約</span>
-      <span class="work-time">11:00〜</span>
-    </div>
-    <div class="work-customer">山田商事株式会社</div>
-    <div class="work-vehicle">キャラバン ・ 岐阜 100 た 9876</div>
-    <div class="work-type">預かり開始</div>
-    <div class="work-action">
-      <button class="work-action-btn accept" onclick="event.stopPropagation(); changeStatus(this, 'accepted')">📋 受付</button>
-    </div>
-  </div>
-
-  <!-- 完了 -->
-  <div class="section-title">完了</div>
-  <div class="work-card status-done">
-    <div class="work-card-top">
-      <span class="work-status done">完了</span>
-      <span class="work-time">09:00 → 09:45</span>
-    </div>
-    <div class="work-customer">山田花子 様</div>
-    <div class="work-vehicle">N-BOX ・ 岐阜 580 う 9012</div>
-    <div class="work-type">預かり開始</div>
-  </div>
-  <div class="work-card status-done">
-    <div class="work-card-top">
-      <span class="work-status done">完了</span>
-      <span class="work-time">08:30 → 09:15</span>
-    </div>
-    <div class="work-customer">佐藤健一 様</div>
-    <div class="work-vehicle">フォレスター ・ 岐阜 300 か 3456</div>
-    <div class="work-type">冬→夏 履き替え</div>
-  </div>
-  <div class="work-card status-done">
-    <div class="work-card-top">
-      <span class="work-status done">完了</span>
-      <span class="work-time">08:00 → 08:25</span>
-    </div>
-    <div class="work-customer">岡田運輸株式会社</div>
-    <div class="work-vehicle">エルフ ・ 岐阜 800 き 7890</div>
-    <div class="work-type">点検</div>
+  <!-- 作業一覧（動的表示） -->
+  <div id="workList">
+    <div style="padding:40px;text-align:center;color:var(--sub);">読み込み中...</div>
   </div>
 </div>
 

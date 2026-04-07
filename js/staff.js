@@ -21,6 +21,9 @@ function switchTab(tab) {
     if (tab === 'chat' && chatInput) {
       chatInput.style.display = 'flex';
     }
+    if (tab === 'work') {
+      loadWorks('today');
+    }
   }
 }
 
@@ -82,6 +85,137 @@ document.getElementById('detailModal').addEventListener('click', function(e) {
 // 初期表示
 var chatInput = document.querySelector('.chat-input-area');
 if (chatInput) chatInput.style.display = 'none';
+
+// ページ読み込み時にデータ取得
+document.addEventListener('DOMContentLoaded', function() {
+  // 作業一覧はタブ切替時に読み込む
+});
+
+// ============================================
+// 作業一覧の実データ読み込み
+// ============================================
+
+async function loadWorks(dateFilter) {
+  const workList = document.getElementById('workList');
+  if (!workList) return;
+
+  workList.innerHTML = '<div style="padding:40px;text-align:center;color:var(--sub);">読み込み中...</div>';
+
+  let date;
+  if (dateFilter === 'tomorrow') {
+    const d = new Date(); d.setDate(d.getDate() + 1);
+    date = d.toISOString().split('T')[0];
+  } else if (dateFilter === 'week') {
+    date = null; // 今週分は別処理
+  } else {
+    date = new Date().toISOString().split('T')[0];
+  }
+
+  let works;
+  if (date) {
+    works = await getWorksByDate(date);
+  } else {
+    // 今週分
+    const today = new Date();
+    const sun = new Date(today); sun.setDate(today.getDate() - today.getDay());
+    const sat = new Date(today); sat.setDate(today.getDate() + (6 - today.getDay()));
+    const { data, error } = await db.from('works')
+      .select('*, vehicles(*, customers(*)), tire_sets(*, tires(*))')
+      .gte('scheduled_date', sun.toISOString().split('T')[0])
+      .lte('scheduled_date', sat.toISOString().split('T')[0])
+      .order('scheduled_date', { ascending: true });
+    works = data || [];
+  }
+
+  if (works.length === 0) {
+    workList.innerHTML = '<div style="padding:40px;text-align:center;color:var(--sub);font-size:14px;">作業データがありません</div>';
+    return;
+  }
+
+  // ステータスでグループ分け
+  const groups = { '作業中': [], '受付': [], '予約': [], '完了': [], 'キャンセル': [] };
+  works.forEach(w => {
+    if (groups[w.status]) groups[w.status].push(w);
+  });
+
+  // サマリー更新
+  const reserved = groups['予約'].length + groups['受付'].length;
+  const working = groups['作業中'].length;
+  const done = groups['完了'].length;
+  updateSummary(reserved, working, done);
+
+  let html = '';
+
+  // カメラバナー
+  html += `<div class="camera-banner" onclick="alert('カメラ起動 → ナンバー読取')">
+    <div class="camera-banner-icon">📷</div>
+    <div>
+      <div class="camera-banner-text">ナンバー読取で作業を開始</div>
+      <div class="camera-banner-sub">ナンバープレートを撮影 → 顧客・作業を自動表示</div>
+    </div>
+  </div>`;
+
+  const statusConfig = {
+    '作業中': { class: 'working', css: 'status-working', btnClass: 'complete', btnText: '✅ 完了', nextStatus: '完了' },
+    '受付': { class: 'accepted', css: 'status-accepted', btnClass: 'start', btnText: '🔧 開始', nextStatus: '作業中' },
+    '予約': { class: 'reserved', css: 'status-reserved', btnClass: 'accept', btnText: '📋 受付', nextStatus: '受付' },
+    '完了': { class: 'done', css: 'status-done' },
+    'キャンセル': { class: 'cancelled', css: 'status-done' }
+  };
+
+  for (const [status, items] of Object.entries(groups)) {
+    if (items.length === 0) continue;
+    const cfg = statusConfig[status];
+    html += `<div class="section-title">${status}</div>`;
+
+    items.forEach(w => {
+      const customerName = w.vehicles?.customers?.name || '不明';
+      const vehicle = w.vehicles;
+      const vehicleInfo = vehicle ? `${vehicle.maker || ''} ${vehicle.model || ''} ・ ${vehicle.plate_number}` : '';
+      const isIndividual = w.vehicles?.customers?.type === '個人';
+
+      html += `<div class="work-card ${cfg.css}" onclick="openWorkDetail('${w.id}')" ${status === '完了' ? 'style="opacity:0.7"' : ''}>
+        <div class="work-card-top">
+          <span class="work-status ${cfg.class}">${status}</span>
+          <span class="work-time">${w.completed_date ? w.scheduled_date + ' → ' + w.completed_date : w.scheduled_date || ''}</span>
+        </div>
+        <div class="work-customer">${customerName}${isIndividual ? ' 様' : ''}</div>
+        <div class="work-vehicle">${vehicleInfo}</div>
+        <div class="work-type">${w.type}${w.memo ? ' ・ ' + w.memo : ''}</div>`;
+
+      if (cfg.btnClass) {
+        html += `<div class="work-action">
+          <button class="work-action-btn ${cfg.btnClass}" onclick="event.stopPropagation(); updateWork('${w.id}', '${cfg.nextStatus}')">
+            ${cfg.btnText}
+          </button>
+        </div>`;
+      }
+
+      html += `</div>`;
+    });
+  }
+
+  workList.innerHTML = html;
+}
+
+function updateSummary(reserved, working, done) {
+  const els = document.querySelectorAll('.summary-count');
+  if (els.length >= 3) {
+    els[0].textContent = reserved;
+    els[1].textContent = working;
+    els[2].textContent = done;
+  }
+}
+
+async function updateWork(workId, newStatus) {
+  await updateWorkStatus(workId, newStatus);
+  loadWorks('today');
+}
+
+async function openWorkDetail(workId) {
+  // 今はモーダル表示（将来的に実データで詳細表示）
+  document.getElementById('detailModal').classList.add('active');
+}
 
 // ============================================
 // 実データ連携
