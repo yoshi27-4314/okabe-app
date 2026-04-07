@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>タイヤホテル OKABE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<style>
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+}
+
+.home-logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.home-logo span { color: var(--accent); }
+.home-sub {
+  font-size: 13px;
+  color: var(--sub);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.home-menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.home-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: var(--text);
+  transition: transform 0.1s, box-shadow 0.15s;
+  border-left: 4px solid var(--accent);
+}
+.home-card:active {
+  transform: scale(0.98);
+}
+.home-card-icon {
+  font-size: 32px;
+  width: 56px;
+  height: 56px;
+  background: var(--accent-light);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.home-card-text { flex: 1; }
+.home-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.home-card-desc {
+  font-size: 12px;
+  color: var(--sub);
+  line-height: 1.4;
+}
+.home-card-arrow {
+  font-size: 20px;
+  color: var(--gray);
+}
+
+.home-card.office { border-left-color: var(--success); }
+.home-card.office .home-card-icon { background: var(--success-bg); }
+.home-card.sales { border-left-color: var(--warning); }
+.home-card.sales .home-card-icon { background: var(--warning-bg); }
+.home-card.manager { border-left-color: var(--primary); }
+.home-card.manager .home-card-icon { background: #e2e8f0; }
+
+.home-footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+/* 準備中バッジ */
+.badge-soon {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: var(--gray-bg);
+  color: var(--gray);
+  margin-left: 6px;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <div class="home-logo">タイヤホテル <span>OKABE</span></div>
+  <div class="home-sub">業務管理システム</div>
+</div>
+
+<div class="home-menu">
+  <a class="home-card" href="staff.html">
+    <div class="home-card-icon">🔧</div>
+    <div class="home-card-text">
+      <div class="home-card-title">作業スタッフ</div>
+      <div class="home-card-desc">作業一覧・タイヤチェック・ナンバー読取</div>
+    </div>
+    <div class="home-card-arrow">›</div>
+  </a>
+
+  <a class="home-card office" onclick="alert('事務員画面は準備中です')">
+    <div class="home-card-icon">📋</div>
+    <div class="home-card-text">
+      <div class="home-card-title">フロント事務 <span class="badge-soon">準備中</span></div>
+      <div class="home-card-desc">顧客管理・予約受付・預かり台帳</div>
+    </div>
+    <div class="home-card-arrow">›</div>
+  </a>
+
+  <a class="home-card sales" onclick="alert('営業画面は準備中です')">
+    <div class="home-card-icon">📊</div>
+    <div class="home-card-text">
+      <div class="home-card-title">営業 <span class="badge-soon">準備中</span></div>
+      <div class="home-card-desc">顧客情報・タイヤ状態確認・訪問記録</div>
+    </div>
+    <div class="home-card-arrow">›</div>
+  </a>
+
+  <a class="home-card manager" onclick="alert('管理者画面は準備中です')">
+    <div class="home-card-icon">⚙️</div>
+    <div class="home-card-text">
+      <div class="home-card-title">管理者 <span class="badge-soon">準備中</span></div>
+      <div class="home-card-desc">ダッシュボード・マスター設定・スタッフ管理</div>
+    </div>
+    <div class="home-card-arrow">›</div>
+  </a>
+</div>
+
+<div class="home-footer">
+  株式会社 OKABE GROUP<br>
+  タイヤホテル事業 業務管理システム
+</div>
+
+</body>
+</html>
