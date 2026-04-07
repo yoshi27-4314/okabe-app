@@ -57,7 +57,7 @@
         <div class="home-action-icon">📋</div>
         <div class="home-action-label">作業一覧</div>
       </div>
-      <div class="home-action-card" onclick="alert('カメラ起動 → ナンバー読取')">
+      <div class="home-action-card" onclick="scanPlateNumber()">
         <div class="home-action-icon">📷</div>
         <div class="home-action-label">ナンバー読取</div>
       </div>
@@ -438,7 +438,7 @@
     </div>
   </div>
   <div class="chat-input-area">
-    <button class="chat-camera-btn">📷</button>
+    <button class="chat-camera-btn" onclick="sendChatImage()">📷</button>
     <input type="text" class="chat-input" placeholder="質問を入力...">
     <button class="chat-send-btn">➤</button>
   </div>
@@ -588,6 +588,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/supabase.js"></script>
 <script src="js/auth.js"></script>
+<script src="js/ocr.js"></script>
 <script src="js/common.js"></script>
 <script src="js/staff.js"></script>
 
