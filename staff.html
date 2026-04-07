@@ -216,13 +216,16 @@
   <div class="search-bar">
     <div class="search-bar-wrap">
       <span class="search-bar-icon">🔍</span>
-      <input type="text" class="search-input" placeholder="名前・ナンバー・電話番号で検索" value="鈴木一郎">
+      <input type="text" class="search-input" placeholder="名前・ナンバーで検索" onkeydown="if(event.key==='Enter'){const q=this.value.trim();if(q)executeCustomerSearch(q);}">
     </div>
   </div>
 
-  <!-- 顧客詳細（デモ：鈴木一郎） -->
-  <div style="padding: 16px;">
-
+  <!-- 顧客詳細（動的表示） -->
+  <div id="customerDetail" style="padding: 16px;">
+    <div style="padding: 40px 0; text-align: center; color: var(--sub); font-size: 14px;">顧客名またはナンバーで検索してください</div>
+  </div>
+  <!-- 以下は動的にJSで生成されるため不要。旧デモデータは削除 -->
+  <div style="display:none;">
     <!-- お客様情報 -->
     <div class="info-card">
       <div class="info-card-header">
@@ -486,11 +489,11 @@
   <div class="search-bar">
     <div class="search-bar-wrap">
       <span class="search-bar-icon">🔍</span>
-      <input type="text" class="search-input" placeholder="名前・ナンバー・電話番号で検索">
+      <input type="text" class="search-input" placeholder="名前・ナンバー・電話番号で検索" onkeydown="if(event.key==='Enter')executeSearch()">
     </div>
   </div>
-  <div style="padding: 40px 16px; text-align: center; color: var(--sub); font-size: 14px;">
-    検索キーワードを入力してください
+  <div id="searchResults" style="padding: 8px 16px;">
+    <div style="padding: 40px 0; text-align: center; color: var(--sub); font-size: 14px;">検索キーワードを入力してEnterで検索</div>
   </div>
 </div>
 
@@ -659,6 +662,9 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/common.js"></script>
 <script src="js/staff.js"></script>
 
