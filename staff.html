@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>タイヤホテル OKABE — スタッフ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f4f8;
+  --card: #ffffff;
+  --primary: #0d1b2a;
+  --primary-light: #1b3a5c;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --text: #1e293b;
+  --sub: #64748b;
+  --border: #e2e8f0;
+  --shadow: rgba(30,41,59,0.08);
+  --success: #16a34a;
+  --success-bg: #dcfce7;
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --info: #2563eb;
+  --info-bg: #dbeafe;
+  --gray: #94a3b8;
+  --gray-bg: #f1f5f9;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding-bottom: 80px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== ヘッダー ===== */
+.header {
+  background: var(--primary);
+  color: #fff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-left { display: flex; align-items: center; gap: 10px; }
+.header-logo {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.header-logo span { color: var(--accent); }
+.header-user {
+  font-size: 12px;
+  color: #94a3b8;
+}
+.header-right { display: flex; gap: 8px; }
+.header-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-btn:active { background: rgba(255,255,255,0.2); }
+
+/* ===== 日付フィルター ===== */
+.date-filter {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+.date-chip {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--sub);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.date-chip.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* ===== サマリー ===== */
+.summary {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+}
+.summary-item {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+.summary-count {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+.summary-label {
+  font-size: 10px;
+  color: var(--sub);
+  margin-top: 4px;
+}
+.summary-item.info .summary-count { color: var(--info); }
+.summary-item.warning .summary-count { color: var(--warning); }
+.summary-item.success .summary-count { color: var(--success); }
+
+/* ===== 作業カード ===== */
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sub);
+  padding: 12px 16px 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.work-card {
+  background: #fff;
+  margin: 6px 16px;
+  border-radius: 12px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 3px var(--shadow);
+  cursor: pointer;
+  transition: transform 0.1s;
+  border-left: 4px solid var(--gray);
+  position: relative;
+}
+.work-card:active { transform: scale(0.98); }
+.work-card.status-reserved { border-left-color: var(--info); }
+.work-card.status-accepted { border-left-color: var(--warning); }
+.work-card.status-working { border-left-color: #f59e0b; }
+.work-card.status-done { border-left-color: var(--success); opacity: 0.7; }
+
+.work-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.work-status {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+.work-status.reserved { background: var(--info-bg); color: var(--info); }
+.work-status.accepted { background: var(--warning-bg); color: var(--warning); }
+.work-status.working { background: #fef3c7; color: #b45309; }
+.work-status.done { background: var(--success-bg); color: var(--success); }
+.work-status.cancelled { background: var(--gray-bg); color: var(--gray); }
+
+.work-time {
+  font-size: 12px;
+  color: var(--sub);
+  font-weight: 500;
+}
+.work-customer {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.work-vehicle {
+  font-size: 13px;
+  color: var(--sub);
+  margin-bottom: 6px;
+}
+.work-type {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--accent-light);
+  color: var(--primary);
+}
+.work-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.work-action-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.15s;
+}
+.work-action-btn:active { transform: scale(0.95); }
+.work-action-btn.accept { background: var(--info); }
+.work-action-btn.start { background: var(--warning); }
+.work-action-btn.complete { background: var(--success); }
+
+/* ===== 作業詳細モーダル ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  justify-content: center;
+  align-items: flex-end;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: #fff;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90dvh;
+  border-radius: 16px 16px 0 0;
+  overflow-y: auto;
+  animation: slideUp 0.25s ease-out;
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+}
+.modal-title { font-size: 16px; font-weight: 700; }
+.modal-close {
+  background: var(--gray-bg);
+  border: none;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-body { padding: 16px; }
+
+.detail-section {
+  margin-bottom: 16px;
+}
+.detail-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sub);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.help-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.help-tooltip {
+  display: none;
+  background: var(--primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.help-tooltip.show { display: block; }
+
+.detail-value {
+  font-size: 15px;
+  font-weight: 500;
+}
+.detail-customer {
+  font-size: 20px;
+  font-weight: 700;
+}
+.detail-vehicle {
+  font-size: 14px;
+  color: var(--sub);
+}
+
+/* ===== タイヤ4本表示 ===== */
+.tire-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.tire-cell {
+  background: var(--gray-bg);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  position: relative;
+}
+.tire-position {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sub);
+  margin-bottom: 6px;
+}
+.tire-size {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.tire-depth {
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.tire-condition {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.tire-condition.good { background: var(--success-bg); color: var(--success); }
+.tire-condition.caution { background: var(--warning-bg); color: var(--warning); }
+.tire-condition.replace { background: var(--danger-bg); color: var(--danger); }
+
+.tire-camera-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ===== ホイール情報 ===== */
+.wheel-info {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.wheel-tag {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--gray-bg);
+  color: var(--text);
+}
+
+/* ===== メモ ===== */
+.memo-box {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+/* ===== ステータスボタン ===== */
+.status-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.status-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.status-btn:active { transform: scale(0.98); }
+.status-btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+.status-btn.success {
+  background: var(--success);
+  color: #fff;
+}
+.status-btn.secondary {
+  background: var(--gray-bg);
+  color: var(--sub);
+}
+
+/* ===== カメラボタン（ナンバー読取） ===== */
+.camera-banner {
+  margin: 12px 16px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.1s;
+}
+.camera-banner:active { transform: scale(0.98); }
+.camera-banner-icon { font-size: 28px; }
+.camera-banner-text {
+  font-size: 14px;
+  font-weight: 700;
+}
+.camera-banner-sub {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* ===== 下タブ ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+  cursor: pointer;
+  color: var(--sub);
+  font-size: 10px;
+  gap: 2px;
+  transition: color 0.15s;
+  text-decoration: none;
+}
+.nav-item.active { color: var(--accent); }
+.nav-icon { font-size: 22px; }
+.nav-label { font-weight: 500; }
+
+/* ===== チャットBot画面 ===== */
+.chat-screen { display: none; }
+.chat-screen.active { display: block; }
+.work-screen.active { display: block; }
+.work-screen { display: block; }
+.terms-screen { display: none; }
+.terms-screen.active { display: block; }
+.search-screen { display: none; }
+.search-screen.active { display: block; }
+
+.chat-messages {
+  padding: 16px;
+  min-height: calc(100dvh - 200px);
+}
+.chat-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.chat-bubble.bot {
+  background: #fff;
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 2px var(--shadow);
+}
+.chat-bubble.user {
+  background: var(--accent);
+  color: #fff;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+}
+.chat-input-area {
+  position: fixed;
+  bottom: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  padding: 8px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.chat-input {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+}
+.chat-input:focus { border-color: var(--accent); }
+.chat-send-btn,
+.chat-camera-btn {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chat-camera-btn { background: var(--primary); }
+
+/* ===== 検索画面 ===== */
+.search-bar {
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+.search-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px 10px 38px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--gray-bg);
+  outline: none;
+}
+.search-input:focus { border-color: var(--accent); background: #fff; }
+.search-bar-wrap {
+  position: relative;
+}
+.search-bar-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sub);
+  font-size: 16px;
+}
+
+/* ===== 約款画面 ===== */
+.terms-content {
+  padding: 16px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text);
+}
+.terms-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.terms-article {
+  margin-bottom: 16px;
+}
+.terms-article h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--primary);
+}
+</style>
+</head>
+<body>
+
+<!-- ===== ヘッダー ===== -->
+<div class="header">
+  <div class="header-left">
+    <div>
+      <div class="header-logo">タイヤホテル <span>OKABE</span></div>
+      <div class="header-user">田中太郎（スタッフ）</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="header-btn" onclick="alert('通知')">🔔</button>
+    <button class="header-btn" onclick="alert('ログアウトしますか？')">⚙️</button>
+  </div>
+</div>
+
+<!-- ===== 作業画面 ===== -->
+<div class="work-screen active" id="workScreen">
+
+  <!-- 日付フィルター -->
+  <div class="date-filter">
+    <div class="date-chip active" onclick="selectDate(this)">今日（6件）</div>
+    <div class="date-chip" onclick="selectDate(this)">明日（3件）</div>
+    <div class="date-chip" onclick="selectDate(this)">今週（14件）</div>
+  </div>
+
+  <!-- サマリー -->
+  <div class="summary">
+    <div class="summary-item info">
+      <div class="summary-count">2</div>
+      <div class="summary-label">予約</div>
+    </div>
+    <div class="summary-item warning">
+      <div class="summary-count">1</div>
+      <div class="summary-label">作業中</div>
+    </div>
+    <div class="summary-item success">
+      <div class="summary-count">3</div>
+      <div class="summary-label">完了</div>
+    </div>
+  </div>
+
+  <!-- ナンバー読取バナー -->
+  <div class="camera-banner" onclick="alert('カメラ起動 → ナンバー読取')">
+    <div class="camera-banner-icon">📷</div>
+    <div>
+      <div class="camera-banner-text">ナンバー読取で作業を開始</div>
+      <div class="camera-banner-sub">ナンバープレートを撮影 → 顧客・作業を自動表示</div>
+    </div>
+  </div>
+
+  <!-- 作業中 -->
+  <div class="section-title">作業中</div>
+  <div class="work-card status-working" onclick="openDetail('working')">
+    <div class="work-card-top">
+      <span class="work-status working">作業中</span>
+      <span class="work-time">09:30〜</span>
+    </div>
+    <div class="work-customer">田中建設株式会社</div>
+    <div class="work-vehicle">ハイエース ・ 岐阜 300 さ 5678</div>
+    <div class="work-type">冬→夏 履き替え</div>
+    <div class="work-action">
+      <button class="work-action-btn complete" onclick="event.stopPropagation(); changeStatus(this, 'done')">✅ 完了</button>
+    </div>
+  </div>
+
+  <!-- 予約 -->
+  <div class="section-title">予約</div>
+  <div class="work-card status-reserved" onclick="openDetail('reserved')">
+    <div class="work-card-top">
+      <span class="work-status reserved">予約</span>
+      <span class="work-time">10:00〜</span>
+    </div>
+    <div class="work-customer">鈴木一郎 様</div>
+    <div class="work-vehicle">プリウス ・ 岐阜 500 あ 1234</div>
+    <div class="work-type">冬→夏 履き替え</div>
+    <div class="work-action">
+      <button class="work-action-btn accept" onclick="event.stopPropagation(); changeStatus(this, 'accepted')">📋 受付</button>
+    </div>
+  </div>
+
+  <div class="work-card status-reserved" onclick="openDetail('reserved2')">
+    <div class="work-card-top">
+      <span class="work-status reserved">予約</span>
+      <span class="work-time">11:00〜</span>
+    </div>
+    <div class="work-customer">山田商事株式会社</div>
+    <div class="work-vehicle">キャラバン ・ 岐阜 100 た 9876</div>
+    <div class="work-type">預かり開始</div>
+    <div class="work-action">
+      <button class="work-action-btn accept" onclick="event.stopPropagation(); changeStatus(this, 'accepted')">📋 受付</button>
+    </div>
+  </div>
+
+  <!-- 完了 -->
+  <div class="section-title">完了</div>
+  <div class="work-card status-done">
+    <div class="work-card-top">
+      <span class="work-status done">完了</span>
+      <span class="work-time">09:00 → 09:45</span>
+    </div>
+    <div class="work-customer">山田花子 様</div>
+    <div class="work-vehicle">N-BOX ・ 岐阜 580 う 9012</div>
+    <div class="work-type">預かり開始</div>
+  </div>
+
+  <div class="work-card status-done">
+    <div class="work-card-top">
+      <span class="work-status done">完了</span>
+      <span class="work-time">08:30 → 09:15</span>
+    </div>
+    <div class="work-customer">佐藤健一 様</div>
+    <div class="work-vehicle">フォレスター ・ 岐阜 300 か 3456</div>
+    <div class="work-type">冬→夏 履き替え</div>
+  </div>
+
+  <div class="work-card status-done">
+    <div class="work-card-top">
+      <span class="work-status done">完了</span>
+      <span class="work-time">08:00 → 08:25</span>
+    </div>
+    <div class="work-customer">岡田運輸株式会社</div>
+    <div class="work-vehicle">エルフ ・ 岐阜 800 き 7890</div>
+    <div class="work-type">点検</div>
+  </div>
+</div>
+
+<!-- ===== 検索画面 ===== -->
+<div class="search-screen" id="searchScreen">
+  <div class="search-bar">
+    <div class="search-bar-wrap">
+      <span class="search-bar-icon">🔍</span>
+      <input type="text" class="search-input" placeholder="名前・ナンバー・電話番号で検索">
+    </div>
+  </div>
+  <div style="padding: 40px 16px; text-align: center; color: var(--sub); font-size: 14px;">
+    検索キーワードを入力してください
+  </div>
+</div>
+
+<!-- ===== チャットBot画面 ===== -->
+<div class="chat-screen" id="chatScreen">
+  <div class="chat-messages">
+    <div class="chat-bubble bot">
+      こんにちは！タイヤホテル業務アシスタントです。<br>
+      質問をテキストか📷写真で送ってください。<br><br>
+      📷 <b>ナンバー撮影</b> → お客様情報を表示<br>
+      📷 <b>タイヤ撮影</b> → 状態判定・作業提案<br>
+      💬 <b>テキスト</b> → 業務・約款の質問に回答
+    </div>
+  </div>
+  <div class="chat-input-area">
+    <button class="chat-camera-btn">📷</button>
+    <input type="text" class="chat-input" placeholder="質問を入力...">
+    <button class="chat-send-btn">➤</button>
+  </div>
+</div>
+
+<!-- ===== 約款画面 ===== -->
+<div class="terms-screen" id="termsScreen">
+  <div class="terms-content">
+    <div class="terms-title">タイヤ保管同意書（契約条項）</div>
+
+    <div class="terms-article">
+      <h3>第一条（保管物）</h3>
+      タイヤ及びホイールのみをお預かりします。ナットやセンターキャップ等の付属品はお預かりできません。
+    </div>
+    <div class="terms-article">
+      <h3>第二条（料金）</h3>
+      お預かり料金は車1台分（タイヤ4本セット）となっております。料金は税別表示です。
+    </div>
+    <div class="terms-article">
+      <h3>第三条（保管期間）</h3>
+      お預かり期間は契約書記載の預かり日から返却予定日までとします。期間中の交換作業をご希望の場合は、1週間前までにご連絡をお願いいたします。
+    </div>
+    <div class="terms-article">
+      <h3>第四条（損害補償）</h3>
+      お預かり期間中、当店の責任により損害が生じた場合、タイヤ及びホイールの時価額（減耗などを考慮した額）を補償致します。
+    </div>
+    <div class="terms-article">
+      <h3>第五条（期間超過）</h3>
+      お預かり期間をすぎてもお引取りの無い場合、追加の保管料をお支払い頂きます。
+    </div>
+    <div class="terms-article">
+      <h3>第六条（免責事項）</h3>
+      天災地変、火災その他の不可抗力による損害については、補償の対象外とさせていただきます。
+    </div>
+    <div class="terms-article">
+      <h3>第七条（契約解除）</h3>
+      保管期間の途中で解約される場合、残期間の料金は返金いたしません。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 作業詳細モーダル ===== -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">作業詳細</span>
+      <button class="modal-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- 顧客・車両 -->
+      <div class="detail-section">
+        <div class="detail-customer">鈴木一郎 様</div>
+        <div class="detail-vehicle">プリウス ・ 岐阜 500 あ 1234</div>
+      </div>
+
+      <!-- 作業内容 -->
+      <div class="detail-section">
+        <div class="detail-label">
+          作業内容
+          <span class="help-icon" onclick="toggleHelp(this)">?</span>
+        </div>
+        <div class="help-tooltip">履き替え作業の手順: 1.ジャッキアップ 2.タイヤ取外し 3.保管タイヤ取付 4.トルク確認 5.空気圧調整</div>
+        <div class="detail-value">冬タイヤ → 夏タイヤ 履き替え</div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-label">予定時間</div>
+        <div class="detail-value">10:00〜</div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-label">保管場所</div>
+        <div class="detail-value">A-23</div>
+      </div>
+
+      <!-- タイヤ4本 -->
+      <div class="detail-section">
+        <div class="detail-label">
+          タイヤ状態（取付するタイヤ）
+          <span class="help-icon" onclick="toggleHelp(this)">?</span>
+        </div>
+        <div class="help-tooltip">
+          残溝の判定基準:<br>
+          🟢 良好 = 4mm以上<br>
+          🟡 要注意 = 2〜4mm（次シーズンまでは使用可）<br>
+          🔴 交換推奨 = 2mm未満<br>
+          ⛔ 使用不可 = 1.6mm未満（法定基準）
+        </div>
+        <div class="tire-grid">
+          <div class="tire-cell">
+            <button class="tire-camera-btn" onclick="event.stopPropagation(); alert('左前タイヤ撮影')">📷</button>
+            <div class="tire-position">左前</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 5.2mm</div>
+            <div class="tire-condition good">良好</div>
+          </div>
+          <div class="tire-cell">
+            <button class="tire-camera-btn" onclick="event.stopPropagation(); alert('右前タイヤ撮影')">📷</button>
+            <div class="tire-position">右前</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 5.0mm</div>
+            <div class="tire-condition good">良好</div>
+          </div>
+          <div class="tire-cell">
+            <button class="tire-camera-btn" onclick="event.stopPropagation(); alert('左後タイヤ撮影')">📷</button>
+            <div class="tire-position">左後</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 3.8mm</div>
+            <div class="tire-condition caution">要注意</div>
+          </div>
+          <div class="tire-cell">
+            <button class="tire-camera-btn" onclick="event.stopPropagation(); alert('右後タイヤ撮影')">📷</button>
+            <div class="tire-position">右後</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 3.1mm</div>
+            <div class="tire-condition caution">要注意</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ホイール情報 -->
+      <div class="detail-section">
+        <div class="detail-label">ホイール・ナット</div>
+        <div class="wheel-info">
+          <span class="wheel-tag">純正アルミ</span>
+          <span class="wheel-tag">ナット: 共用</span>
+          <span class="wheel-tag">キャップ: 有</span>
+        </div>
+      </div>
+
+      <!-- メモ -->
+      <div class="detail-section">
+        <div class="detail-label">メモ</div>
+        <div class="memo-box">
+          左後・右後の溝が浅め。次回交換を提案してください。お客様にも状態写真を共有予定。
+        </div>
+      </div>
+
+      <!-- 撮影済み写真 -->
+      <div class="detail-section">
+        <div class="detail-label">撮影済み写真</div>
+        <div style="display: flex; gap: 6px;">
+          <div style="width: 60px; height: 60px; background: var(--gray-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🖼</div>
+          <div style="width: 60px; height: 60px; background: var(--gray-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🖼</div>
+          <div style="width: 60px; height: 60px; background: var(--accent-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--accent); cursor: pointer;" onclick="alert('写真追加')">＋</div>
+        </div>
+      </div>
+
+      <!-- ステータスボタン -->
+      <div class="status-actions">
+        <button class="status-btn primary" onclick="alert('作業中に変更')">🔧 作業開始</button>
+        <button class="status-btn success" onclick="alert('完了に変更')">✅ 作業完了</button>
+        <button class="status-btn secondary" onclick="closeDetail()">戻る</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 下タブ ===== -->
+<div class="bottom-nav">
+  <div class="nav-item active" id="navWork" onclick="switchTab('work')">
+    <span class="nav-icon">📋</span>
+    <span class="nav-label">作業</span>
+  </div>
+  <div class="nav-item" id="navSearch" onclick="switchTab('search')">
+    <span class="nav-icon">🔍</span>
+    <span class="nav-label">検索</span>
+  </div>
+  <div class="nav-item" id="navChat" onclick="switchTab('chat')">
+    <span class="nav-icon">💬</span>
+    <span class="nav-label">Bot</span>
+  </div>
+  <div class="nav-item" id="navTerms" onclick="switchTab('terms')">
+    <span class="nav-icon">📖</span>
+    <span class="nav-label">約款</span>
+  </div>
+</div>
+
+<script>
+// タブ切替
+function switchTab(tab) {
+  document.querySelectorAll('.work-screen, .search-screen, .chat-screen, .terms-screen').forEach(el => {
+    el.classList.remove('active');
+    el.style.display = 'none';
+  });
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.chat-input-area').forEach(el => el.style.display = 'none');
+
+  if (tab === 'work') {
+    document.getElementById('workScreen').style.display = 'block';
+    document.getElementById('navWork').classList.add('active');
+  } else if (tab === 'search') {
+    document.getElementById('searchScreen').style.display = 'block';
+    document.getElementById('navSearch').classList.add('active');
+  } else if (tab === 'chat') {
+    document.getElementById('chatScreen').style.display = 'block';
+    document.getElementById('navChat').classList.add('active');
+    document.querySelector('.chat-input-area').style.display = 'flex';
+  } else if (tab === 'terms') {
+    document.getElementById('termsScreen').style.display = 'block';
+    document.getElementById('navTerms').classList.add('active');
+  }
+}
+
+// 初期表示
+document.getElementById('workScreen').style.display = 'block';
+document.querySelector('.chat-input-area').style.display = 'none';
+
+// 日付フィルター
+function selectDate(el) {
+  document.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// 作業詳細モーダル
+function openDetail(type) {
+  document.getElementById('detailModal').classList.add('active');
+}
+function closeDetail() {
+  document.getElementById('detailModal').classList.remove('active');
+}
+
+// ステータス変更（デモ用）
+function changeStatus(btn, newStatus) {
+  const card = btn.closest('.work-card');
+  const statusEl = card.querySelector('.work-status');
+
+  if (newStatus === 'accepted') {
+    statusEl.className = 'work-status accepted';
+    statusEl.textContent = '受付済';
+    card.className = 'work-card status-accepted';
+    btn.className = 'work-action-btn start';
+    btn.textContent = '🔧 開始';
+    btn.onclick = function(e) { e.stopPropagation(); changeStatus(this, 'working'); };
+  } else if (newStatus === 'working') {
+    statusEl.className = 'work-status working';
+    statusEl.textContent = '作業中';
+    card.className = 'work-card status-working';
+    btn.className = 'work-action-btn complete';
+    btn.textContent = '✅ 完了';
+    btn.onclick = function(e) { e.stopPropagation(); changeStatus(this, 'done'); };
+  } else if (newStatus === 'done') {
+    statusEl.className = 'work-status done';
+    statusEl.textContent = '完了';
+    card.className = 'work-card status-done';
+    card.style.opacity = '0.7';
+    btn.remove();
+  }
+}
+
+// ヘルプツールチップ
+function toggleHelp(el) {
+  const tooltip = el.parentElement.nextElementSibling;
+  if (tooltip && tooltip.classList.contains('help-tooltip')) {
+    tooltip.classList.toggle('show');
+  }
+}
+
+// モーダル外クリックで閉じる
+document.getElementById('detailModal').addEventListener('click', function(e) {
+  if (e.target === this) closeDetail();
+});
+</script>
+
+</body>
+</html>
