@@ -12,6 +12,7 @@ function switchTab(tab) {
     work: 'workScreen',
     customer: 'customerScreen',
     register: 'registerScreen',
+    storage: 'storageScreen',
     search: 'searchScreen',
     chat: 'chatScreen',
     terms: 'termsScreen'
@@ -24,6 +25,9 @@ function switchTab(tab) {
     }
     if (tab === 'work') {
       loadWorks('today');
+    }
+    if (tab === 'storage') {
+      loadStorage('all');
     }
   }
 }
@@ -87,10 +91,84 @@ document.getElementById('detailModal').addEventListener('click', function(e) {
 var chatInput = document.querySelector('.chat-input-area');
 if (chatInput) chatInput.style.display = 'none';
 
-// ページ読み込み時にデータ取得
+// ページ読み込み時にURLパラメータからタブを開く
 document.addEventListener('DOMContentLoaded', function() {
-  // 作業一覧はタブ切替時に読み込む
+  const params = new URLSearchParams(window.location.search);
+  const tab = params.get('tab');
+  if (tab) {
+    switchTab(tab);
+  }
 });
+
+// ============================================
+// 預かり台帳
+// ============================================
+
+let currentStorageFilter = 'all';
+
+async function loadStorage(filter) {
+  currentStorageFilter = filter || 'all';
+  const list = document.getElementById('storageList');
+  if (!list) return;
+  list.innerHTML = '<div style="padding:40px;text-align:center;color:var(--sub);">読み込み中...</div>';
+
+  let query = db.from('storage_periods')
+    .select('*, tire_sets(*, vehicles(*, customers(*)), tires(*))')
+    .order('start_date', { ascending: false });
+
+  if (filter === 'storing') query = query.eq('status', '預かり中');
+  else if (filter === 'overdue') query = query.eq('status', '期限超過');
+  else if (filter === 'returned') query = query.eq('status', '返却済');
+
+  const { data, error } = await query;
+  if (error || !data || data.length === 0) {
+    list.innerHTML = '<div style="padding:40px;text-align:center;color:var(--sub);font-size:14px;">データがありません</div>';
+    return;
+  }
+
+  // 期限超過チェック（自動更新）
+  const today = new Date().toISOString().split('T')[0];
+  for (const sp of data) {
+    if (sp.status === '預かり中' && sp.planned_return_date && sp.planned_return_date < today) {
+      sp.status = '期限超過';
+      await db.from('storage_periods').update({ status: '期限超過' }).eq('id', sp.id);
+    }
+  }
+
+  let html = '';
+  data.forEach(sp => {
+    const ts = sp.tire_sets;
+    const v = ts?.vehicles;
+    const c = v?.customers;
+    const isIndividual = c?.type === '個人';
+
+    const statusColors = { '預かり中': 'blue', '期限超過': 'red', '返却済': 'green' };
+    const color = statusColors[sp.status] || 'blue';
+    const icon = ts?.season_type === '冬タイヤ' ? '❄️' : '🌞';
+
+    html += `<div class="work-card" style="border-left-color:var(--${color === 'red' ? 'danger' : color === 'green' ? 'success' : 'info'});" onclick="showCustomerDetail('${c?.id}')">
+      <div class="work-card-top">
+        <span class="preview-badge ${color}">${sp.status}</span>
+        <span class="work-time">${ts?.storage_location_no || '—'}</span>
+      </div>
+      <div class="work-customer">${c?.name || '不明'}${isIndividual ? ' 様' : ''}</div>
+      <div class="work-vehicle">${v?.maker || ''} ${v?.model || ''} ・ ${v?.plate_number || ''}</div>
+      <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">
+        <span class="work-type">${icon} ${ts?.season_type || ''}</span>
+        <span style="font-size:12px;color:var(--sub);">${sp.start_date || ''} 〜 ${sp.planned_return_date || ''}</span>
+      </div>
+      ${ts?.fee ? `<div style="font-size:13px;font-weight:600;margin-top:4px;">¥${ts.fee.toLocaleString()}</div>` : ''}
+    </div>`;
+  });
+
+  list.innerHTML = html;
+}
+
+function selectStorageFilter(el, filter) {
+  el.parentElement.querySelectorAll('.date-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  loadStorage(filter);
+}
 
 // ============================================
 // 作業一覧の実データ読み込み

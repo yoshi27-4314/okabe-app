@@ -176,8 +176,8 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
     <div class="action-grid">
       <a class="action-card" href="staff.html"><div class="action-icon">📋</div><div class="action-label">作業状況</div></a>
       <div class="action-card" onclick="alert('売上レポート')"><div class="action-icon">💰</div><div class="action-label">売上</div></div>
-      <div class="action-card" onclick="alert('顧客一覧')"><div class="action-icon">👤</div><div class="action-label">顧客</div></div>
-      <div class="action-card" onclick="alert('預かり台帳')"><div class="action-icon">📦</div><div class="action-label">預かり台帳</div></div>
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">顧客</div></div>
+      <div class="action-card" href="staff.html?tab=storage"><div class="action-icon">📦</div><div class="action-label">預かり台帳</div></div>
       <div class="action-card" onclick="alert('スタッフ')"><div class="action-icon">👥</div><div class="action-label">スタッフ</div></div>
       <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
       <div class="action-card" onclick="alert('設定')"><div class="action-icon">⚙️</div><div class="action-label">設定</div></div>
@@ -214,11 +214,11 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
     <div class="action-grid">
       <div class="action-card" onclick="alert('営業チーム')"><div class="action-icon">👥</div><div class="action-label">営業チーム</div></div>
       <div class="action-card" onclick="alert('交換推奨')"><div class="action-icon">🔴</div><div class="action-label">交換推奨</div></div>
-      <div class="action-card" onclick="alert('顧客管理')"><div class="action-icon">👤</div><div class="action-label">顧客管理</div></div>
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">顧客管理</div></div>
       <div class="action-card" onclick="alert('売上')"><div class="action-icon">💰</div><div class="action-label">売上</div></div>
-      <div class="action-card" onclick="alert('返却予定')"><div class="action-icon">📅</div><div class="action-label">返却予定</div></div>
+      <div class="action-card" href="staff.html?tab=storage"><div class="action-icon">📅</div><div class="action-label">返却予定</div></div>
       <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
-      <div class="action-card" onclick="alert('Bot')"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
     </div>
     <div class="preview-title">交換推奨のお客様</div>
     <div class="preview-card" style="border-left-color:var(--danger);"><div class="preview-top"><span class="preview-badge red">交換推奨</span><span class="preview-time">残溝 1.5mm</span></div><div class="preview-name">岡田運輸株式会社</div><div class="preview-sub">エルフ ・ 夏タイヤ全4本 ・ 担当:山本</div></div>
@@ -246,13 +246,13 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
       <div class="summary-card orange"><div class="summary-num">5</div><div class="summary-lbl">今週の予定</div></div>
     </div>
     <div class="action-grid">
-      <div class="action-card" onclick="alert('担当顧客')"><div class="action-icon">👤</div><div class="action-label">担当顧客</div></div>
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">担当顧客</div></div>
       <div class="action-card" onclick="alert('交換推奨')"><div class="action-icon">🔴</div><div class="action-label">交換推奨</div></div>
       <div class="action-card" onclick="alert('訪問記録')"><div class="action-icon">📝</div><div class="action-label">訪問記録</div></div>
-      <div class="action-card" onclick="alert('返却予定')"><div class="action-icon">📅</div><div class="action-label">返却予定</div></div>
-      <div class="action-card" onclick="alert('検索')"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
+      <div class="action-card" href="staff.html?tab=storage"><div class="action-icon">📅</div><div class="action-label">返却予定</div></div>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
       <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
-      <div class="action-card" onclick="alert('Bot')"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
     </div>
     <div class="preview-title">今日のタスク</div>
     <div class="preview-card" style="border-left-color:var(--danger);"><div class="preview-top"><span class="preview-badge red">要連絡</span><span class="preview-time">交換推奨</span></div><div class="preview-name">岡田運輸株式会社</div><div class="preview-sub">エルフ ・ 夏タイヤ残溝1.5mm ・ 買い替え提案</div></div>
@@ -285,12 +285,12 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
     </div>
     <div class="action-grid">
       <a class="action-card" href="staff.html"><div class="action-icon">📋</div><div class="action-label">全作業一覧</div></a>
-      <div class="action-card" onclick="alert('判定確認')"><div class="action-icon">🔍</div><div class="action-label">判定確認</div></div>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">判定確認</div></div>
       <div class="action-card" onclick="alert('スタッフ状況')"><div class="action-icon">👥</div><div class="action-label">スタッフ状況</div></div>
-      <div class="action-card" onclick="alert('📷ナンバー読取')"><div class="action-icon">📷</div><div class="action-label">ナンバー読取</div></div>
-      <div class="action-card" onclick="alert('検索')"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
+      <div class="action-card" href="staff.html?tab=home"><div class="action-icon">📷</div><div class="action-label">ナンバー読取</div></div>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
       <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
-      <div class="action-card" onclick="alert('Bot')"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
     </div>
     <div class="preview-title">本日の作業</div>
     <div class="preview-card orange"><div class="preview-top"><span class="preview-badge orange">作業中</span><span class="preview-time">担当:田中</span></div><div class="preview-name">田中建設株式会社</div><div class="preview-sub">ハイエース ・ 冬→夏 履き替え</div></div>
@@ -323,13 +323,13 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
       <div class="notice-text">3件のタイヤセットが返却予定日を過ぎています。お客様に連絡してください。</div>
     </div>
     <div class="action-grid">
-      <div class="action-card" onclick="alert('顧客管理')"><div class="action-icon">👤</div><div class="action-label">顧客管理</div></div>
-      <div class="action-card" onclick="alert('予約受付')"><div class="action-icon">📅</div><div class="action-label">予約受付</div></div>
-      <div class="action-card" onclick="alert('預かり台帳')"><div class="action-icon">📦</div><div class="action-label">預かり台帳</div></div>
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">顧客管理</div></div>
+      <div class="action-card" href="staff.html?tab=work"><div class="action-icon">📅</div><div class="action-label">予約受付</div></div>
+      <div class="action-card" href="staff.html?tab=storage"><div class="action-icon">📦</div><div class="action-label">預かり台帳</div></div>
       <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
-      <div class="action-card" onclick="alert('検索')"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
       <div class="action-card" onclick="alert('売上シート')"><div class="action-icon">💰</div><div class="action-label">売上シート</div></div>
-      <div class="action-card" onclick="alert('Bot')"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
       <a class="action-card" href="staff.html#terms"><div class="action-icon">📖</div><div class="action-label">約款</div></a>
       <div class="action-card" onclick="alert('エクスポート')"><div class="action-icon">📤</div><div class="action-label">エクスポート</div></div>
     </div>
@@ -360,10 +360,10 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
     </div>
     <div class="action-grid">
       <a class="action-card" href="staff.html"><div class="action-icon">📋</div><div class="action-label">作業一覧</div></a>
-      <div class="action-card" onclick="alert('📷ナンバー読取')"><div class="action-icon">📷</div><div class="action-label">ナンバー読取</div></div>
-      <div class="action-card" onclick="alert('顧客情報')"><div class="action-icon">👤</div><div class="action-label">顧客情報</div></div>
-      <div class="action-card" onclick="alert('検索')"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
-      <div class="action-card" onclick="alert('Bot')"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+      <div class="action-card" href="staff.html?tab=home"><div class="action-icon">📷</div><div class="action-label">ナンバー読取</div></div>
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">顧客情報</div></div>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
       <a class="action-card" href="staff.html#terms"><div class="action-icon">📖</div><div class="action-label">約款</div></a>
     </div>
     <div class="preview-title">次の作業</div>
