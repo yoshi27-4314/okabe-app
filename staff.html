@@ -621,92 +621,7 @@
       <button class="modal-close" onclick="closeDetail()">✕</button>
     </div>
     <div class="modal-body">
-      <div class="detail-section">
-        <div class="detail-customer">鈴木一郎 様</div>
-        <div class="detail-vehicle">プリウス ・ 岐阜 500 あ 1234</div>
-        <div style="margin-top: 4px;">
-          <span style="font-size: 12px; color: var(--accent); cursor: pointer;" onclick="closeDetail(); switchTab('customer');">顧客情報を見る →</span>
-        </div>
-      </div>
-
-      <div class="detail-section">
-        <div class="detail-label">
-          作業内容
-          <span class="help-icon" onclick="toggleHelp(this)">?</span>
-        </div>
-        <div class="help-tooltip">履き替え作業の手順: 1.ジャッキアップ 2.タイヤ取外し 3.保管タイヤ取付 4.トルク確認 5.空気圧調整</div>
-        <div class="detail-value">冬タイヤ → 夏タイヤ 履き替え</div>
-      </div>
-
-      <div class="info-row">
-        <div class="detail-section">
-          <div class="detail-label">予定時間</div>
-          <div class="detail-value">10:00〜</div>
-        </div>
-        <div class="detail-section">
-          <div class="detail-label">保管場所</div>
-          <div class="detail-value">A-23</div>
-        </div>
-        <div class="detail-section">
-          <div class="detail-label">担当者</div>
-          <div class="detail-value">山本</div>
-        </div>
-      </div>
-
-      <div class="detail-section">
-        <div class="detail-label">
-          タイヤ状態（取付するタイヤ）
-          <span class="help-icon" onclick="toggleHelp(this)">?</span>
-        </div>
-        <div class="help-tooltip">
-          残溝の判定基準:<br>
-          🟢 良好 = 4mm以上<br>
-          🟡 要注意 = 2〜4mm（次シーズンまでは使用可）<br>
-          🔴 交換推奨 = 2mm未満<br>
-          ⛔ 使用不可 = 1.6mm未満（法定基準）
-        </div>
-        <div class="tire-grid">
-          <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="event.stopPropagation(); alert('左前タイヤ撮影')">📷</button>
-            <div class="tire-position">左前</div>
-            <div class="tire-size">195/65R15</div>
-            <div class="tire-depth">残溝 5.2mm</div>
-            <div class="tire-condition good">良好</div>
-          </div>
-          <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="event.stopPropagation(); alert('右前タイヤ撮影')">📷</button>
-            <div class="tire-position">右前</div>
-            <div class="tire-size">195/65R15</div>
-            <div class="tire-depth">残溝 5.0mm</div>
-            <div class="tire-condition good">良好</div>
-          </div>
-          <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="event.stopPropagation(); alert('左後タイヤ撮影')">📷</button>
-            <div class="tire-position">左後</div>
-            <div class="tire-size">195/65R15</div>
-            <div class="tire-depth">残溝 3.8mm</div>
-            <div class="tire-condition caution">要注意</div>
-          </div>
-          <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="event.stopPropagation(); alert('右後タイヤ撮影')">📷</button>
-            <div class="tire-position">右後</div>
-            <div class="tire-size">195/65R15</div>
-            <div class="tire-depth">残溝 3.1mm</div>
-            <div class="tire-condition caution">要注意</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="detail-section">
-        <div class="detail-label">メモ</div>
-        <div class="memo-box">左後・右後の溝が浅め。次回交換を提案。</div>
-      </div>
-
-      <div class="status-actions">
-        <button class="status-btn primary" onclick="alert('作業中に変更')">🔧 作業開始</button>
-        <button class="status-btn success" onclick="alert('完了に変更')">✅ 作業完了</button>
-        <button class="status-btn secondary" onclick="closeDetail()">戻る</button>
-      </div>
+      <!-- 動的にJSで生成 -->
     </div>
   </div>
 </div>
@@ -715,6 +630,7 @@
 <script src="js/supabase.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/ocr.js"></script>
+<script src="js/chat.js"></script>
 <script src="js/register.js"></script>
 <script src="js/common.js"></script>
 <script src="js/staff.js"></script>

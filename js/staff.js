@@ -214,8 +214,98 @@ async function updateWork(workId, newStatus) {
 }
 
 async function openWorkDetail(workId) {
-  // 今はモーダル表示（将来的に実データで詳細表示）
   document.getElementById('detailModal').classList.add('active');
+  const modalBody = document.querySelector('#detailModal .modal-body');
+  modalBody.innerHTML = '<div style="padding:40px;text-align:center;color:var(--sub);">読み込み中...</div>';
+
+  // 作業データ取得
+  const { data: work, error } = await db.from('works')
+    .select('*, vehicles(*, customers(*)), tire_sets(*, tires(*), storage_periods(*))')
+    .eq('id', workId)
+    .single();
+
+  if (error || !work) {
+    modalBody.innerHTML = '<div style="padding:40px;text-align:center;color:var(--danger);">データ取得に失敗しました</div>';
+    return;
+  }
+
+  const customer = work.vehicles?.customers;
+  const vehicle = work.vehicles;
+  const tireSet = work.tire_sets;
+  const isIndividual = customer?.type === '個人';
+
+  let html = '';
+
+  // 顧客・車両
+  html += `<div class="detail-section">
+    <div class="detail-customer">${customer?.name || '不明'}${isIndividual ? ' 様' : ''}</div>
+    <div class="detail-vehicle">${vehicle?.maker || ''} ${vehicle?.model || ''} ・ ${vehicle?.plate_number || ''}</div>
+    <div style="margin-top:6px;">
+      <span style="font-size:12px;color:var(--accent);cursor:pointer;font-weight:600;" onclick="closeDetail(); showCustomerDetail('${customer?.id}');">顧客情報を見る →</span>
+    </div>
+  </div>`;
+
+  // 作業内容
+  html += `<div class="detail-section">
+    <div class="detail-label">作業内容 <span class="help-icon" onclick="toggleHelp(this)">?</span></div>
+    <div class="help-tooltip">履き替え作業の手順: 1.ジャッキアップ 2.タイヤ取外し 3.保管タイヤ取付 4.トルク確認 5.空気圧調整</div>
+    <div class="detail-value">${work.type}${work.memo ? ' ・ ' + work.memo : ''}</div>
+  </div>`;
+
+  // 予定・保管場所
+  html += `<div class="info-row" style="margin-bottom:16px;">
+    <div class="detail-section"><div class="detail-label">予定日</div><div class="detail-value">${work.scheduled_date || '—'}</div></div>
+    <div class="detail-section"><div class="detail-label">保管場所</div><div class="detail-value">${tireSet?.storage_location_no || '—'}</div></div>
+    <div class="detail-section"><div class="detail-label">ステータス</div><div class="detail-value">${work.status}</div></div>
+  </div>`;
+
+  // タイヤ情報
+  if (tireSet?.tires && tireSet.tires.length > 0) {
+    html += `<div class="detail-section">
+      <div class="detail-label">タイヤ状態 <span class="help-icon" onclick="toggleHelp(this)">?</span></div>
+      <div class="help-tooltip">残溝の判定基準:<br>🟢 良好 = 4mm以上<br>🟡 要注意 = 2〜4mm<br>🔴 交換推奨 = 2mm未満<br>⛔ 使用不可 = 1.6mm未満（法定基準）</div>
+      <div class="tire-grid">`;
+
+    const positions = ['左前', '右前', '左後', '右後'];
+    positions.forEach(pos => {
+      const tire = tireSet.tires.find(t => t.position === pos);
+      if (tire) {
+        const depthClass = tire.tread_depth >= 4 ? 'good' : tire.tread_depth >= 2 ? 'caution' : 'replace';
+        const depthLabel = tire.tread_depth >= 4 ? '良好' : tire.tread_depth >= 2 ? '要注意' : '交換推奨';
+        html += `<div class="tire-cell">
+          <button class="tire-camera-btn" onclick="event.stopPropagation(); scanTireInfo('${pos}')">📷</button>
+          <div class="tire-position">${pos}</div>
+          ${tire.manufacturer ? `<div class="tire-maker">${tire.manufacturer}</div>` : ''}
+          <div class="tire-size">${tire.size || '—'}</div>
+          <div class="tire-depth">残溝 ${tire.tread_depth != null ? tire.tread_depth + 'mm' : '—'}</div>
+          ${tire.tread_depth != null ? `<div class="tire-condition ${depthClass}">${depthLabel}</div>` : ''}
+        </div>`;
+      }
+    });
+
+    html += `</div></div>`;
+  }
+
+  // メモ
+  if (work.memo) {
+    html += `<div class="detail-section"><div class="detail-label">メモ</div><div class="memo-box">${work.memo}</div></div>`;
+  }
+
+  // ステータス変更ボタン
+  html += '<div class="status-actions">';
+  if (work.status === '予約') {
+    html += `<button class="status-btn primary" onclick="updateWork('${work.id}','受付'); closeDetail();">📋 受付</button>`;
+  }
+  if (work.status === '予約' || work.status === '受付') {
+    html += `<button class="status-btn primary" onclick="updateWork('${work.id}','作業中'); closeDetail();">🔧 作業開始</button>`;
+  }
+  if (work.status !== '完了' && work.status !== 'キャンセル') {
+    html += `<button class="status-btn success" onclick="updateWork('${work.id}','完了'); closeDetail();">✅ 作業完了</button>`;
+  }
+  html += `<button class="status-btn secondary" onclick="closeDetail()">戻る</button>`;
+  html += '</div>';
+
+  modalBody.innerHTML = html;
 }
 
 // ============================================
