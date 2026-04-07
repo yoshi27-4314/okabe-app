@@ -77,6 +77,10 @@
         <div class="home-action-icon">📖</div>
         <div class="home-action-label">約款</div>
       </div>
+      <div class="home-action-card" onclick="openRegister()" style="border:2px solid var(--accent);">
+        <div class="home-action-icon">✏️</div>
+        <div class="home-action-label">新規登録</div>
+      </div>
     </div>
 
     <!-- 直近の作業（プレビュー） -->
@@ -402,6 +406,128 @@
 </div>
 
 <!-- ========================================== -->
+<!-- ===== 新規登録画面 ===== -->
+<!-- ========================================== -->
+<div class="screen" id="registerScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>新規登録</span>
+  </div>
+
+  <!-- ステップインジケーター -->
+  <div style="display:flex;justify-content:center;gap:8px;padding:16px;">
+    <div class="step-dot current" style="width:12px;height:12px;border-radius:50%;background:var(--accent);"></div>
+    <div class="step-dot" style="width:12px;height:12px;border-radius:50%;background:var(--border);"></div>
+    <div class="step-dot" style="width:12px;height:12px;border-radius:50%;background:var(--border);"></div>
+    <div class="step-dot" style="width:12px;height:12px;border-radius:50%;background:var(--border);"></div>
+  </div>
+
+  <!-- Step 1: 顧客 -->
+  <div class="reg-step" id="regStep1" style="padding:0 16px 16px;">
+    <div class="info-card">
+      <div class="info-card-header"><span>Step 1: お客様情報</span></div>
+      <form id="customerForm">
+        <div class="form-group">
+          <label>区分</label>
+          <select name="type"><option value="個人">個人</option><option value="法人">法人</option></select>
+        </div>
+        <div class="form-group">
+          <label>新規/継続</label>
+          <select name="customer_status"><option value="新規">新規</option><option value="継続">継続</option></select>
+        </div>
+        <div class="form-group">
+          <label>お名前 *</label>
+          <input type="text" name="name" placeholder="鈴木一郎 または 田中建設株式会社">
+        </div>
+        <div class="form-group">
+          <label>フリガナ</label>
+          <input type="text" name="kana" placeholder="スズキ イチロウ">
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>電話番号</label><input type="tel" name="phone" placeholder="058-123-4567"></div>
+          <div class="form-group"><label>携帯番号</label><input type="tel" name="mobile" placeholder="090-1234-5678"></div>
+        </div>
+        <div class="form-group">
+          <label>ご住所</label>
+          <input type="text" name="address" placeholder="岐阜県岐阜市...">
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>LINE</label><input type="text" name="line_id" placeholder="LINE ID"></div>
+          <div class="form-group" style="flex:0 0 auto;padding-top:24px;">
+            <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" name="web_registered"> WEB登録済</label>
+          </div>
+        </div>
+      </form>
+      <button class="status-btn primary" onclick="submitCustomer()" style="margin-top:12px;">次へ: 車両情報 →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: 車両 -->
+  <div class="reg-step" id="regStep2" style="display:none;padding:0 16px 16px;">
+    <div class="info-card">
+      <div class="info-card-header"><span>Step 2: 車両情報</span></div>
+      <form id="vehicleForm">
+        <div class="form-group">
+          <label>ナンバー *</label>
+          <div style="display:flex;gap:8px;">
+            <input type="text" name="plate_number" placeholder="岐阜 500 あ 1234" style="flex:1;">
+            <button type="button" class="camera-scan-btn" onclick="scanPlateForRegister()">📷</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>メーカー</label><input type="text" name="maker" placeholder="トヨタ"></div>
+          <div class="form-group"><label>車種</label><input type="text" name="model" placeholder="プリウス"></div>
+        </div>
+        <div class="form-group">
+          <label>色</label>
+          <input type="text" name="color" placeholder="シルバー">
+        </div>
+      </form>
+      <button class="status-btn primary" onclick="submitVehicle()" style="margin-top:12px;">次へ: タイヤセット →</button>
+      <button class="status-btn secondary" onclick="showRegisterStep(1)" style="margin-top:8px;">← 戻る</button>
+    </div>
+  </div>
+
+  <!-- Step 3: タイヤセット -->
+  <div class="reg-step" id="regStep3" style="display:none;padding:0 16px 16px;">
+    <div class="info-card">
+      <div class="info-card-header"><span>Step 3: タイヤセット・預かり情報</span></div>
+      <form id="tireSetForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>タイヤ種別</label>
+            <select name="season_type"><option value="夏タイヤ">夏タイヤ</option><option value="冬タイヤ">冬タイヤ</option><option value="オールシーズン">オールシーズン</option></select>
+          </div>
+          <div class="form-group"><label>保管場所No.</label><input type="text" name="storage_location_no" placeholder="A-23"></div>
+        </div>
+        <div class="form-group">
+          <label>料金（税別・円）</label>
+          <input type="number" name="fee" placeholder="8800">
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>預かり日</label><input type="date" name="start_date"></div>
+          <div class="form-group"><label>返却予定日</label><input type="date" name="planned_return_date"></div>
+        </div>
+      </form>
+      <button class="status-btn primary" onclick="submitTireSet()" style="margin-top:12px;">次へ: タイヤ4本 →</button>
+      <button class="status-btn secondary" onclick="showRegisterStep(2)" style="margin-top:8px;">← 戻る</button>
+    </div>
+  </div>
+
+  <!-- Step 4: タイヤ4本 -->
+  <div class="reg-step" id="regStep4" style="display:none;padding:0 16px 16px;">
+    <div class="info-card">
+      <div class="info-card-header"><span>Step 4: タイヤ情報（4本）</span></div>
+      <form id="tiresForm">
+        <div id="tireInputs"></div>
+      </form>
+      <button class="status-btn success" onclick="submitTires()" style="margin-top:12px;">✅ 登録完了</button>
+      <button class="status-btn secondary" onclick="showRegisterStep(3)" style="margin-top:8px;">← 戻る</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== -->
 <!-- ===== 検索画面 ===== -->
 <!-- ========================================== -->
 <div class="screen" id="searchScreen">
@@ -589,6 +715,7 @@
 <script src="js/supabase.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/ocr.js"></script>
+<script src="js/register.js"></script>
 <script src="js/common.js"></script>
 <script src="js/staff.js"></script>
 

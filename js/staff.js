@@ -11,6 +11,7 @@ function switchTab(tab) {
     home: 'homeScreen',
     work: 'workScreen',
     customer: 'customerScreen',
+    register: 'registerScreen',
     search: 'searchScreen',
     chat: 'chatScreen',
     terms: 'termsScreen'
