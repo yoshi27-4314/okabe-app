@@ -2,24 +2,24 @@
 
 // タブ切替
 function switchTab(tab) {
-  document.querySelectorAll('.screen').forEach(el => {
-    el.classList.remove('active');
-  });
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  document.querySelector('.chat-input-area').style.display = 'none';
+  document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
 
-  const screens = {
-    work: { screen: 'workScreen', nav: 'navWork' },
-    search: { screen: 'searchScreen', nav: 'navSearch' },
-    chat: { screen: 'chatScreen', nav: 'navChat' },
-    terms: { screen: 'termsScreen', nav: 'navTerms' }
+  const chatInput = document.querySelector('.chat-input-area');
+  if (chatInput) chatInput.style.display = 'none';
+
+  const screenMap = {
+    home: 'homeScreen',
+    work: 'workScreen',
+    customer: 'customerScreen',
+    search: 'searchScreen',
+    chat: 'chatScreen',
+    terms: 'termsScreen'
   };
 
-  if (screens[tab]) {
-    document.getElementById(screens[tab].screen).classList.add('active');
-    document.getElementById(screens[tab].nav).classList.add('active');
-    if (tab === 'chat') {
-      document.querySelector('.chat-input-area').style.display = 'flex';
+  if (screenMap[tab]) {
+    document.getElementById(screenMap[tab]).classList.add('active');
+    if (tab === 'chat' && chatInput) {
+      chatInput.style.display = 'flex';
     }
   }
 }
@@ -66,10 +66,19 @@ function changeStatus(btn, newStatus) {
   }
 }
 
+// タイヤセット切替
+function switchTireSet(el, index) {
+  document.querySelectorAll('.tire-set-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tire-set-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tireSet' + index).classList.add('active');
+}
+
 // モーダル外クリックで閉じる
 document.getElementById('detailModal').addEventListener('click', function(e) {
   if (e.target === this) closeDetail();
 });
 
 // 初期表示
-document.querySelector('.chat-input-area').style.display = 'none';
+var chatInput = document.querySelector('.chat-input-area');
+if (chatInput) chatInput.style.display = 'none';

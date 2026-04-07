@@ -22,34 +22,102 @@
   </div>
   <div class="header-right">
     <button class="header-btn" onclick="alert('通知')">🔔</button>
-    <button class="header-btn" onclick="alert('ログアウトしますか？')">⚙️</button>
+    <button class="header-btn" onclick="location.href='index.html'">🏠</button>
   </div>
 </div>
 
-<!-- ===== 作業画面 ===== -->
-<div class="screen active" id="workScreen">
+<!-- ========================================== -->
+<!-- ===== ホーム画面 ===== -->
+<!-- ========================================== -->
+<div class="screen active" id="homeScreen">
+  <div style="padding: 20px 16px;">
 
-  <!-- 日付フィルター -->
+    <!-- 今日のサマリー -->
+    <div style="margin-bottom: 20px;">
+      <div style="font-size: 13px; font-weight: 700; color: var(--sub); margin-bottom: 8px;">2026年4月7日（月）</div>
+      <div class="summary">
+        <div class="summary-item info">
+          <div class="summary-count">2</div>
+          <div class="summary-label">予約</div>
+        </div>
+        <div class="summary-item warning">
+          <div class="summary-count">1</div>
+          <div class="summary-label">作業中</div>
+        </div>
+        <div class="summary-item success">
+          <div class="summary-count">3</div>
+          <div class="summary-label">完了</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- クイックアクション -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+      <div class="home-action-card" onclick="switchTab('work')">
+        <div class="home-action-icon">📋</div>
+        <div class="home-action-label">作業一覧</div>
+      </div>
+      <div class="home-action-card" onclick="alert('カメラ起動 → ナンバー読取')">
+        <div class="home-action-icon">📷</div>
+        <div class="home-action-label">ナンバー読取</div>
+      </div>
+      <div class="home-action-card" onclick="switchTab('customer')">
+        <div class="home-action-icon">👤</div>
+        <div class="home-action-label">顧客情報</div>
+      </div>
+      <div class="home-action-card" onclick="switchTab('search')">
+        <div class="home-action-icon">🔍</div>
+        <div class="home-action-label">検索</div>
+      </div>
+      <div class="home-action-card" onclick="switchTab('chat')">
+        <div class="home-action-icon">💬</div>
+        <div class="home-action-label">Bot</div>
+      </div>
+      <div class="home-action-card" onclick="switchTab('terms')">
+        <div class="home-action-icon">📖</div>
+        <div class="home-action-label">約款</div>
+      </div>
+    </div>
+
+    <!-- 直近の作業（プレビュー） -->
+    <div style="font-size: 13px; font-weight: 700; color: var(--sub); margin-bottom: 8px;">次の作業</div>
+    <div class="work-card status-working" onclick="openDetail('working')" style="margin: 0 0 8px 0;">
+      <div class="work-card-top">
+        <span class="work-status working">作業中</span>
+        <span class="work-time">09:30〜</span>
+      </div>
+      <div class="work-customer">田中建設株式会社</div>
+      <div class="work-vehicle">ハイエース ・ 岐阜 300 さ 5678</div>
+      <div class="work-type">冬→夏 履き替え</div>
+    </div>
+    <div class="work-card status-reserved" onclick="openDetail('reserved')" style="margin: 0 0 8px 0;">
+      <div class="work-card-top">
+        <span class="work-status reserved">予約</span>
+        <span class="work-time">10:00〜</span>
+      </div>
+      <div class="work-customer">鈴木一郎 様</div>
+      <div class="work-vehicle">プリウス ・ 岐阜 500 あ 1234</div>
+      <div class="work-type">冬→夏 履き替え</div>
+    </div>
+    <div style="text-align: center; margin-top: 8px;">
+      <span style="font-size: 13px; color: var(--accent); cursor: pointer; font-weight: 500;" onclick="switchTab('work')">すべての作業を見る →</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- ===== 作業一覧画面 ===== -->
+<!-- ========================================== -->
+<div class="screen" id="workScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>作業一覧</span>
+  </div>
+
   <div class="date-filter">
     <div class="date-chip active" onclick="selectDate(this)">今日（6件）</div>
     <div class="date-chip" onclick="selectDate(this)">明日（3件）</div>
     <div class="date-chip" onclick="selectDate(this)">今週（14件）</div>
-  </div>
-
-  <!-- サマリー -->
-  <div class="summary">
-    <div class="summary-item info">
-      <div class="summary-count">2</div>
-      <div class="summary-label">予約</div>
-    </div>
-    <div class="summary-item warning">
-      <div class="summary-count">1</div>
-      <div class="summary-label">作業中</div>
-    </div>
-    <div class="summary-item success">
-      <div class="summary-count">3</div>
-      <div class="summary-label">完了</div>
-    </div>
   </div>
 
   <!-- ナンバー読取バナー -->
@@ -115,7 +183,6 @@
     <div class="work-vehicle">N-BOX ・ 岐阜 580 う 9012</div>
     <div class="work-type">預かり開始</div>
   </div>
-
   <div class="work-card status-done">
     <div class="work-card-top">
       <span class="work-status done">完了</span>
@@ -125,7 +192,6 @@
     <div class="work-vehicle">フォレスター ・ 岐阜 300 か 3456</div>
     <div class="work-type">冬→夏 履き替え</div>
   </div>
-
   <div class="work-card status-done">
     <div class="work-card-top">
       <span class="work-status done">完了</span>
@@ -137,8 +203,286 @@
   </div>
 </div>
 
+<!-- ========================================== -->
+<!-- ===== 顧客情報画面 ===== -->
+<!-- ========================================== -->
+<div class="screen" id="customerScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>顧客情報</span>
+  </div>
+
+  <!-- 顧客検索 -->
+  <div class="search-bar">
+    <div class="search-bar-wrap">
+      <span class="search-bar-icon">🔍</span>
+      <input type="text" class="search-input" placeholder="名前・ナンバー・電話番号で検索" value="鈴木一郎">
+    </div>
+  </div>
+
+  <!-- 顧客詳細（デモ：鈴木一郎） -->
+  <div style="padding: 16px;">
+
+    <!-- お客様情報 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <span>お客様情報</span>
+        <span class="badge-new-cont">継続</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">お名前</div>
+          <div class="info-value-large">鈴木一郎 様</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">フリガナ</div>
+          <div class="info-value">スズキ イチロウ</div>
+        </div>
+        <div class="info-row">
+          <div class="info-item">
+            <div class="info-label">電話番号</div>
+            <div class="info-value">058-123-4567</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">携帯番号</div>
+            <div class="info-value">090-1234-5678</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">ご住所</div>
+          <div class="info-value">岐阜県岐阜市六条大溝2-3-4</div>
+        </div>
+        <div class="info-row">
+          <div class="info-item">
+            <div class="info-label">LINE</div>
+            <div class="info-value">suzuki_ichiro</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">WEB登録</div>
+            <div class="info-value">済</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">お申込日</div>
+          <div class="info-value">2026年4月1日</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 車両情報 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <span>車両情報</span>
+      </div>
+      <div class="info-grid">
+        <div class="info-row">
+          <div class="info-item">
+            <div class="info-label">車種</div>
+            <div class="info-value">プリウス</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">ナンバー</div>
+            <div class="info-value-large">岐阜 500 あ 1234</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- タイヤセット切替 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <span>タイヤ情報</span>
+        <span class="help-icon" onclick="toggleHelp(this)">?</span>
+      </div>
+      <div class="help-tooltip">1台の車に複数のタイヤセットが登録されている場合があります。タブで切り替えてください。</div>
+
+      <!-- タイヤセットタブ -->
+      <div class="tire-set-tabs">
+        <div class="tire-set-tab active" onclick="switchTireSet(this, 0)">🌞 夏タイヤ<br><span class="tire-set-status storing">預かり中</span></div>
+        <div class="tire-set-tab" onclick="switchTireSet(this, 1)">❄️ 冬タイヤ<br><span class="tire-set-status mounted">装着中</span></div>
+      </div>
+
+      <!-- タイヤセット1: 夏タイヤ -->
+      <div class="tire-set-panel active" id="tireSet0">
+        <div class="info-row" style="margin-bottom: 8px;">
+          <div class="info-item">
+            <div class="info-label">保管場所No.</div>
+            <div class="info-value-large">A-23</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">料金（税別）</div>
+            <div class="info-value">¥8,800</div>
+          </div>
+        </div>
+        <div class="info-row" style="margin-bottom: 8px;">
+          <div class="info-item">
+            <div class="info-label">預かり日</div>
+            <div class="info-value">2025年11月15日</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">返却予定日</div>
+            <div class="info-value">2026年4月10日</div>
+          </div>
+        </div>
+        <div class="info-item" style="margin-bottom: 12px;">
+          <div class="info-label">担当者</div>
+          <div class="info-value">山本太郎</div>
+        </div>
+
+        <!-- タイヤ4本 -->
+        <div class="tire-grid">
+          <div class="tire-cell">
+            <button class="tire-camera-btn" onclick="alert('左前タイヤ撮影')">📷</button>
+            <div class="tire-position">左前</div>
+            <div class="tire-maker">ブリヂストン</div>
+            <div class="tire-pattern">ECOPIA EP150</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 5.2mm <span class="tire-date">4/1</span></div>
+            <div class="tire-condition good">良好</div>
+            <div class="tire-wheel">純正アルミ</div>
+            <div class="tire-cap">キャップ有</div>
+          </div>
+          <div class="tire-cell">
+            <button class="tire-camera-btn" onclick="alert('右前タイヤ撮影')">📷</button>
+            <div class="tire-position">右前</div>
+            <div class="tire-maker">ブリヂストン</div>
+            <div class="tire-pattern">ECOPIA EP150</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 5.0mm <span class="tire-date">4/1</span></div>
+            <div class="tire-condition good">良好</div>
+            <div class="tire-wheel">純正アルミ</div>
+            <div class="tire-cap">キャップ有</div>
+          </div>
+          <div class="tire-cell">
+            <button class="tire-camera-btn" onclick="alert('左後タイヤ撮影')">📷</button>
+            <div class="tire-position">左後</div>
+            <div class="tire-maker">ブリヂストン</div>
+            <div class="tire-pattern">ECOPIA EP150</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 3.8mm <span class="tire-date">4/1</span></div>
+            <div class="tire-condition caution">要注意</div>
+            <div class="tire-wheel">純正アルミ</div>
+            <div class="tire-cap">キャップ有</div>
+          </div>
+          <div class="tire-cell">
+            <button class="tire-camera-btn" onclick="alert('右後タイヤ撮影')">📷</button>
+            <div class="tire-position">右後</div>
+            <div class="tire-maker">ブリヂストン</div>
+            <div class="tire-pattern">ECOPIA EP150</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 3.1mm <span class="tire-date">4/1</span></div>
+            <div class="tire-condition caution">要注意</div>
+            <div class="tire-wheel">純正アルミ</div>
+            <div class="tire-cap">キャップ有</div>
+          </div>
+        </div>
+        <div style="margin-top: 8px;">
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">ナット</div>
+              <div class="info-value">共用</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">チェック者</div>
+              <div class="info-value">佐藤</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 備考 -->
+        <div class="memo-box" style="margin-top: 12px;">
+          左後・右後の溝が浅め。次回交換を提案。お客様にも状態写真を共有予定。
+        </div>
+
+        <!-- 撮影済み写真 -->
+        <div style="margin-top: 12px;">
+          <div class="info-label" style="margin-bottom: 6px;">撮影済み写真</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <div class="photo-thumb">🖼</div>
+            <div class="photo-thumb">🖼</div>
+            <div class="photo-thumb">🖼</div>
+            <div class="photo-thumb">🖼</div>
+            <div class="photo-thumb add" onclick="alert('写真追加')">＋</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- タイヤセット2: 冬タイヤ -->
+      <div class="tire-set-panel" id="tireSet1">
+        <div class="info-row" style="margin-bottom: 8px;">
+          <div class="info-item">
+            <div class="info-label">状態</div>
+            <div class="info-value-large" style="color: var(--info);">装着中</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">料金（税別）</div>
+            <div class="info-value">—</div>
+          </div>
+        </div>
+        <div class="tire-grid">
+          <div class="tire-cell">
+            <div class="tire-position">左前</div>
+            <div class="tire-maker">ヨコハマ</div>
+            <div class="tire-pattern">iceGUARD 7</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 6.5mm <span class="tire-date">11/15</span></div>
+            <div class="tire-condition good">良好</div>
+            <div class="tire-wheel">社外アルミ</div>
+          </div>
+          <div class="tire-cell">
+            <div class="tire-position">右前</div>
+            <div class="tire-maker">ヨコハマ</div>
+            <div class="tire-pattern">iceGUARD 7</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 6.3mm <span class="tire-date">11/15</span></div>
+            <div class="tire-condition good">良好</div>
+            <div class="tire-wheel">社外アルミ</div>
+          </div>
+          <div class="tire-cell">
+            <div class="tire-position">左後</div>
+            <div class="tire-maker">ヨコハマ</div>
+            <div class="tire-pattern">iceGUARD 7</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 6.0mm <span class="tire-date">11/15</span></div>
+            <div class="tire-condition good">良好</div>
+            <div class="tire-wheel">社外アルミ</div>
+          </div>
+          <div class="tire-cell">
+            <div class="tire-position">右後</div>
+            <div class="tire-maker">ヨコハマ</div>
+            <div class="tire-pattern">iceGUARD 7</div>
+            <div class="tire-size">195/65R15</div>
+            <div class="tire-depth">残溝 5.8mm <span class="tire-date">11/15</span></div>
+            <div class="tire-condition good">良好</div>
+            <div class="tire-wheel">社外アルミ</div>
+          </div>
+        </div>
+        <div style="margin-top: 8px;">
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">ナット</div>
+              <div class="info-value">別（専用）</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">チェック者</div>
+              <div class="info-value">佐藤</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================== -->
 <!-- ===== 検索画面 ===== -->
+<!-- ========================================== -->
 <div class="screen" id="searchScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>検索</span>
+  </div>
   <div class="search-bar">
     <div class="search-bar-wrap">
       <span class="search-bar-icon">🔍</span>
@@ -150,8 +494,14 @@
   </div>
 </div>
 
+<!-- ========================================== -->
 <!-- ===== チャットBot画面 ===== -->
+<!-- ========================================== -->
 <div class="screen" id="chatScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>業務アシスタント</span>
+  </div>
   <div class="chat-messages">
     <div class="chat-bubble bot">
       こんにちは！タイヤホテル業務アシスタントです。<br>
@@ -168,8 +518,14 @@
   </div>
 </div>
 
+<!-- ========================================== -->
 <!-- ===== 約款画面 ===== -->
+<!-- ========================================== -->
 <div class="screen" id="termsScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>約款</span>
+  </div>
   <div class="terms-content">
     <div class="terms-title">タイヤ保管同意書（契約条項）</div>
     <div class="terms-article">
@@ -203,7 +559,9 @@
   </div>
 </div>
 
+<!-- ========================================== -->
 <!-- ===== 作業詳細モーダル ===== -->
+<!-- ========================================== -->
 <div class="modal-overlay" id="detailModal">
   <div class="modal">
     <div class="modal-header">
@@ -214,6 +572,9 @@
       <div class="detail-section">
         <div class="detail-customer">鈴木一郎 様</div>
         <div class="detail-vehicle">プリウス ・ 岐阜 500 あ 1234</div>
+        <div style="margin-top: 4px;">
+          <span style="font-size: 12px; color: var(--accent); cursor: pointer;" onclick="closeDetail(); switchTab('customer');">顧客情報を見る →</span>
+        </div>
       </div>
 
       <div class="detail-section">
@@ -225,14 +586,19 @@
         <div class="detail-value">冬タイヤ → 夏タイヤ 履き替え</div>
       </div>
 
-      <div class="detail-section">
-        <div class="detail-label">予定時間</div>
-        <div class="detail-value">10:00〜</div>
-      </div>
-
-      <div class="detail-section">
-        <div class="detail-label">保管場所</div>
-        <div class="detail-value">A-23</div>
+      <div class="info-row">
+        <div class="detail-section">
+          <div class="detail-label">予定時間</div>
+          <div class="detail-value">10:00〜</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">保管場所</div>
+          <div class="detail-value">A-23</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">担当者</div>
+          <div class="detail-value">山本</div>
+        </div>
       </div>
 
       <div class="detail-section">
@@ -280,28 +646,8 @@
       </div>
 
       <div class="detail-section">
-        <div class="detail-label">ホイール・ナット</div>
-        <div class="wheel-info">
-          <span class="wheel-tag">純正アルミ</span>
-          <span class="wheel-tag">ナット: 共用</span>
-          <span class="wheel-tag">キャップ: 有</span>
-        </div>
-      </div>
-
-      <div class="detail-section">
         <div class="detail-label">メモ</div>
-        <div class="memo-box">
-          左後・右後の溝が浅め。次回交換を提案してください。お客様にも状態写真を共有予定。
-        </div>
-      </div>
-
-      <div class="detail-section">
-        <div class="detail-label">撮影済み写真</div>
-        <div style="display: flex; gap: 6px;">
-          <div style="width: 60px; height: 60px; background: var(--gray-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🖼</div>
-          <div style="width: 60px; height: 60px; background: var(--gray-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🖼</div>
-          <div style="width: 60px; height: 60px; background: var(--accent-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--accent); cursor: pointer;" onclick="alert('写真追加')">＋</div>
-        </div>
+        <div class="memo-box">左後・右後の溝が浅め。次回交換を提案。</div>
       </div>
 
       <div class="status-actions">
@@ -310,26 +656,6 @@
         <button class="status-btn secondary" onclick="closeDetail()">戻る</button>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- ===== 下タブ ===== -->
-<div class="bottom-nav">
-  <div class="nav-item active" id="navWork" onclick="switchTab('work')">
-    <span class="nav-icon">📋</span>
-    <span class="nav-label">作業</span>
-  </div>
-  <div class="nav-item" id="navSearch" onclick="switchTab('search')">
-    <span class="nav-icon">🔍</span>
-    <span class="nav-label">検索</span>
-  </div>
-  <div class="nav-item" id="navChat" onclick="switchTab('chat')">
-    <span class="nav-icon">💬</span>
-    <span class="nav-label">Bot</span>
-  </div>
-  <div class="nav-item" id="navTerms" onclick="switchTab('terms')">
-    <span class="nav-icon">📖</span>
-    <span class="nav-label">約款</span>
   </div>
 </div>
 
