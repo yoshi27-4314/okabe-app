@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>タイヤホテル OKABE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0d1b2a">
+<link rel="stylesheet" href="css/common.css">
+<style>
+body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0; }
+
+.login-screen { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; }
+.login-logo { font-size:28px; font-weight:700; color:var(--primary); text-align:center; margin-bottom:4px; }
+.login-logo span { color:#60a5fa; }
+.login-sub { font-size:13px; color:var(--sub); text-align:center; margin-bottom:24px; }
+
+/* ログインフォーム */
+.login-form { width:100%; margin-bottom:20px; }
+.login-form input { width:100%; padding:14px; border:1.5px solid var(--border); border-radius:10px; font-size:15px; font-family:inherit; margin-bottom:8px; outline:none; background:#fff; }
+.login-form input:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-light); }
+.login-form button { width:100%; padding:16px; border-radius:12px; border:none; background:var(--accent); color:#fff; font-size:16px; font-weight:700; font-family:inherit; cursor:pointer; box-shadow:0 2px 8px rgba(37,99,235,0.3); }
+.login-form button:active { transform:scale(0.98); }
+.login-error { color:var(--danger); font-size:12px; margin-top:8px; text-align:center; display:none; }
+.login-divider { font-size:12px; color:var(--sub); margin:16px 0; text-align:center; }
+
+/* ロール選択 */
+.role-grid { width:100%; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.role-card {
+  background:#fff; border-radius:14px; padding:16px 12px;
+  box-shadow:0 1px 4px var(--shadow); display:flex; flex-direction:column;
+  align-items:center; gap:6px; border:2px solid transparent;
+  cursor:pointer; transition:all 0.15s; text-align:center;
+}
+.role-card:active { transform:scale(0.97); }
+.role-card .role-icon { font-size:28px; }
+.role-card .role-name { font-size:14px; font-weight:700; color:var(--text); }
+.role-card .role-desc { font-size:10px; color:var(--sub); }
+
+.login-footer { margin-top:32px; text-align:center; font-size:11px; color:var(--gray); line-height:1.6; }
+
+/* ホーム画面共通 */
+.home-screen { display:none; flex-direction:column; flex:1; }
+.home-screen.active { display:flex; }
+.home-header { background:var(--primary); color:#fff; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
+.home-header-left {}
+.home-header-logo { font-size:16px; font-weight:700; letter-spacing:0.5px; }
+.home-header-logo span { color:#60a5fa; }
+.home-header-user { font-size:11px; color:#94a3b8; margin-top:2px; }
+.home-header-right { display:flex; gap:6px; }
+.home-header-btn { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:#fff; width:38px; height:38px; border-radius:8px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.home-header-btn:active { background:rgba(255,255,255,0.2); }
+.home-body { padding:16px; flex:1; overflow-y:auto; }
+.home-date { font-size:13px; font-weight:700; color:var(--sub); margin-bottom:12px; }
+
+.summary-row { display:flex; gap:8px; margin-bottom:16px; }
+.summary-card { flex:1; background:#fff; border-radius:12px; padding:14px; text-align:center; box-shadow:0 1px 4px var(--shadow); }
+.summary-num { font-size:28px; font-weight:700; line-height:1; }
+.summary-lbl { font-size:10px; color:var(--sub); margin-top:4px; font-weight:600; }
+.summary-card.blue .summary-num { color:var(--info); }
+.summary-card.orange .summary-num { color:var(--warning); }
+.summary-card.green .summary-num { color:var(--success); }
+.summary-card.red .summary-num { color:var(--danger); }
+
+.action-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:20px; }
+.action-card { background:#fff; border-radius:12px; padding:16px 8px; text-align:center; box-shadow:0 1px 4px var(--shadow); cursor:pointer; transition:all 0.15s; text-decoration:none; color:var(--text); }
+.action-card:active { transform:scale(0.95); }
+.action-icon { font-size:28px; margin-bottom:6px; }
+.action-label { font-size:11px; font-weight:700; }
+
+.preview-title { font-size:11px; font-weight:700; color:var(--sub); margin-bottom:8px; letter-spacing:1px; text-transform:uppercase; }
+.preview-card { background:#fff; border-radius:12px; padding:14px; box-shadow:0 1px 4px var(--shadow); margin-bottom:8px; border-left:4px solid var(--gray); }
+.preview-card.blue { border-left-color:var(--info); }
+.preview-card.orange { border-left-color:var(--warning); }
+.preview-card.green { border-left-color:var(--success); }
+.preview-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+.preview-badge { font-size:10px; font-weight:700; padding:3px 10px; border-radius:10px; }
+.preview-badge.blue { background:var(--info-bg); color:var(--info); }
+.preview-badge.orange { background:var(--warning-bg); color:var(--warning); }
+.preview-badge.green { background:var(--success-bg); color:var(--success); }
+.preview-badge.red { background:var(--danger-bg); color:var(--danger); }
+.preview-time { font-size:11px; color:var(--sub); }
+.preview-name { font-size:15px; font-weight:700; }
+.preview-sub { font-size:12px; color:var(--sub); }
+.preview-link { display:block; text-align:center; margin-top:10px; font-size:13px; color:var(--accent); font-weight:600; cursor:pointer; }
+
+.notice-card { background:#fffbeb; border:1px solid #fde68a; border-radius:12px; padding:14px; margin-bottom:16px; }
+.notice-title { font-size:12px; font-weight:700; color:#92400e; margin-bottom:4px; }
+.notice-text { font-size:12px; color:#92400e; line-height:1.6; }
+</style>
+</head>
+<body>
+
+<!-- ===== ログイン画面 ===== -->
+<div class="login-screen" id="loginScreen">
+  <div>
+    <div class="login-logo">タイヤホテル <span>OKABE</span></div>
+    <div class="login-sub">業務管理システム</div>
+  </div>
+
+  <div class="login-form" id="loginForm">
+    <input type="email" id="loginEmail" placeholder="メールアドレス">
+    <input type="password" id="loginPassword" placeholder="パスワード">
+    <button onclick="handleLogin()">ログイン</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+
+  <div class="login-divider">— デモモード —</div>
+
+  <div class="role-grid">
+    <div class="role-card" onclick="loginAs('president')">
+      <div class="role-icon">👔</div>
+      <div class="role-name">岡部社長</div>
+      <div class="role-desc">経営全体</div>
+    </div>
+    <div class="role-card" onclick="loginAs('sales_manager')">
+      <div class="role-icon">📈</div>
+      <div class="role-name">営業部長</div>
+      <div class="role-desc">営業管理</div>
+    </div>
+    <div class="role-card" onclick="loginAs('sales')">
+      <div class="role-icon">🤝</div>
+      <div class="role-name">営業</div>
+      <div class="role-desc">顧客対応</div>
+    </div>
+    <div class="role-card" onclick="loginAs('factory_manager')">
+      <div class="role-icon">🏭</div>
+      <div class="role-name">山田工場長</div>
+      <div class="role-desc">作業管理</div>
+    </div>
+    <div class="role-card" onclick="loginAs('office')">
+      <div class="role-icon">📋</div>
+      <div class="role-name">フロント事務</div>
+      <div class="role-desc">受付・台帳</div>
+    </div>
+    <div class="role-card" onclick="loginAs('service')">
+      <div class="role-icon">🔧</div>
+      <div class="role-name">サービススタッフ</div>
+      <div class="role-desc">現場作業</div>
+    </div>
+  </div>
+
+  <div class="login-footer">株式会社 OKABE GROUP<br>タイヤホテル事業 業務管理システム</div>
+</div>
+
+<!-- ===== 岡部社長 ホーム ===== -->
+<div class="home-screen" id="homePresident">
+  <div class="home-header">
+    <div class="home-header-left">
+      <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
+      <div class="home-header-user">岡部社長</div>
+    </div>
+    <div class="home-header-right">
+      <button class="home-header-btn" onclick="alert('通知')">🔔</button>
+      <button class="home-header-btn" onclick="logout()">🚪</button>
+    </div>
+  </div>
+  <div class="home-body">
+    <div class="home-date" id="datePresident"></div>
+    <div class="summary-row">
+      <div class="summary-card green"><div class="summary-num">342</div><div class="summary-lbl">総顧客数</div></div>
+      <div class="summary-card blue"><div class="summary-num">128</div><div class="summary-lbl">預かり中</div></div>
+    </div>
+    <div class="summary-row">
+      <div class="summary-card orange"><div class="summary-num">6</div><div class="summary-lbl">本日の作業</div></div>
+      <div class="summary-card red"><div class="summary-num">3</div><div class="summary-lbl">期限超過</div></div>
+    </div>
+    <div class="notice-card">
+      <div class="notice-title">📊 経営レポート</div>
+      <div class="notice-text">今月の預かり新規: 12件 / 返却: 8件 / 交換推奨提案: 5件</div>
+    </div>
+    <div class="action-grid">
+      <a class="action-card" href="staff.html"><div class="action-icon">📋</div><div class="action-label">作業状況</div></a>
+      <div class="action-card" onclick="alert('売上レポート')"><div class="action-icon">💰</div><div class="action-label">売上</div></div>
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">顧客</div></div>
+      <div class="action-card" href="staff.html?tab=storage"><div class="action-icon">📦</div><div class="action-label">預かり台帳</div></div>
+      <div class="action-card" onclick="alert('スタッフ')"><div class="action-icon">👥</div><div class="action-label">スタッフ</div></div>
+      <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
+      <div class="action-card" onclick="alert('設定')"><div class="action-icon">⚙️</div><div class="action-label">設定</div></div>
+    </div>
+    <div class="preview-title">スタッフの稼働状況</div>
+    <div class="preview-card green"><div class="preview-top"><span class="preview-badge green">稼働中</span><span class="preview-time">田中太郎</span></div><div class="preview-sub">田中建設 ハイエース ・ 履き替え作業中</div></div>
+    <div class="preview-card blue"><div class="preview-top"><span class="preview-badge blue">待機</span><span class="preview-time">佐藤美咲</span></div><div class="preview-sub">フロント受付</div></div>
+  </div>
+</div>
+
+<!-- ===== 営業部長 ホーム ===== -->
+<div class="home-screen" id="homeSalesManager">
+  <div class="home-header">
+    <div class="home-header-left">
+      <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
+      <div class="home-header-user">鈴木部長（営業部長）</div>
+    </div>
+    <div class="home-header-right">
+      <button class="home-header-btn" onclick="alert('通知')">🔔</button>
+      <button class="home-header-btn" onclick="logout()">🚪</button>
+    </div>
+  </div>
+  <div class="home-body">
+    <div class="home-date" id="dateSalesManager"></div>
+    <div class="summary-row">
+      <div class="summary-card green"><div class="summary-num">342</div><div class="summary-lbl">顧客数</div></div>
+      <div class="summary-card red"><div class="summary-num">8</div><div class="summary-lbl">交換推奨</div></div>
+      <div class="summary-card blue"><div class="summary-num">128</div><div class="summary-lbl">預かり中</div></div>
+    </div>
+    <div class="notice-card">
+      <div class="notice-title">📞 営業チームタスク</div>
+      <div class="notice-text">交換推奨8件のフォローアップ / 返却期限超過3件の連絡 / 新規獲得目標: 残15件</div>
+    </div>
+    <div class="action-grid">
+      <div class="action-card" onclick="alert('営業チーム')"><div class="action-icon">👥</div><div class="action-label">営業チーム</div></div>
+      <div class="action-card" onclick="alert('交換推奨')"><div class="action-icon">🔴</div><div class="action-label">交換推奨</div></div>
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">顧客管理</div></div>
+      <div class="action-card" onclick="alert('売上')"><div class="action-icon">💰</div><div class="action-label">売上</div></div>
+      <div class="action-card" href="staff.html?tab=storage"><div class="action-icon">📅</div><div class="action-label">返却予定</div></div>
+      <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+    </div>
+    <div class="preview-title">交換推奨のお客様</div>
+    <div class="preview-card" style="border-left-color:var(--danger);"><div class="preview-top"><span class="preview-badge red">交換推奨</span><span class="preview-time">残溝 1.5mm</span></div><div class="preview-name">岡田運輸株式会社</div><div class="preview-sub">エルフ ・ 夏タイヤ全4本 ・ 担当:山本</div></div>
+    <div class="preview-card" style="border-left-color:var(--danger);"><div class="preview-top"><span class="preview-badge red">交換推奨</span><span class="preview-time">残溝 1.8mm</span></div><div class="preview-name">田中建設株式会社</div><div class="preview-sub">ハイエース ・ 夏タイヤ左後右後 ・ 担当:山本</div></div>
+  </div>
+</div>
+
+<!-- ===== 営業 ホーム ===== -->
+<div class="home-screen" id="homeSales">
+  <div class="home-header">
+    <div class="home-header-left">
+      <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
+      <div class="home-header-user">山本健一（営業）</div>
+    </div>
+    <div class="home-header-right">
+      <button class="home-header-btn" onclick="alert('通知')">🔔</button>
+      <button class="home-header-btn" onclick="logout()">🚪</button>
+    </div>
+  </div>
+  <div class="home-body">
+    <div class="home-date" id="dateSales"></div>
+    <div class="summary-row">
+      <div class="summary-card green"><div class="summary-num">85</div><div class="summary-lbl">担当顧客</div></div>
+      <div class="summary-card red"><div class="summary-num">3</div><div class="summary-lbl">交換推奨</div></div>
+      <div class="summary-card orange"><div class="summary-num">5</div><div class="summary-lbl">今週の予定</div></div>
+    </div>
+    <div class="action-grid">
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">担当顧客</div></div>
+      <div class="action-card" onclick="alert('交換推奨')"><div class="action-icon">🔴</div><div class="action-label">交換推奨</div></div>
+      <div class="action-card" onclick="alert('訪問記録')"><div class="action-icon">📝</div><div class="action-label">訪問記録</div></div>
+      <div class="action-card" href="staff.html?tab=storage"><div class="action-icon">📅</div><div class="action-label">返却予定</div></div>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
+      <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+    </div>
+    <div class="preview-title">今日のタスク</div>
+    <div class="preview-card" style="border-left-color:var(--danger);"><div class="preview-top"><span class="preview-badge red">要連絡</span><span class="preview-time">交換推奨</span></div><div class="preview-name">岡田運輸株式会社</div><div class="preview-sub">エルフ ・ 夏タイヤ残溝1.5mm ・ 買い替え提案</div></div>
+    <div class="preview-card blue"><div class="preview-top"><span class="preview-badge blue">訪問予定</span><span class="preview-time">14:00</span></div><div class="preview-name">山田商事株式会社</div><div class="preview-sub">新規預かりの提案</div></div>
+  </div>
+</div>
+
+<!-- ===== 工場長 ホーム ===== -->
+<div class="home-screen" id="homeFactoryManager">
+  <div class="home-header">
+    <div class="home-header-left">
+      <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
+      <div class="home-header-user">山田工場長</div>
+    </div>
+    <div class="home-header-right">
+      <button class="home-header-btn" onclick="alert('通知')">🔔</button>
+      <button class="home-header-btn" onclick="logout()">🚪</button>
+    </div>
+  </div>
+  <div class="home-body">
+    <div class="home-date" id="dateFactory"></div>
+    <div class="summary-row">
+      <div class="summary-card blue"><div class="summary-num">2</div><div class="summary-lbl">予約</div></div>
+      <div class="summary-card orange"><div class="summary-num">1</div><div class="summary-lbl">作業中</div></div>
+      <div class="summary-card green"><div class="summary-num">3</div><div class="summary-lbl">完了</div></div>
+    </div>
+    <div class="notice-card">
+      <div class="notice-title">⚠️ 判定確認が必要</div>
+      <div class="notice-text">田中建設ハイエース: 左後1.8mm・右後1.5mm → 交換推奨判定。確認してください。</div>
+    </div>
+    <div class="action-grid">
+      <a class="action-card" href="staff.html"><div class="action-icon">📋</div><div class="action-label">全作業一覧</div></a>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">判定確認</div></div>
+      <div class="action-card" onclick="alert('スタッフ状況')"><div class="action-icon">👥</div><div class="action-label">スタッフ状況</div></div>
+      <div class="action-card" href="staff.html?tab=home"><div class="action-icon">📷</div><div class="action-label">ナンバー読取</div></div>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
+      <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+    </div>
+    <div class="preview-title">本日の作業</div>
+    <div class="preview-card orange"><div class="preview-top"><span class="preview-badge orange">作業中</span><span class="preview-time">担当:田中</span></div><div class="preview-name">田中建設株式会社</div><div class="preview-sub">ハイエース ・ 冬→夏 履き替え</div></div>
+    <div class="preview-card blue"><div class="preview-top"><span class="preview-badge blue">予約</span><span class="preview-time">10:00 担当:田中</span></div><div class="preview-name">鈴木一郎 様</div><div class="preview-sub">プリウス ・ 冬→夏 履き替え</div></div>
+    <a class="preview-link" href="staff.html">すべての作業を見る →</a>
+  </div>
+</div>
+
+<!-- ===== フロント事務 ホーム ===== -->
+<div class="home-screen" id="homeOffice">
+  <div class="home-header">
+    <div class="home-header-left">
+      <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
+      <div class="home-header-user">佐藤美咲（フロント事務）</div>
+    </div>
+    <div class="home-header-right">
+      <button class="home-header-btn" onclick="alert('通知')">🔔</button>
+      <button class="home-header-btn" onclick="logout()">🚪</button>
+    </div>
+  </div>
+  <div class="home-body">
+    <div class="home-date" id="dateOffice"></div>
+    <div class="summary-row">
+      <div class="summary-card blue"><div class="summary-num">5</div><div class="summary-lbl">本日の予約</div></div>
+      <div class="summary-card orange"><div class="summary-num">2</div><div class="summary-lbl">受付待ち</div></div>
+      <div class="summary-card green"><div class="summary-num">128</div><div class="summary-lbl">預かり中</div></div>
+    </div>
+    <div class="notice-card">
+      <div class="notice-title">⚠️ 返却期限</div>
+      <div class="notice-text">3件のタイヤセットが返却予定日を過ぎています。お客様に連絡してください。</div>
+    </div>
+    <div class="action-grid">
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">顧客管理</div></div>
+      <div class="action-card" href="staff.html?tab=work"><div class="action-icon">📅</div><div class="action-label">予約受付</div></div>
+      <div class="action-card" href="staff.html?tab=storage"><div class="action-icon">📦</div><div class="action-label">預かり台帳</div></div>
+      <a class="action-card" href="staff.html"><div class="action-icon">✏️</div><div class="action-label">新規登録</div></a>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
+      <div class="action-card" onclick="alert('売上シート')"><div class="action-icon">💰</div><div class="action-label">売上シート</div></div>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+      <a class="action-card" href="staff.html#terms"><div class="action-icon">📖</div><div class="action-label">約款</div></a>
+      <div class="action-card" onclick="alert('エクスポート')"><div class="action-icon">📤</div><div class="action-label">エクスポート</div></div>
+    </div>
+    <div class="preview-title">本日の予約</div>
+    <div class="preview-card blue"><div class="preview-top"><span class="preview-badge blue">予約</span><span class="preview-time">10:00</span></div><div class="preview-name">鈴木一郎 様</div><div class="preview-sub">プリウス ・ 冬→夏 履き替え</div></div>
+    <div class="preview-card blue"><div class="preview-top"><span class="preview-badge blue">予約</span><span class="preview-time">11:00</span></div><div class="preview-name">山田商事株式会社</div><div class="preview-sub">キャラバン ・ 預かり開始</div></div>
+  </div>
+</div>
+
+<!-- ===== サービススタッフ ホーム ===== -->
+<div class="home-screen" id="homeWorker">
+  <div class="home-header">
+    <div class="home-header-left">
+      <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
+      <div class="home-header-user">田中太郎（サービススタッフ）</div>
+    </div>
+    <div class="home-header-right">
+      <button class="home-header-btn" onclick="alert('通知')">🔔</button>
+      <button class="home-header-btn" onclick="logout()">🚪</button>
+    </div>
+  </div>
+  <div class="home-body">
+    <div class="home-date" id="dateWorker"></div>
+    <div class="summary-row">
+      <div class="summary-card blue"><div class="summary-num">2</div><div class="summary-lbl">予約</div></div>
+      <div class="summary-card orange"><div class="summary-num">1</div><div class="summary-lbl">作業中</div></div>
+      <div class="summary-card green"><div class="summary-num">3</div><div class="summary-lbl">完了</div></div>
+    </div>
+    <div class="action-grid">
+      <a class="action-card" href="staff.html"><div class="action-icon">📋</div><div class="action-label">作業一覧</div></a>
+      <div class="action-card" href="staff.html?tab=home"><div class="action-icon">📷</div><div class="action-label">ナンバー読取</div></div>
+      <div class="action-card" href="staff.html?tab=customer"><div class="action-icon">👤</div><div class="action-label">顧客情報</div></div>
+      <div class="action-card" href="staff.html?tab=search"><div class="action-icon">🔍</div><div class="action-label">検索</div></div>
+      <div class="action-card" href="staff.html?tab=chat"><div class="action-icon">💬</div><div class="action-label">Bot</div></div>
+      <a class="action-card" href="staff.html#terms"><div class="action-icon">📖</div><div class="action-label">約款</div></a>
+    </div>
+    <div class="preview-title">次の作業</div>
+    <div class="preview-card orange"><div class="preview-top"><span class="preview-badge orange">作業中</span><span class="preview-time">09:30〜</span></div><div class="preview-name">田中建設株式会社</div><div class="preview-sub">ハイエース ・ 冬→夏 履き替え</div></div>
+    <div class="preview-card blue"><div class="preview-top"><span class="preview-badge blue">予約</span><span class="preview-time">10:00〜</span></div><div class="preview-name">鈴木一郎 様</div><div class="preview-sub">プリウス ・ 冬→夏 履き替え</div></div>
+    <a class="preview-link" href="staff.html">すべての作業を見る →</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/supabase.js"></script>
+<script src="js/auth.js"></script>
+<script>
+// 今日の日付を設定
+const today = new Date();
+const dateStr = today.getFullYear() + '年' + (today.getMonth()+1) + '月' + today.getDate() + '日（' + '日月火水木金土'[today.getDay()] + '）';
+document.querySelectorAll('[id^="date"]').forEach(el => el.textContent = dateStr);
+
+// 実ログイン
+async function handleLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const errorEl = document.getElementById('loginError');
+  errorEl.style.display = 'none';
+  if (!email || !password) { errorEl.textContent = 'メールアドレスとパスワードを入力してください'; errorEl.style.display = 'block'; return; }
+  const result = await signIn(email, password);
+  if (result.error) { errorEl.textContent = 'ログインに失敗しました'; errorEl.style.display = 'block'; return; }
+  if (result.staff) { loginAs(result.staff.role); }
+}
+
+// セッション復元
+(async () => {
+  const session = await getCurrentSession();
+  if (session?.staff) loginAs(session.staff.role);
+})();
+
+// デモモード
+function loginAs(role) {
+  document.getElementById('loginScreen').style.display = 'none';
+  var screens = {
+    president: 'homePresident',
+    sales_manager: 'homeSalesManager',
+    sales: 'homeSales',
+    factory_manager: 'homeFactoryManager',
+    office: 'homeOffice',
+    service: 'homeWorker'
+  };
+  if (screens[role]) document.getElementById(screens[role]).classList.add('active');
+}
+
+async function logout() {
+  await signOut();
+  document.querySelectorAll('.home-screen').forEach(el => el.classList.remove('active'));
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+</script>
+
+</body>
+</html>
