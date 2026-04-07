@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>OKABE アイコン生成</title>
+<style>
+body { font-family: sans-serif; padding: 20px; background: #f0f0f0; }
+canvas { border: 1px solid #ccc; margin: 10px; }
+.row { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-end; }
+a { display: inline-block; margin-top: 8px; padding: 8px 16px; background: #2563eb; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h2>OKABE GROUP PWAアイコン生成</h2>
+<p>「ダウンロード」をクリックして、3つのファイルを <b>okabe-app/ フォルダ直下</b>に保存してください。</p>
+
+<div class="row">
+  <div>
+    <div>192×192</div>
+    <canvas id="c192" width="192" height="192"></canvas><br>
+    <a id="dl192" download="icon-192.png">ダウンロード</a>
+  </div>
+  <div>
+    <div>512×512</div>
+    <canvas id="c512" width="512" height="512"></canvas><br>
+    <a id="dl512" download="icon-512.png">ダウンロード</a>
+  </div>
+  <div>
+    <div>180×180 (apple-touch-icon)</div>
+    <canvas id="c180" width="180" height="180"></canvas><br>
+    <a id="dl180" download="apple-touch-icon.png">ダウンロード</a>
+  </div>
+</div>
+
+<script>
+const logo = new Image();
+logo.src = 'docs/logo.png';
+
+logo.onload = function() {
+  [192, 512, 180].forEach(sz => {
+    const canvas = document.getElementById('c' + sz);
+    drawIcon(canvas, sz, logo);
+    document.getElementById('dl' + sz).href = canvas.toDataURL('image/png');
+  });
+};
+
+function drawIcon(canvas, size, logoImg) {
+  const ctx = canvas.getContext('2d');
+
+  // 背景: 白
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, size, size);
+
+  // ロゴを中央に配置
+  const logoMaxWidth = size * 0.72;
+  const scale = logoMaxWidth / logoImg.width;
+  const logoW = logoImg.width * scale;
+  const logoH = logoImg.height * scale;
+  const logoX = (size - logoW) / 2;
+  const logoY = (size - logoH) / 2;
+
+  ctx.drawImage(logoImg, logoX, logoY, logoW, logoH);
+}
+</script>
+</body>
+</html>
