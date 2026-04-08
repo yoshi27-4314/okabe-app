@@ -17,7 +17,7 @@
   <div class="header-left">
     <div>
       <div class="header-logo"><a href="index.html" style="color:inherit;text-decoration:none;">タイヤホテル <span>OKABE</span></a></div>
-      <div class="header-user">田中太郎（スタッフ）</div>
+      <div class="header-user" id="staffHeaderUser">読み込み中...</div>
     </div>
   </div>
   <div class="header-right">
@@ -34,7 +34,7 @@
 
     <!-- 今日のサマリー -->
     <div style="margin-bottom: 20px;">
-      <div style="font-size: 13px; font-weight: 700; color: var(--sub); margin-bottom: 8px;">2026年4月7日（月）</div>
+      <div id="staffDate" style="font-size: 13px; font-weight: 700; color: var(--sub); margin-bottom: 8px;"></div>
       <div class="summary">
         <div class="summary-item info">
           <div class="summary-count">2</div>
@@ -262,7 +262,7 @@
         <!-- タイヤ4本 -->
         <div class="tire-grid">
           <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="scanTireInfo('左前')">📁</button>
+            <button class="tire-camera-btn" onclick="scanTireInfo('左前')">📷</button>
             <div class="tire-position">左前</div>
             <div class="tire-maker">ブリヂストン</div>
             <div class="tire-pattern">ECOPIA EP150</div>
@@ -273,7 +273,7 @@
             <div class="tire-cap">キャップ有</div>
           </div>
           <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="scanTireInfo('右前')">📁</button>
+            <button class="tire-camera-btn" onclick="scanTireInfo('右前')">📷</button>
             <div class="tire-position">右前</div>
             <div class="tire-maker">ブリヂストン</div>
             <div class="tire-pattern">ECOPIA EP150</div>
@@ -284,7 +284,7 @@
             <div class="tire-cap">キャップ有</div>
           </div>
           <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="scanTireInfo('左後')">📁</button>
+            <button class="tire-camera-btn" onclick="scanTireInfo('左後')">📷</button>
             <div class="tire-position">左後</div>
             <div class="tire-maker">ブリヂストン</div>
             <div class="tire-pattern">ECOPIA EP150</div>
@@ -295,7 +295,7 @@
             <div class="tire-cap">キャップ有</div>
           </div>
           <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="scanTireInfo('右後')">📁</button>
+            <button class="tire-camera-btn" onclick="scanTireInfo('右後')">📷</button>
             <div class="tire-position">右後</div>
             <div class="tire-maker">ブリヂストン</div>
             <div class="tire-pattern">ECOPIA EP150</div>
@@ -471,7 +471,7 @@
           <label>ナンバー *</label>
           <div style="display:flex;gap:8px;">
             <input type="text" name="plate_number" placeholder="岐阜 500 あ 1234" style="flex:1;">
-            <button type="button" class="camera-scan-btn" onclick="scanPlateForRegister()">📁</button>
+            <button type="button" class="camera-scan-btn" onclick="scanPlateForRegister()">📷</button>
           </div>
         </div>
         <div class="form-row">
@@ -564,7 +564,7 @@
     </div>
   </div>
   <div class="chat-input-area">
-    <button class="chat-camera-btn" onclick="sendChatImage()">📁</button>
+    <button class="chat-camera-btn" onclick="sendChatImage()">📷</button>
     <input type="text" class="chat-input" placeholder="質問を入力...">
     <button class="chat-send-btn">➤</button>
   </div>

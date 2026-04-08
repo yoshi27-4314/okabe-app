@@ -107,8 +107,26 @@ document.getElementById('detailModal').addEventListener('click', function(e) {
 var chatInput = document.querySelector('.chat-input-area');
 if (chatInput) chatInput.style.display = 'none';
 
-// ページ読み込み時にURLパラメータからタブを開く
-document.addEventListener('DOMContentLoaded', function() {
+// ページ読み込み時の初期化
+document.addEventListener('DOMContentLoaded', async function() {
+  // 今日の日付を表示
+  const today = new Date();
+  const dateStr = today.getFullYear() + '年' + (today.getMonth()+1) + '月' + today.getDate() + '日（' + '日月火水木金土'[today.getDay()] + '）';
+  const dateEl = document.getElementById('staffDate');
+  if (dateEl) dateEl.textContent = dateStr;
+
+  // ログインユーザー名をヘッダーに表示
+  const session = await getCurrentSession();
+  const headerUser = document.getElementById('staffHeaderUser');
+  if (headerUser && session?.staff) {
+    const roleNames = {
+      president: '岡部社長', sales_manager: '営業部長', sales: '営業',
+      factory_manager: '工場長', office: 'フロント事務', service: 'サービススタッフ'
+    };
+    headerUser.textContent = session.staff.name + '（' + (roleNames[session.staff.role] || session.staff.role) + '）';
+  }
+
+  // URLパラメータからタブを開く
   const params = new URLSearchParams(window.location.search);
   const tab = params.get('tab');
   if (tab) {
