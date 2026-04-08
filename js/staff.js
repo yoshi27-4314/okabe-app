@@ -22,6 +22,12 @@ function switchTab(tab) {
     deliveryCheck: 'deliveryCheckScreen',
   };
 
+  // ボトムナビのアクティブ状態を更新
+  const navTabMap = { home: 0, work: 1, customer: 3, search: 4, chat: 5, register: 6, shaken: 6 };
+  document.querySelectorAll('.bottom-nav-item').forEach((el, i) => {
+    el.classList.toggle('active', i === navTabMap[tab]);
+  });
+
   if (screenMap[tab]) {
     document.getElementById(screenMap[tab]).classList.add('active');
     if (tab === 'chat' && chatInput) {

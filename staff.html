@@ -51,38 +51,6 @@
       </div>
     </div>
 
-    <!-- クイックアクション -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
-      <div class="home-action-card" onclick="switchTab('work')">
-        <div class="home-action-icon">📋</div>
-        <div class="home-action-label">作業一覧</div>
-      </div>
-      <div class="home-action-card" onclick="scanPlateNumber()">
-        <div class="home-action-icon">📷</div>
-        <div class="home-action-label">ナンバー読取</div>
-      </div>
-      <div class="home-action-card" onclick="switchTab('customer')">
-        <div class="home-action-icon">👤</div>
-        <div class="home-action-label">顧客情報</div>
-      </div>
-      <div class="home-action-card" onclick="switchTab('search')">
-        <div class="home-action-icon">🔍</div>
-        <div class="home-action-label">検索</div>
-      </div>
-      <div class="home-action-card" onclick="switchTab('chat')">
-        <div class="home-action-icon">💬</div>
-        <div class="home-action-label">Bot</div>
-      </div>
-      <div class="home-action-card" onclick="switchTab('terms')">
-        <div class="home-action-icon">📖</div>
-        <div class="home-action-label">約款</div>
-      </div>
-      <div class="home-action-card" onclick="showRegisterChoice()" style="border:2px solid var(--accent);">
-        <div class="home-action-icon">✏️</div>
-        <div class="home-action-label">新規登録</div>
-      </div>
-    </div>
-
     <!-- 直近の作業（プレビュー） -->
     <div style="font-size: 13px; font-weight: 700; color: var(--sub); margin-bottom: 8px;">次の作業</div>
     <div class="work-card status-working" onclick="openDetail('working')" style="margin: 0 0 8px 0;">
@@ -1056,6 +1024,38 @@
     </div>
   </div>
 </div>
+
+<!-- ===== ボトムナビ ===== -->
+<nav class="bottom-nav" id="bottomNav">
+  <div class="bottom-nav-item active" onclick="switchTab('home')">
+    <div class="bottom-nav-icon">🏠</div>
+    <div class="bottom-nav-label">ホーム</div>
+  </div>
+  <div class="bottom-nav-item" onclick="switchTab('work')">
+    <div class="bottom-nav-icon">📋</div>
+    <div class="bottom-nav-label">作業</div>
+  </div>
+  <div class="bottom-nav-item" onclick="scanPlateNumber()">
+    <div class="bottom-nav-icon">📷</div>
+    <div class="bottom-nav-label">読取</div>
+  </div>
+  <div class="bottom-nav-item" onclick="switchTab('customer')">
+    <div class="bottom-nav-icon">👤</div>
+    <div class="bottom-nav-label">顧客</div>
+  </div>
+  <div class="bottom-nav-item" onclick="switchTab('search')">
+    <div class="bottom-nav-icon">🔍</div>
+    <div class="bottom-nav-label">検索</div>
+  </div>
+  <div class="bottom-nav-item" onclick="switchTab('chat')">
+    <div class="bottom-nav-icon">💬</div>
+    <div class="bottom-nav-label">Bot</div>
+  </div>
+  <div class="bottom-nav-item" onclick="showRegisterChoice()">
+    <div class="bottom-nav-icon">✏️</div>
+    <div class="bottom-nav-label">登録</div>
+  </div>
+</nav>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/supabase.js"></script>
