@@ -15,7 +15,11 @@ function switchTab(tab) {
     storage: 'storageScreen',
     search: 'searchScreen',
     chat: 'chatScreen',
-    terms: 'termsScreen'
+    terms: 'termsScreen',
+    shaken: 'shakenRegisterScreen',
+    orderRequest: 'orderRequestScreen',
+    orderList: 'orderListScreen',
+    deliveryCheck: 'deliveryCheckScreen',
   };
 
   if (screenMap[tab]) {
@@ -28,6 +32,18 @@ function switchTab(tab) {
     }
     if (tab === 'storage') {
       loadStorage('all');
+    }
+    if (tab === 'shaken') {
+      openShakenRegister();
+    }
+    if (tab === 'orderRequest') {
+      openOrderRequest();
+    }
+    if (tab === 'orderList') {
+      openOrderList();
+    }
+    if (tab === 'deliveryCheck') {
+      openDeliveryCheck();
     }
   }
 }

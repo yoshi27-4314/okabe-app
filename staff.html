@@ -77,7 +77,7 @@
         <div class="home-action-icon">📖</div>
         <div class="home-action-label">約款</div>
       </div>
-      <div class="home-action-card" onclick="openRegister()" style="border:2px solid var(--accent);">
+      <div class="home-action-card" onclick="showRegisterChoice()" style="border:2px solid var(--accent);">
         <div class="home-action-icon">✏️</div>
         <div class="home-action-label">新規登録</div>
       </div>
@@ -262,7 +262,7 @@
         <!-- タイヤ4本 -->
         <div class="tire-grid">
           <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="alert('左前タイヤ撮影')">📷</button>
+            <button class="tire-camera-btn" onclick="scanTireInfo('左前')">📁</button>
             <div class="tire-position">左前</div>
             <div class="tire-maker">ブリヂストン</div>
             <div class="tire-pattern">ECOPIA EP150</div>
@@ -273,7 +273,7 @@
             <div class="tire-cap">キャップ有</div>
           </div>
           <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="alert('右前タイヤ撮影')">📷</button>
+            <button class="tire-camera-btn" onclick="scanTireInfo('右前')">📁</button>
             <div class="tire-position">右前</div>
             <div class="tire-maker">ブリヂストン</div>
             <div class="tire-pattern">ECOPIA EP150</div>
@@ -284,7 +284,7 @@
             <div class="tire-cap">キャップ有</div>
           </div>
           <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="alert('左後タイヤ撮影')">📷</button>
+            <button class="tire-camera-btn" onclick="scanTireInfo('左後')">📁</button>
             <div class="tire-position">左後</div>
             <div class="tire-maker">ブリヂストン</div>
             <div class="tire-pattern">ECOPIA EP150</div>
@@ -295,7 +295,7 @@
             <div class="tire-cap">キャップ有</div>
           </div>
           <div class="tire-cell">
-            <button class="tire-camera-btn" onclick="alert('右後タイヤ撮影')">📷</button>
+            <button class="tire-camera-btn" onclick="scanTireInfo('右後')">📁</button>
             <div class="tire-position">右後</div>
             <div class="tire-maker">ブリヂストン</div>
             <div class="tire-pattern">ECOPIA EP150</div>
@@ -471,7 +471,7 @@
           <label>ナンバー *</label>
           <div style="display:flex;gap:8px;">
             <input type="text" name="plate_number" placeholder="岐阜 500 あ 1234" style="flex:1;">
-            <button type="button" class="camera-scan-btn" onclick="scanPlateForRegister()">📷</button>
+            <button type="button" class="camera-scan-btn" onclick="scanPlateForRegister()">📁</button>
           </div>
         </div>
         <div class="form-row">
@@ -564,7 +564,7 @@
     </div>
   </div>
   <div class="chat-input-area">
-    <button class="chat-camera-btn" onclick="sendChatImage()">📷</button>
+    <button class="chat-camera-btn" onclick="sendChatImage()">📁</button>
     <input type="text" class="chat-input" placeholder="質問を入力...">
     <button class="chat-send-btn">➤</button>
   </div>
@@ -631,6 +631,418 @@
 </div>
 
 <!-- ========================================== -->
+<!-- ===== 車検証読取→新規登録画面 ===== -->
+<!-- ========================================== -->
+<div class="screen" id="shakenRegisterScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>車検証から新規登録</span>
+  </div>
+  <div style="padding:16px;">
+
+    <!-- 読取方法選択 -->
+    <div class="info-card">
+      <div class="info-card-header"><span>車検証データ取り込み</span></div>
+      <div style="display:flex;gap:10px;margin-bottom:16px;">
+        <button class="status-btn primary" onclick="scanShakenForRegister()" style="flex:1;padding:14px;">
+          <span style="font-size:20px;">📸</span><br>車検証を読み取る
+        </button>
+      </div>
+      <div style="font-size:11px;color:var(--sub);text-align:center;">カメラ撮影またはファイル選択で車検証画像を取り込みます</div>
+    </div>
+
+    <!-- 車検証フォーム -->
+    <form id="shakenForm">
+
+      <!-- 登録番号・日付 -->
+      <div class="info-card">
+        <div class="info-card-header"><span>登録情報</span></div>
+        <div class="form-group">
+          <label>自動車登録番号（ナンバー）</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_plate" placeholder="岐阜 500 あ 1234" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>登録年月日</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_registration_date" placeholder="令和6年4月1日" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>初度登録年月</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_first_registration" placeholder="令和5年3月" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>有効期間の満了する日</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_expiry" placeholder="令和8年3月31日" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 車両基本情報 -->
+      <div class="info-card">
+        <div class="info-card-header"><span>車両基本情報</span></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>自動車の種別</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_vehicle_type" placeholder="普通" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>用途</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_purpose" placeholder="乗用" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>自家用/事業用</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_private_commercial" placeholder="自家用" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>車体の形状</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_body_shape" placeholder="箱型" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>車名（メーカー）</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_vehicle_name" placeholder="トヨタ" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>乗車定員</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_capacity" placeholder="5人" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 型式・エンジン -->
+      <div class="info-card">
+        <div class="info-card-header"><span>型式・エンジン情報</span></div>
+        <div class="form-group">
+          <label>型式</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_model_code" placeholder="6AA-MXPH15" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>通称名（車種名）</label>
+          <div style="display:flex;gap:6px;">
+            <input type="text" name="shaken_common_name" placeholder="プリウス（自動検索 or 手入力）" style="flex:1;">
+            <button type="button" class="camera-scan-btn" onclick="lookupCommonName()" style="font-size:14px;width:80px;" title="型式から通称名検索">検索</button>
+          </div>
+          <div style="font-size:10px;color:var(--gray);margin-top:4px;">※ 型式/車台番号から通称名を自動取得（今後実装予定）</div>
+        </div>
+        <div class="form-group">
+          <label>原動機の型式</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_engine_model" placeholder="M15A-FXE" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>総排気量</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_displacement" placeholder="1490cc" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>燃料の種類</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_fuel" placeholder="ガソリン" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 車台番号・寸法・重量 -->
+      <div class="info-card" id="shakenVehicleInfo" style="display:none;">
+        <div class="info-card-header"><span>車台・寸法・重量</span></div>
+        <div class="form-group">
+          <label>車台番号</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_chassis" placeholder="MXPH15-1234567" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>長さ(cm)</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_length" placeholder="460" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>幅(cm)</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_width" placeholder="176" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>高さ(cm)</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_height" placeholder="143" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>車両重量</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_weight" placeholder="1360kg" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>車両総重量</label>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <input type="text" name="shaken_gross_weight" placeholder="1635kg" style="flex:1;">
+              <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>最大積載量</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_max_load" placeholder="—" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 所有者・使用者 -->
+      <div class="info-card">
+        <div class="info-card-header"><span>所有者・使用者情報</span></div>
+        <div class="form-group">
+          <label>所有者の氏名</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_owner_name" placeholder="岡部太郎" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>所有者の住所</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_owner_address" placeholder="岐阜県岐阜市..." style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>使用者の氏名</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_user_name" placeholder="所有者と同じ場合は***" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>使用者の住所</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_user_address" placeholder="" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>使用の本拠の位置</label>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="text" name="shaken_use_location" placeholder="" style="flex:1;">
+            <label class="ocr-verify"><input type="checkbox" class="ocr-check"> <span class="ocr-verify-label">確認</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>備考</label>
+          <input type="text" name="shaken_remarks" placeholder="">
+        </div>
+      </div>
+
+      <!-- 確認ステータス -->
+      <div class="info-card" style="background:#fffbeb;border:1px solid #fde68a;">
+        <div style="font-size:13px;font-weight:700;color:#92400e;margin-bottom:8px;">確認状況</div>
+        <div id="shakenVerifyStatus" style="font-size:12px;color:#92400e;line-height:1.8;">
+          各項目の「確認」チェックを入れてから登録してください。<br>
+          OCR読取データが車検証原本と一致しているか、必ず目視で確認してください。
+        </div>
+      </div>
+
+      <button type="button" class="status-btn primary" onclick="submitShakenRegister()" style="margin-top:12px;">この内容で登録する</button>
+      <button type="button" class="status-btn secondary" onclick="switchTab('home')" style="margin-top:8px;">キャンセル</button>
+    </form>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- ===== 発注希望送信画面（サービススタッフ用） ===== -->
+<!-- ========================================== -->
+<div class="screen" id="orderRequestScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>発注希望をフロント事務に送る</span>
+  </div>
+  <div style="padding:16px;">
+    <div class="info-card">
+      <div class="info-card-header"><span>発注希望</span></div>
+      <form id="orderRequestForm">
+        <div class="form-group">
+          <label>顧客名 *</label>
+          <input type="text" name="order_customer" placeholder="鈴木一郎 様">
+        </div>
+        <div class="form-group">
+          <label>車両</label>
+          <input type="text" name="order_vehicle" placeholder="プリウス / 岐阜 500 あ 1234">
+        </div>
+        <div class="form-group">
+          <label>タイヤ情報 *</label>
+          <input type="text" name="order_tire" placeholder="ブリヂストン ECOPIA EP150 195/65R15">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>数量（本）</label>
+            <select name="order_qty">
+              <option value="1">1本</option>
+              <option value="2">2本</option>
+              <option value="4" selected>4本</option>
+              <option value="5">5本</option>
+              <option value="6">6本</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>希望納期</label>
+            <input type="date" name="order_deadline">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>理由・備考</label>
+          <textarea name="order_reason" rows="3" placeholder="残溝不足のため交換が必要" style="width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;resize:vertical;"></textarea>
+        </div>
+      </form>
+      <button class="status-btn primary" onclick="submitOrderRequest()" style="margin-top:12px;">フロント事務に送信</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- ===== 発注依頼一覧画面（フロント事務用） ===== -->
+<!-- ========================================== -->
+<div class="screen" id="orderListScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>今日の発注依頼</span>
+  </div>
+  <div id="orderListItems" style="padding:12px 0;">
+    <div style="padding:40px;text-align:center;color:var(--sub);">読み込み中...</div>
+  </div>
+  <div style="padding:0 16px 16px;">
+    <button class="status-btn primary" onclick="showSupplierSelect()">選択した依頼を発注する</button>
+  </div>
+</div>
+
+<!-- ===== 発注先選択モーダル ===== -->
+<div id="supplierModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:998;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:16px;padding:24px;width:calc(100% - 48px);max-width:340px;">
+    <div style="font-size:15px;font-weight:700;text-align:center;margin-bottom:16px;">発注先を選択</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <button onclick="generateOrder('mstokai')" style="padding:16px;border-radius:12px;border:2px solid #4a7c3f;background:#e8f5e3;color:#4a7c3f;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+        MS.トーカイ へ発注
+      </button>
+      <button onclick="generateOrder('hagino')" style="padding:16px;border-radius:12px;border:2px solid #c44;background:#fde8e8;color:#c44;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+        ブリヂストンはきの へ発注
+      </button>
+      <button onclick="generateOrder('fuji')" style="padding:16px;border-radius:12px;border:2px solid #1a1a8c;background:#e8e8f5;color:#1a1a8c;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">
+        フジ・コーポレーション へ発注
+      </button>
+    </div>
+    <button onclick="closeSupplierModal()" style="margin-top:14px;width:100%;padding:10px;border:none;background:none;color:var(--sub);font-size:13px;font-family:inherit;cursor:pointer;">キャンセル</button>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- ===== 発注書プレビュー画面 ===== -->
+<!-- ========================================== -->
+<div class="screen" id="orderPreviewScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="openOrderList()">← 戻る</button>
+    <span id="orderPreviewTitle">発注書</span>
+  </div>
+  <div style="padding:8px;">
+    <div id="orderPreviewContent"></div>
+    <div style="padding:16px;">
+      <button class="status-btn primary" onclick="printOrder()">印刷する</button>
+      <button class="status-btn secondary" onclick="openOrderList()" style="margin-top:8px;">← 発注一覧に戻る</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- ===== 納品チェック画面（サービススタッフ用） ===== -->
+<!-- ========================================== -->
+<div class="screen" id="deliveryCheckScreen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="switchTab('home')">← 戻る</button>
+    <span>納品チェック</span>
+  </div>
+  <div style="padding:16px;">
+    <div class="info-card">
+      <div class="info-card-header"><span>Step 1: 納品書を読み取る</span></div>
+      <button class="status-btn primary" onclick="scanDeliverySlip()" style="margin-bottom:12px;">
+        <span style="font-size:18px;">📄</span> 納品書をスキャン
+      </button>
+      <div id="slipScanStatus" style="padding:8px 0;">
+        <div style="color:var(--sub);font-size:13px;">未スキャン</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-header"><span>Step 2: 納品タイヤを読み取る</span></div>
+      <button class="status-btn primary" onclick="scanDeliveryTire()" style="margin-bottom:12px;">
+        <span style="font-size:18px;">🔍</span> タイヤ側面をスキャン
+      </button>
+      <div id="tireScanStatus" style="padding:8px 0;">
+        <div style="color:var(--sub);font-size:13px;">未スキャン</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-header"><span>照合結果</span></div>
+      <div id="deliveryCompareResult">
+        <div style="padding:16px;text-align:center;color:var(--sub);font-size:13px;">納品書とタイヤの両方をスキャンすると照合結果を表示します</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== -->
 <!-- ===== 作業詳細モーダル ===== -->
 <!-- ========================================== -->
 <div class="modal-overlay" id="detailModal">
@@ -651,6 +1063,7 @@
 <script src="js/ocr.js"></script>
 <script src="js/chat.js"></script>
 <script src="js/register.js"></script>
+<script src="js/order.js"></script>
 <script src="js/common.js"></script>
 <script src="js/staff.js"></script>
 

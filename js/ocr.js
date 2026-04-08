@@ -2,25 +2,82 @@
 
 const OCR_ENDPOINT = SUPABASE_URL + '/functions/v1/tire-ocr';
 
-// カメラ起動して撮影
+// 撮影/ファイル選択モーダルを表示
 function openCamera(mode, callback) {
+  showImagePickerModal(mode, callback);
+}
+
+// 画像取り込みモーダル
+function showImagePickerModal(mode, callback) {
+  const labels = {
+    plate_number: 'ナンバープレート',
+    tire_info: 'タイヤ情報',
+    tread_depth: '残溝測定',
+    tire_chat: 'タイヤ画像',
+    shaken: '車検証',
+    delivery_slip: '納品書',
+    delivery_tire: '納品タイヤ',
+  };
+  const label = labels[mode] || '画像';
+
+  const el = document.createElement('div');
+  el.id = 'imagePickerModal';
+  el.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:998;';
+  el.innerHTML = `
+    <div style="background:#fff;border-radius:16px;padding:24px;width:calc(100% - 48px);max-width:340px;text-align:center;">
+      <div style="font-size:15px;font-weight:700;margin-bottom:20px;">${label}を取り込む</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button onclick="pickImage('camera','${mode}')" style="
+          padding:16px;border-radius:12px;border:none;background:var(--accent);color:#fff;
+          font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;
+          display:flex;align-items:center;justify-content:center;gap:8px;
+          box-shadow:0 2px 8px rgba(37,99,235,0.3);">
+          <span style="font-size:20px;">📸</span> カメラで撮影
+        </button>
+        <button onclick="pickImage('file','${mode}')" style="
+          padding:16px;border-radius:12px;border:1.5px solid var(--border);background:#fff;color:var(--text);
+          font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;
+          display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span style="font-size:20px;">📁</span> ファイルから選択
+        </button>
+      </div>
+      <button onclick="closeImagePickerModal()" style="
+        margin-top:14px;padding:10px;border:none;background:none;
+        color:var(--sub);font-size:13px;font-family:inherit;cursor:pointer;">
+        キャンセル
+      </button>
+    </div>`;
+  document.body.appendChild(el);
+
+  // グローバルにcallbackを保持
+  window._ocrCallback = callback;
+}
+
+function closeImagePickerModal() {
+  const el = document.getElementById('imagePickerModal');
+  if (el) el.remove();
+}
+
+function pickImage(source, mode) {
+  closeImagePickerModal();
+
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = 'image/*';
-  input.capture = 'environment';
+  if (source === 'camera') {
+    input.capture = 'environment';
+  }
+
   input.onchange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // 処理中表示
     showOcrLoading(mode);
-
     const base64 = await fileToBase64(file);
     const result = await callOcr(base64, mode);
-
     hideOcrLoading();
 
-    if (callback) callback(result);
+    if (window._ocrCallback) window._ocrCallback(result);
   };
   input.click();
 }
@@ -64,13 +121,11 @@ function scanPlateNumber() {
   openCamera('plate_number', async (result) => {
     if (!result) return;
 
-    // ナンバーで車両検索
     const vehicles = await searchVehicleByPlate(result.plate_number);
     if (vehicles.length > 0) {
       const v = vehicles[0];
       const customerName = v.customers?.name || '不明';
-      alert(`✅ 車両が見つかりました\n\n${customerName}\n${v.maker} ${v.model}\n${v.plate_number}`);
-      // 顧客詳細を表示
+      alert(`車両が見つかりました\n\n${customerName}\n${v.maker} ${v.model}\n${v.plate_number}`);
       showCustomerDetail(v.customer_id);
     } else {
       alert(`ナンバー: ${result.plate_number}\n\n該当する車両が登録されていません。新規登録しますか？`);
@@ -82,11 +137,8 @@ function scanPlateNumber() {
 function scanTireInfo(position) {
   openCamera('tire_info', (result) => {
     if (!result) return;
-
     const info = `メーカー: ${result.manufacturer || '—'}\nパターン: ${result.pattern || '—'}\nサイズ: ${result.size || '—'}`;
-    alert(`📷 タイヤ情報読取結果（${position}）\n\n${info}\n\n確度: ${result.confidence}`);
-
-    // TODO: 読み取り結果をフォームに自動入力
+    alert(`タイヤ情報読取結果（${position}）\n\n${info}\n\n確度: ${result.confidence}`);
   });
 }
 
@@ -94,21 +146,24 @@ function scanTireInfo(position) {
 function scanTreadDepth(position) {
   openCamera('tread_depth', (result) => {
     if (!result) return;
-
     const conditionEmoji = {
       '良好': '🟢', '要注意': '🟡', '交換推奨': '🔴', '使用不可': '⛔'
     };
     const emoji = conditionEmoji[result.condition] || '';
-
     let info = `残溝: ${result.tread_depth_mm}mm\n判定: ${emoji} ${result.condition}\n理由: ${result.condition_reason || ''}`;
-    if (result.crack_visible) info += '\n⚠️ ひび割れあり';
+    if (result.crack_visible) info += '\n⚠ ひび割れあり';
     if (result.wear_pattern && result.wear_pattern !== '均一' && result.wear_pattern !== '不明') {
-      info += `\n⚠️ ${result.wear_pattern}`;
+      info += `\n⚠ ${result.wear_pattern}`;
     }
+    alert(`残溝読取結果（${position}）\n\n${info}\n\n確度: ${result.confidence}`);
+  });
+}
 
-    alert(`📷 残溝読取結果（${position}）\n\n${info}\n\n確度: ${result.confidence}`);
-
-    // TODO: 読み取り結果をDBに保存
+// ===== 車検証読取 =====
+function scanShaken(callback) {
+  openCamera('shaken', (result) => {
+    if (!result) return;
+    if (callback) callback(result);
   });
 }
 
@@ -117,19 +172,18 @@ function sendChatImage() {
   openCamera('tire_chat', (result) => {
     if (!result) return;
 
-    // チャット画面にBot回答を表示
     const chatMessages = document.querySelector('.chat-messages');
     if (chatMessages) {
       const userBubble = document.createElement('div');
       userBubble.className = 'chat-bubble user';
-      userBubble.textContent = '📷 画像を送信しました';
+      userBubble.textContent = '画像を送信しました';
       chatMessages.appendChild(userBubble);
 
       const botBubble = document.createElement('div');
       botBubble.className = 'chat-bubble bot';
       let html = result.answer || '分析結果を取得できませんでした。';
       if (result.action_needed === 'yes') {
-        html += `<br><br>⚠️ <b>管理者への報告が必要です</b><br>${result.action_reason || ''}`;
+        html += `<br><br>⚠ <b>管理者への報告が必要です</b><br>${result.action_reason || ''}`;
       }
       botBubble.innerHTML = html;
       chatMessages.appendChild(botBubble);
@@ -145,9 +199,11 @@ function showOcrLoading(mode) {
     plate_number: 'ナンバーを読み取り中...',
     tire_info: 'タイヤ情報を読み取り中...',
     tread_depth: '残溝を測定中...',
-    tire_chat: '画像を分析中...'
+    tire_chat: '画像を分析中...',
+    shaken: '車検証を読み取り中...',
+    delivery_slip: '納品書を読み取り中...',
+    delivery_tire: 'タイヤ情報を読み取り中...',
   };
-  // 簡易ローディング（alertの代わり）
   const el = document.createElement('div');
   el.id = 'ocrLoading';
   el.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999;';

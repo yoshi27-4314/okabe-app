@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>タイヤホテル OKABE — 機能・権限ヒアリングシート</title>
+<style>
+  @media print {
+    body { font-size: 10px; }
+    .no-print { display: none !important; }
+    .page-break { page-break-before: always; }
+    table { page-break-inside: auto; }
+    tr { page-break-inside: avoid; }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic Pro', sans-serif; color: #1a1a1a; line-height: 1.5; padding: 20px; max-width: 1100px; margin: auto; }
+  h1 { font-size: 20px; text-align: center; margin-bottom: 4px; letter-spacing: 2px; }
+  .subtitle { text-align: center; font-size: 12px; color: #666; margin-bottom: 20px; }
+  .meta-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; margin-bottom: 20px; font-size: 12px; display: flex; gap: 24px; flex-wrap: wrap; }
+  .meta-box label { font-weight: 700; color: #475569; }
+  .meta-box .field { border-bottom: 1px solid #cbd5e1; min-width: 140px; display: inline-block; padding: 2px 4px; }
+
+  h2 { font-size: 15px; margin: 24px 0 8px; padding: 6px 12px; background: #0d1b2a; color: #fff; border-radius: 6px; letter-spacing: 1px; }
+  h3 { font-size: 13px; margin: 16px 0 6px; color: #0d1b2a; border-bottom: 2px solid #2563eb; padding-bottom: 4px; }
+
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 11px; }
+  th, td { border: 1px solid #cbd5e1; padding: 6px 8px; text-align: center; }
+  th { background: #f1f5f9; font-weight: 700; font-size: 10px; color: #334155; }
+  th.feature-col { text-align: left; width: 260px; }
+  td.feature-col { text-align: left; font-weight: 500; }
+  td.desc-col { text-align: left; font-size: 10px; color: #64748b; }
+
+  .role-header { writing-mode: horizontal-tb; font-size: 10px; min-width: 50px; }
+  .check-cell { width: 50px; }
+  .check-cell input[type="checkbox"] { width: 16px; height: 16px; accent-color: #2563eb; }
+
+  .category-row td { background: #e0f2fe; font-weight: 700; font-size: 11px; color: #0369a1; text-align: left; }
+  .note-row td { background: #fffbeb; font-size: 10px; color: #92400e; text-align: left; border-top: none; }
+
+  .notes-area { margin-top: 8px; }
+  .notes-area textarea { width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; font-family: inherit; font-size: 11px; resize: vertical; min-height: 60px; }
+  .notes-label { font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 4px; }
+
+  .legend { display: flex; gap: 16px; font-size: 11px; color: #475569; margin-bottom: 16px; flex-wrap: wrap; }
+  .legend span { display: flex; align-items: center; gap: 4px; }
+  .legend-box { width: 14px; height: 14px; border: 1px solid #cbd5e1; border-radius: 3px; display: inline-block; }
+  .legend-box.filled { background: #2563eb; border-color: #2563eb; }
+  .legend-box.current { background: #e0f2fe; border-color: #2563eb; }
+
+  .print-btn { position: fixed; bottom: 20px; right: 20px; padding: 12px 24px; background: #2563eb; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(37,99,235,0.3); z-index: 100; }
+  .print-btn:hover { background: #1d4ed8; }
+
+  .summary-section { margin-top: 24px; }
+  .summary-section table td { text-align: left; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">印刷する</button>
+
+<h1>タイヤホテル OKABE 機能・権限ヒアリングシート</h1>
+<div class="subtitle">各担当者へのヒアリング用 — アカウント権限設定の基礎資料</div>
+
+<div class="meta-box">
+  <div><label>ヒアリング日:</label> <span class="field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;&nbsp;日</span></div>
+  <div><label>対象者名:</label> <span class="field"></span></div>
+  <div><label>役職/ロール:</label> <span class="field"></span></div>
+  <div><label>記入者:</label> <span class="field"></span></div>
+</div>
+
+<div class="legend">
+  <span><span class="legend-box filled"></span> = 使用する（権限付与）</span>
+  <span><span class="legend-box current"></span> = 閲覧のみ（編集不可）</span>
+  <span><span class="legend-box"></span> = 不要（権限なし）</span>
+</div>
+
+<!-- ============================================ -->
+<h2>1. 機能一覧 × ロール別権限マトリクス</h2>
+<!-- ============================================ -->
+
+<h3>A. 顧客・車両管理</h3>
+<table>
+  <thead>
+    <tr>
+      <th class="feature-col">機能</th>
+      <th class="check-cell"><div class="role-header">岡部社長</div></th>
+      <th class="check-cell"><div class="role-header">営業部長</div></th>
+      <th class="check-cell"><div class="role-header">営業</div></th>
+      <th class="check-cell"><div class="role-header">工場長</div></th>
+      <th class="check-cell"><div class="role-header">フロント事務</div></th>
+      <th class="check-cell"><div class="role-header">サービス</div></th>
+      <th style="width:120px;">備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="feature-col">顧客情報の閲覧</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">顧客の新規登録（手入力）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">車検証OCRからの新規登録</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">顧客情報の編集・更新</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">車両情報の登録・編集</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">顧客・車両の検索</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>B. タイヤ管理・OCR</h3>
+<table>
+  <thead>
+    <tr>
+      <th class="feature-col">機能</th>
+      <th class="check-cell"><div class="role-header">岡部社長</div></th>
+      <th class="check-cell"><div class="role-header">営業部長</div></th>
+      <th class="check-cell"><div class="role-header">営業</div></th>
+      <th class="check-cell"><div class="role-header">工場長</div></th>
+      <th class="check-cell"><div class="role-header">フロント事務</div></th>
+      <th class="check-cell"><div class="role-header">サービス</div></th>
+      <th style="width:120px;">備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="feature-col">タイヤセット情報の閲覧</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">タイヤ4本の登録・編集</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">ナンバープレートOCR読取</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">タイヤ側面OCR読取（メーカー・サイズ等）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">残溝OCR測定</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">車検証OCR読取</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>C. 預かり・保管管理</h3>
+<table>
+  <thead>
+    <tr>
+      <th class="feature-col">機能</th>
+      <th class="check-cell"><div class="role-header">岡部社長</div></th>
+      <th class="check-cell"><div class="role-header">営業部長</div></th>
+      <th class="check-cell"><div class="role-header">営業</div></th>
+      <th class="check-cell"><div class="role-header">工場長</div></th>
+      <th class="check-cell"><div class="role-header">フロント事務</div></th>
+      <th class="check-cell"><div class="role-header">サービス</div></th>
+      <th style="width:120px;">備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="feature-col">預かり台帳の閲覧</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">預かり期間の登録</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">返却処理</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">期限超過アラートの確認</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">保管場所の割り当て・変更</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>D. 作業管理</h3>
+<table>
+  <thead>
+    <tr>
+      <th class="feature-col">機能</th>
+      <th class="check-cell"><div class="role-header">岡部社長</div></th>
+      <th class="check-cell"><div class="role-header">営業部長</div></th>
+      <th class="check-cell"><div class="role-header">営業</div></th>
+      <th class="check-cell"><div class="role-header">工場長</div></th>
+      <th class="check-cell"><div class="role-header">フロント事務</div></th>
+      <th class="check-cell"><div class="role-header">サービス</div></th>
+      <th style="width:120px;">備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="feature-col">作業一覧の閲覧（今日/明日/今週）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">作業詳細の閲覧</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">作業の新規登録（予約作成）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">ステータス変更: 予約→受付</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">ステータス変更: 受付→作業中</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">ステータス変更: 作業中→完了</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">作業のキャンセル</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h3>E. 発注・納品管理</h3>
+<table>
+  <thead>
+    <tr>
+      <th class="feature-col">機能</th>
+      <th class="check-cell"><div class="role-header">岡部社長</div></th>
+      <th class="check-cell"><div class="role-header">営業部長</div></th>
+      <th class="check-cell"><div class="role-header">営業</div></th>
+      <th class="check-cell"><div class="role-header">工場長</div></th>
+      <th class="check-cell"><div class="role-header">フロント事務</div></th>
+      <th class="check-cell"><div class="role-header">サービス</div></th>
+      <th style="width:120px;">備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="feature-col">発注希望の送信（→フロント事務へ）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">発注依頼一覧の閲覧</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">発注書の作成（MS.トーカイ）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">発注書の作成（ブリヂストンはきの）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">発注書の作成（フジ・コーポレーション）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">発注書の印刷</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">納品チェック（納品書OCR×タイヤOCR照合）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>F. レポート・経営</h3>
+<table>
+  <thead>
+    <tr>
+      <th class="feature-col">機能</th>
+      <th class="check-cell"><div class="role-header">岡部社長</div></th>
+      <th class="check-cell"><div class="role-header">営業部長</div></th>
+      <th class="check-cell"><div class="role-header">営業</div></th>
+      <th class="check-cell"><div class="role-header">工場長</div></th>
+      <th class="check-cell"><div class="role-header">フロント事務</div></th>
+      <th class="check-cell"><div class="role-header">サービス</div></th>
+      <th style="width:120px;">備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="feature-col">ダッシュボード（総顧客数・預かり数等）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">売上レポート</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td>今後実装</td>
+    </tr>
+    <tr>
+      <td class="feature-col">売上シート・エクスポート</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td>今後実装</td>
+    </tr>
+    <tr>
+      <td class="feature-col">交換推奨タイヤ一覧</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td>今後実装</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>G. その他ツール</h3>
+<table>
+  <thead>
+    <tr>
+      <th class="feature-col">機能</th>
+      <th class="check-cell"><div class="role-header">岡部社長</div></th>
+      <th class="check-cell"><div class="role-header">営業部長</div></th>
+      <th class="check-cell"><div class="role-header">営業</div></th>
+      <th class="check-cell"><div class="role-header">工場長</div></th>
+      <th class="check-cell"><div class="role-header">フロント事務</div></th>
+      <th class="check-cell"><div class="role-header">サービス</div></th>
+      <th style="width:120px;">備考</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="feature-col">業務アシスタントBot（テキスト質問）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">業務アシスタントBot（画像送信）</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">約款の閲覧</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="feature-col">訪問記録</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td>今後実装</td>
+    </tr>
+    <tr>
+      <td class="feature-col">設定画面</td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell"><input type="checkbox"></td>
+      <td>今後実装</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<h2>2. ヒアリング質問項目</h2>
+<!-- ============================================ -->
+
+<h3>Q1. 日常業務について</h3>
+<div class="notes-area">
+  <div class="notes-label">現在の1日の業務フローを教えてください（朝〜夕方の流れ）</div>
+  <textarea></textarea>
+</div>
+<div class="notes-area">
+  <div class="notes-label">一番時間がかかっている作業は何ですか？</div>
+  <textarea></textarea>
+</div>
+<div class="notes-area">
+  <div class="notes-label">手書きや電話でやっていて、アプリ化したいことはありますか？</div>
+  <textarea></textarea>
+</div>
+
+<h3>Q2. このアプリに期待すること</h3>
+<div class="notes-area">
+  <div class="notes-label">上の機能一覧で「特に使いたい」と思った機能はどれですか？（番号で）</div>
+  <textarea></textarea>
+</div>
+<div class="notes-area">
+  <div class="notes-label">一覧にないが「こういう機能があったらいい」というものはありますか？</div>
+  <textarea></textarea>
+</div>
+
+<h3>Q3. 権限について</h3>
+<div class="notes-area">
+  <div class="notes-label">他のロールの人に「見せたくない」「触らせたくない」情報はありますか？</div>
+  <textarea></textarea>
+</div>
+<div class="notes-area">
+  <div class="notes-label">自分の権限で「これは不要」と思う機能はありますか？</div>
+  <textarea></textarea>
+</div>
+
+<h3>Q4. 仕入先・外部連携について</h3>
+<div class="notes-area">
+  <div class="notes-label">現在のタイヤ仕入先は3社（MS.トーカイ/ブリヂストンはきの/フジ）で合っていますか？他にありますか？</div>
+  <textarea></textarea>
+</div>
+<div class="notes-area">
+  <div class="notes-label">LINE連携（お客様への通知等）で必要なことはありますか？</div>
+  <textarea></textarea>
+</div>
+
+<h3>Q5. その他</h3>
+<div class="notes-area">
+  <div class="notes-label">自由記述（困っていること・改善要望・質問など）</div>
+  <textarea style="min-height:100px;"></textarea>
+</div>
+
+</body>
+</html>

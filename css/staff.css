@@ -459,3 +459,37 @@ body { padding-bottom: 0; }
 .step-dot { transition: all 0.3s; }
 .step-dot.active { background: var(--accent) !important; }
 .step-dot.current { box-shadow: 0 0 0 4px var(--accent-light); transform: scale(1.2); }
+
+/* OCR確認チェックマーク */
+.ocr-verify {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ocr-verify input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--success);
+  cursor: pointer;
+}
+.ocr-verify-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--sub);
+}
+.ocr-verify input:checked + .ocr-verify-label {
+  color: var(--success);
+}
+
+/* 発注依頼カード */
+.order-request-card {
+  background: #fff;
+  margin: 6px 16px;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: 0 1px 4px var(--shadow);
+  border-left: 4px solid var(--warning);
+}

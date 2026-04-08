@@ -104,6 +104,98 @@ Deno.serve(async (req) => {
 - 小数点1桁まで読み取ってください
 - ひび割れ、偏摩耗なども確認してください`;
 
+    } else if (mode === "shaken") {
+      systemPrompt = "あなたは日本の自動車検査証（車検証）を正確に読み取るOCRアシスタントです。紙の車検証でも電子車検証の画面キャプチャでも対応します。";
+      userPrompt = `この画像は日本の自動車検査証（車検証）です。記載されている全項目を正確に読み取ってください。
+
+必ず以下のJSON形式のみで回答してください。他のテキストは含めないでください。
+{
+  "plate_number": "自動車登録番号又は車両番号（例: 岐阜 500 あ 1234）",
+  "registration_date": "登録年月日/交付年月日（例: 令和6年4月1日）",
+  "first_registration": "初度登録年月（例: 令和5年3月）",
+  "expiry_date": "有効期間の満了する日（例: 令和8年3月31日）",
+  "vehicle_type": "自動車の種別（普通/小型/軽自動車 等）",
+  "purpose": "用途（乗用/貨物/乗合 等）",
+  "private_or_commercial": "自家用・事業用の別（自家用/事業用）",
+  "body_shape": "車体の形状（箱型/ステーションワゴン/幌型 等）",
+  "vehicle_name": "車名（トヨタ/ニッサン/ホンダ 等のメーカー名）",
+  "model_code": "型式（例: 6AA-MXPH15）",
+  "engine_model": "原動機の型式（例: M15A-FXE）",
+  "displacement_cc": "総排気量又は定格出力（例: 1490cc）",
+  "fuel_type": "燃料の種類（ガソリン/軽油/電気 等）",
+  "passenger_capacity": "乗車定員（例: 5人）",
+  "max_load_kg": "最大積載量（該当する場合。例: 350kg）",
+  "vehicle_weight_kg": "車両重量（例: 1360kg）",
+  "gross_weight_kg": "車両総重量（例: 1635kg）",
+  "chassis_number": "車台番号（例: MXPH15-1234567）",
+  "length_cm": "長さ（cm。例: 460）",
+  "width_cm": "幅（cm。例: 176）",
+  "height_cm": "高さ（cm。例: 143）",
+  "owner_name": "所有者の氏名又は名称",
+  "owner_address": "所有者の住所",
+  "user_name": "使用者の氏名又は名称（所有者と同じ場合は '***' と記載されていることがある）",
+  "user_address": "使用者の住所（所有者と同じ場合は '***' と記載されていることがある）",
+  "use_location": "使用の本拠の位置",
+  "remarks": "備考欄に記載がある場合",
+  "confidence": "読み取り確度 high/medium/low"
+}
+
+重要な注意:
+- 使用者が「***」の場合、所有者と同一人物を意味します
+- 型式は正確にハイフンや数字を読み取ってください（例: 6AA-MXPH15）
+- 車台番号も正確に読み取ってください
+- 日付は元号表記のまま読み取ってください
+- 数値項目（排気量、重量、寸法等）は単位付きで読み取ってください
+- 読み取れない項目はnullにしてください
+- 電子車検証の場合、一部項目がICチップ内にのみ格納され画面に表示されないことがあります。その場合もnullにしてください`;
+
+    } else if (mode === "delivery_slip") {
+      systemPrompt = "あなたはタイヤ納品書を読み取るOCRアシスタントです。";
+      userPrompt = `この画像はタイヤの納品書（伝票）です。記載されている情報を読み取ってください。
+
+必ず以下のJSON形式のみで回答してください。他のテキストは含めないでください。
+{
+  "slip_number": "伝票番号",
+  "date": "日付",
+  "supplier": "仕入先・発送元",
+  "items": [
+    {
+      "name": "商品名（メーカー名+パターン名+サイズを含む）",
+      "manufacturer": "メーカー名",
+      "pattern": "パターン名",
+      "size": "サイズ",
+      "quantity": "数量",
+      "unit_price": "単価",
+      "amount": "金額"
+    }
+  ],
+  "total_amount": "合計金額",
+  "notes": "備考",
+  "confidence": "読み取り確度 high/medium/low"
+}
+
+注意:
+- タイヤのメーカー名・パターン名・サイズを正確に分離してください
+- 数量は数値で返してください
+- 読み取れない項目はnullにしてください`;
+
+    } else if (mode === "delivery_tire") {
+      systemPrompt = "あなたはタイヤの側面に刻印された情報を読み取るOCRアシスタントです。納品されたタイヤの検品に使われます。";
+      userPrompt = `この画像は納品されたタイヤの側面です。タイヤの情報を読み取ってください。
+
+必ず以下のJSON形式のみで回答してください。他のテキストは含めないでください。
+{
+  "manufacturer": "メーカー名（例: BRIDGESTONE, YOKOHAMA, DUNLOP, TOYO, MICHELIN等）",
+  "pattern": "パターン名・商品名（例: ECOPIA EP150, iceGUARD 7等）",
+  "size": "タイヤサイズ（例: 195/65R15）",
+  "dot": "DOTコード（製造年週）が読み取れれば（例: 2024）",
+  "confidence": "読み取り確度 high/medium/low"
+}
+
+注意:
+- メーカー名は英語表記で読み取ってください
+- 読み取れない項目はnullにしてください`;
+
     } else if (mode === "tire_chat") {
       systemPrompt = `あなたはタイヤホテルOKABEの業務アシスタントです。
 サービススタッフからの業務質問に回答します。
@@ -122,7 +214,7 @@ Deno.serve(async (req) => {
 
     } else {
       return new Response(
-        JSON.stringify({ error: "Invalid mode. Use: plate_number, tire_info, tread_depth, tire_chat" }),
+        JSON.stringify({ error: "Invalid mode. Use: plate_number, tire_info, tread_depth, shaken, delivery_slip, delivery_tire, tire_chat" }),
         { status: 400, headers: { ...CORS_HEADERS, "Content-Type": "application/json" } }
       );
     }

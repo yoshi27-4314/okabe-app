@@ -1,5 +1,37 @@
 /* ===== 新規登録機能 ===== */
 
+// 新規登録方法選択モーダル
+function showRegisterChoice() {
+  const el = document.createElement('div');
+  el.id = 'registerChoiceModal';
+  el.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:998;';
+  el.innerHTML = `
+    <div style="background:#fff;border-radius:16px;padding:24px;width:calc(100% - 48px);max-width:340px;text-align:center;">
+      <div style="font-size:15px;font-weight:700;margin-bottom:20px;">新規登録方法を選択</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button onclick="document.getElementById('registerChoiceModal').remove(); openRegister();" style="
+          padding:16px;border-radius:12px;border:1.5px solid var(--border);background:#fff;color:var(--text);
+          font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;
+          display:flex;align-items:center;justify-content:center;gap:8px;">
+          <span style="font-size:20px;">✏️</span> 手入力で登録
+        </button>
+        <button onclick="document.getElementById('registerChoiceModal').remove(); openShakenRegister();" style="
+          padding:16px;border-radius:12px;border:none;background:var(--accent);color:#fff;
+          font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;
+          display:flex;align-items:center;justify-content:center;gap:8px;
+          box-shadow:0 2px 8px rgba(37,99,235,0.3);">
+          <span style="font-size:20px;">📄</span> 車検証データから登録
+        </button>
+      </div>
+      <button onclick="document.getElementById('registerChoiceModal').remove();" style="
+        margin-top:14px;padding:10px;border:none;background:none;
+        color:var(--sub);font-size:13px;font-family:inherit;cursor:pointer;">
+        キャンセル
+      </button>
+    </div>`;
+  document.body.appendChild(el);
+}
+
 // 登録フォームの状態
 let registerState = {
   step: 1, // 1:顧客 2:車両 3:タイヤセット 4:タイヤ4本
@@ -30,7 +62,7 @@ function buildTireInputs() {
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <span style="font-size:13px;font-weight:700;color:var(--primary);">${pos}</span>
         <div style="display:flex;gap:4px;">
-          <button type="button" class="camera-scan-btn" style="width:32px;height:32px;font-size:14px;" onclick="scanTireForRegister('${pos}')" title="タイヤ読取">📷</button>
+          <button type="button" class="camera-scan-btn" style="width:32px;height:32px;font-size:14px;" onclick="scanTireForRegister('${pos}')" title="タイヤ読取">📁</button>
           <button type="button" class="camera-scan-btn" style="width:32px;height:32px;font-size:14px;background:var(--success);" onclick="scanDepthForRegister('${pos}')" title="残溝読取">📏</button>
         </div>
       </div>
