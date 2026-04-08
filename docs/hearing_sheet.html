@@ -33,6 +33,10 @@
   .role-header { writing-mode: horizontal-tb; font-size: 10px; min-width: 50px; }
   .check-cell { width: 50px; }
   .check-cell input[type="checkbox"] { width: 16px; height: 16px; accent-color: #2563eb; }
+  .check-cell.done { background: #dcfce7; }
+  .check-cell.done input[type="checkbox"] { accent-color: #16a34a; }
+  .check-cell.partial { background: #fef9c3; }
+  .check-cell.partial input[type="checkbox"] { accent-color: #ca8a04; }
 
   .category-row td { background: #e0f2fe; font-weight: 700; font-size: 11px; color: #0369a1; text-align: left; }
   .note-row td { background: #fffbeb; font-size: 10px; color: #92400e; text-align: left; border-top: none; }
@@ -72,6 +76,8 @@
   <span><span class="legend-box filled"></span> = 使用する（権限付与）</span>
   <span><span class="legend-box current"></span> = 閲覧のみ（編集不可）</span>
   <span><span class="legend-box"></span> = 不要（権限なし）</span>
+  <span><span class="legend-box" style="background:#dcfce7;border-color:#16a34a;"></span> = 実装済み</span>
+  <span><span class="legend-box" style="background:#fef9c3;border-color:#ca8a04;"></span> = 一部実装</span>
 </div>
 
 <!-- ============================================ -->
@@ -100,7 +106,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -110,7 +116,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -120,7 +126,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -131,7 +137,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td>未実装</td>
     </tr>
     <tr>
       <td class="feature-col">車両情報の登録・編集</td>
@@ -140,8 +146,8 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td class="check-cell partial"><input type="checkbox" checked></td>
+      <td>登録のみ。編集は未実装</td>
     </tr>
     <tr>
       <td class="feature-col">顧客・車両の検索</td>
@@ -150,7 +156,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
   </tbody>
@@ -178,7 +184,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -188,8 +194,8 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td class="check-cell partial"><input type="checkbox" checked></td>
+      <td>登録のみ。編集は未実装</td>
     </tr>
     <tr>
       <td class="feature-col">ナンバープレートOCR読取</td>
@@ -198,7 +204,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -208,7 +214,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -218,7 +224,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -228,7 +234,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
   </tbody>
@@ -256,7 +262,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -266,8 +272,8 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
+      <td>新規登録Step3で実装</td>
     </tr>
     <tr>
       <td class="feature-col">返却処理</td>
@@ -277,7 +283,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td>未実装</td>
     </tr>
     <tr>
       <td class="feature-col">期限超過アラートの確認</td>
@@ -286,8 +292,8 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
+      <td>台帳の期限超過フィルター</td>
     </tr>
     <tr>
       <td class="feature-col">保管場所の割り当て・変更</td>
@@ -296,8 +302,8 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td class="check-cell partial"><input type="checkbox" checked></td>
+      <td>登録時のみ。変更は未実装</td>
     </tr>
   </tbody>
 </table>
@@ -324,7 +330,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -334,7 +340,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -345,7 +351,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td>未実装</td>
     </tr>
     <tr>
       <td class="feature-col">ステータス変更: 予約→受付</td>
@@ -354,7 +360,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -364,7 +370,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -374,7 +380,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -385,7 +391,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td>未実装</td>
     </tr>
   </tbody>
 </table>
@@ -414,8 +420,8 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
+      <td>画面あり</td>
     </tr>
     <tr>
       <td class="feature-col">発注依頼一覧の閲覧</td>
@@ -425,7 +431,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td>フロント事務向け機能</td>
     </tr>
     <tr>
       <td class="feature-col">発注書の作成（MS.トーカイ）</td>
@@ -435,7 +441,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td>フロント事務向け機能</td>
     </tr>
     <tr>
       <td class="feature-col">発注書の作成（ブリヂストンはきの）</td>
@@ -445,7 +451,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td>フロント事務向け機能</td>
     </tr>
     <tr>
       <td class="feature-col">発注書の作成（フジ・コーポレーション）</td>
@@ -455,7 +461,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td>フロント事務向け機能</td>
     </tr>
     <tr>
       <td class="feature-col">発注書の印刷</td>
@@ -465,7 +471,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td>フロント事務向け機能</td>
     </tr>
     <tr>
       <td class="feature-col">納品チェック（納品書OCR×タイヤOCR照合）</td>
@@ -474,8 +480,8 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
+      <td>画面あり</td>
     </tr>
   </tbody>
 </table>
@@ -502,8 +508,8 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
-      <td></td>
+      <td class="check-cell partial"><input type="checkbox" checked></td>
+      <td>ホームのサマリーのみ</td>
     </tr>
     <tr>
       <td class="feature-col">売上レポート</td>
@@ -513,7 +519,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td>今後実装</td>
+      <td>未実装</td>
     </tr>
     <tr>
       <td class="feature-col">売上シート・エクスポート</td>
@@ -523,7 +529,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td>今後実装</td>
+      <td>未実装</td>
     </tr>
     <tr>
       <td class="feature-col">交換推奨タイヤ一覧</td>
@@ -533,7 +539,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td>今後実装</td>
+      <td>未実装</td>
     </tr>
   </tbody>
 </table>
@@ -560,7 +566,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -570,7 +576,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -580,7 +586,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td class="check-cell"><input type="checkbox"></td>
+      <td class="check-cell done"><input type="checkbox" checked></td>
       <td></td>
     </tr>
     <tr>
@@ -591,7 +597,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td>今後実装</td>
+      <td>未実装</td>
     </tr>
     <tr>
       <td class="feature-col">設定画面</td>
@@ -601,7 +607,7 @@
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
       <td class="check-cell"><input type="checkbox"></td>
-      <td>今後実装</td>
+      <td>未実装</td>
     </tr>
   </tbody>
 </table>
