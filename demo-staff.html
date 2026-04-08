@@ -130,6 +130,58 @@ body {
 .bottom-nav-icon { font-size: 20px; line-height: 1; }
 .bottom-nav-label { font-size: 9px; font-weight: 600; color: var(--sub); line-height: 1; }
 
+/* サブメニュー */
+.submenu-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 60px;
+  background: rgba(0,0,0,0.3);
+  z-index: 899;
+  backdrop-filter: blur(2px);
+}
+.submenu-overlay.active { display: block; }
+.submenu {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  padding: 16px 16px 20px;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.12);
+  animation: slideUp 0.2s ease-out;
+}
+@keyframes slideUp {
+  from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+.submenu-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sub);
+  text-align: center;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.submenu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.submenu-item {
+  background: var(--gray-bg);
+  border-radius: var(--radius);
+  padding: 14px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.submenu-item:active { transform: scale(0.95); background: var(--accent-light); }
+.submenu-icon { font-size: 24px; margin-bottom: 4px; }
+.submenu-label { font-size: 11px; font-weight: 700; color: var(--text); }
+
 /* ===== モーダル共通 ===== */
 .modal-overlay {
   display: none;
@@ -717,8 +769,6 @@ body {
     </div>
   </div>
   <div class="header-right">
-    <button class="header-btn" onclick="switchTab('home')">🏠</button>
-    <button class="header-btn" onclick="switchTab('search')">🔍</button>
     <button class="header-btn" onclick="switchTab('chat')">💬</button>
     <button class="header-btn" onclick="alert('通知はありません')">🔔</button>
   </div>
@@ -1310,26 +1360,67 @@ body {
 </div>
 
 <!-- ===== ボトムナビ ===== -->
+<!-- サブメニュー（業務） -->
+<div class="submenu-overlay" id="submenuGyomu" onclick="closeSubmenu('submenuGyomu')">
+  <div class="submenu" onclick="event.stopPropagation()">
+    <div class="submenu-title">業務</div>
+    <div class="submenu-grid">
+      <div class="submenu-item" onclick="closeSubmenu('submenuGyomu'); switchTab('work')">
+        <div class="submenu-icon">📋</div><div class="submenu-label">作業一覧</div>
+      </div>
+      <div class="submenu-item" onclick="closeSubmenu('submenuGyomu'); switchTab('storage')">
+        <div class="submenu-icon">📦</div><div class="submenu-label">預かり台帳</div>
+      </div>
+      <div class="submenu-item" onclick="closeSubmenu('submenuGyomu'); switchTab('orderRequest')">
+        <div class="submenu-icon">🛒</div><div class="submenu-label">発注希望</div>
+      </div>
+      <div class="submenu-item" onclick="closeSubmenu('submenuGyomu'); switchTab('deliveryCheck')">
+        <div class="submenu-icon">📄</div><div class="submenu-label">納品チェック</div>
+      </div>
+      <div class="submenu-item" onclick="closeSubmenu('submenuGyomu'); switchTab('terms')">
+        <div class="submenu-icon">📖</div><div class="submenu-label">約款</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- サブメニュー（アクション） -->
+<div class="submenu-overlay" id="submenuAction" onclick="closeSubmenu('submenuAction')">
+  <div class="submenu" onclick="event.stopPropagation()">
+    <div class="submenu-title">アクション</div>
+    <div class="submenu-grid">
+      <div class="submenu-item" onclick="closeSubmenu('submenuAction'); alert('カメラ起動（デモ）')">
+        <div class="submenu-icon">📷</div><div class="submenu-label">ナンバー読取</div>
+      </div>
+      <div class="submenu-item" onclick="closeSubmenu('submenuAction'); showRegisterChoice()">
+        <div class="submenu-icon">✏️</div><div class="submenu-label">新規登録</div>
+      </div>
+      <div class="submenu-item" onclick="closeSubmenu('submenuAction'); switchTab('search')">
+        <div class="submenu-icon">🔍</div><div class="submenu-label">検索</div>
+      </div>
+      <div class="submenu-item" onclick="closeSubmenu('submenuAction'); switchTab('shaken')">
+        <div class="submenu-icon">🚗</div><div class="submenu-label">車検証読取</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <nav class="bottom-nav" id="bottomNav">
-  <div class="bottom-nav-item" data-tab="work" onclick="switchTab('work')">
+  <div class="bottom-nav-item active" data-tab="home" onclick="closeAllSubmenus(); switchTab('home')">
+    <div class="bottom-nav-icon">🏠</div>
+    <div class="bottom-nav-label">ホーム</div>
+  </div>
+  <div class="bottom-nav-item" onclick="toggleSubmenu('submenuGyomu')">
     <div class="bottom-nav-icon">📋</div>
-    <div class="bottom-nav-label">作業</div>
+    <div class="bottom-nav-label">業務</div>
   </div>
-  <div class="bottom-nav-item" onclick="alert('カメラ起動（デモ）')">
-    <div class="bottom-nav-icon">📷</div>
-    <div class="bottom-nav-label">読取</div>
-  </div>
-  <div class="bottom-nav-item" data-tab="customer" onclick="switchTab('customer')">
+  <div class="bottom-nav-item" data-tab="customer" onclick="closeAllSubmenus(); switchTab('customer')">
     <div class="bottom-nav-icon">👤</div>
     <div class="bottom-nav-label">顧客</div>
   </div>
-  <div class="bottom-nav-item" data-tab="storage" onclick="switchTab('storage')">
-    <div class="bottom-nav-icon">📦</div>
-    <div class="bottom-nav-label">台帳</div>
-  </div>
-  <div class="bottom-nav-item" onclick="showRegisterChoice()">
-    <div class="bottom-nav-icon">✏️</div>
-    <div class="bottom-nav-label">登録</div>
+  <div class="bottom-nav-item" onclick="toggleSubmenu('submenuAction')">
+    <div class="bottom-nav-icon">⚡</div>
+    <div class="bottom-nav-label">アクション</div>
   </div>
 </nav>
 
@@ -1476,7 +1567,21 @@ const tabScreenMap = {
   deliveryCheck: 'deliveryCheckScreen'
 };
 
+function toggleSubmenu(id) {
+  const el = document.getElementById(id);
+  const isOpen = el.classList.contains('active');
+  closeAllSubmenus();
+  if (!isOpen) el.classList.add('active');
+}
+function closeSubmenu(id) {
+  document.getElementById(id).classList.remove('active');
+}
+function closeAllSubmenus() {
+  document.querySelectorAll('.submenu-overlay').forEach(el => el.classList.remove('active'));
+}
+
 function switchTab(tab) {
+  closeAllSubmenus();
   // Hide all screens
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const screenId = tabScreenMap[tab];
