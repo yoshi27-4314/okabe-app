@@ -92,6 +92,109 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
 .notice-card { background:#FFFCF5; border:1px solid #E4DDD4; border-left:3px solid #C4956A; border-radius:12px; padding:14px; margin-bottom:16px; }
 .notice-title { font-size:12px; font-weight:700; color:#A67B52; margin-bottom:4px; }
 .notice-text { font-size:12px; color:#A67B52; line-height:1.6; }
+
+/* ============================================= */
+/* テーマ: 岡部社長 — Hermès × Van Cleef & Arpels */
+/* ============================================= */
+.theme-hermes .home-header {
+  background: linear-gradient(135deg, #1A1210 0%, #2C1810 40%, #3D2418 100%);
+  border-bottom: 2px solid rgba(212,175,55,0.35);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2), inset 0 -1px 0 rgba(212,175,55,0.15);
+}
+.theme-hermes .home-header-logo span { color: #E36319; }
+.theme-hermes .home-header-user { color: #D4AF37; font-weight: 500; letter-spacing: 0.5px; }
+.theme-hermes .home-header-btn {
+  background: rgba(212,175,55,0.12);
+  border-color: rgba(212,175,55,0.25);
+  color: #D4AF37;
+}
+.theme-hermes .home-header-btn:active { background: rgba(212,175,55,0.3); }
+.theme-hermes .home-body { background: linear-gradient(180deg, #FBF7F2 0%, #FDF9F4 100%); }
+.theme-hermes .home-date { color: #B8976A; font-style: italic; }
+.theme-hermes .summary-card {
+  border: 1px solid #EDE5DA;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFCF8 100%);
+  box-shadow: 0 2px 8px rgba(44,24,16,0.06);
+}
+.theme-hermes .summary-num { font-family: 'Playfair Display', serif; }
+.theme-hermes .summary-card.blue .summary-num { color: #E36319; }
+.theme-hermes .summary-card.green .summary-num { color: #D4AF37; }
+.theme-hermes .summary-card.orange .summary-num { color: #E36319; }
+.theme-hermes .summary-card.red .summary-num { color: #C04E0E; }
+.theme-hermes .summary-lbl { color: #A6947E; letter-spacing: 0.5px; }
+.theme-hermes .action-card {
+  border: 1px solid #EDE5DA;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFCF8 100%);
+  transition: all 0.2s;
+  box-shadow: 0 1px 6px rgba(44,24,16,0.06);
+}
+.theme-hermes .action-card:active { border-color: #D4AF37; box-shadow: 0 2px 12px rgba(212,175,55,0.15); }
+.theme-hermes .action-label { color: #2C1810; letter-spacing: 0.3px; }
+.theme-hermes .notice-card {
+  background: linear-gradient(135deg, #FFF8F2 0%, #FFFBF6 100%);
+  border: 1px solid #F0D9C2;
+  border-left: 3px solid #E36319;
+  box-shadow: 0 2px 8px rgba(227,99,25,0.06);
+}
+.theme-hermes .notice-title { color: #C04E0E; }
+.theme-hermes .notice-text { color: #A6541A; }
+.theme-hermes .preview-title { color: #B8976A; letter-spacing: 1.5px; }
+.theme-hermes .preview-card {
+  border: 1px solid #EDE5DA;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFCF8 100%);
+}
+.theme-hermes .preview-card.green { border-left: 3px solid #D4AF37; }
+.theme-hermes .preview-card.blue { border-left: 3px solid #E36319; }
+.theme-hermes .preview-badge.blue { background: #FEF0E5; color: #E36319; }
+.theme-hermes .preview-badge.green { background: #FDF6EC; color: #B8976A; }
+.theme-hermes .preview-link { color: #D4AF37; letter-spacing: 0.5px; }
+.theme-hermes .preview-name { color: #2C1810; }
+.theme-hermes .preview-sub { color: #A6947E; }
+
+/* ============================================= */
+/* テーマ: 従業員 — Burberry × Old Gucci          */
+/* ============================================= */
+.theme-burberry .home-header {
+  background: linear-gradient(135deg, #1C1C1C 0%, #2A2520 100%);
+  border-bottom: 1px solid rgba(45,106,79,0.25);
+}
+.theme-burberry .home-header-logo span { color: #C4956A; }
+.theme-burberry .home-header-btn {
+  background: rgba(196,149,106,0.1);
+  border-color: rgba(196,149,106,0.2);
+  color: #C4956A;
+}
+.theme-burberry .home-header-btn:active { background: rgba(196,149,106,0.25); }
+.theme-burberry .home-body { background: #F5F0EA; }
+.theme-burberry .summary-card {
+  border: 1px solid #E4DDD4;
+}
+.theme-burberry .summary-card.blue .summary-num { color: #2D6A4F; }
+.theme-burberry .summary-card.green .summary-num { color: #2D6A4F; }
+.theme-burberry .summary-card.red .summary-num { color: #8B2E34; }
+.theme-burberry .summary-card.orange .summary-num { color: #C67A2E; }
+.theme-burberry .action-card {
+  border: 1px solid #E4DDD4;
+  transition: all 0.2s;
+}
+.theme-burberry .action-card:active { border-color: #2D6A4F; }
+.theme-burberry .action-label { color: #2C2520; }
+.theme-burberry .notice-card {
+  background: #F5F0EA;
+  border: 1px solid #D8CFBF;
+  border-left: 3px solid #2D6A4F;
+}
+.theme-burberry .notice-title { color: #2D6A4F; }
+.theme-burberry .notice-text { color: #3D5A4A; }
+.theme-burberry .preview-card { border: 1px solid #E4DDD4; }
+.theme-burberry .preview-card.blue { border-left-color: #2D6A4F; }
+.theme-burberry .preview-card.orange { border-left-color: #C67A2E; }
+.theme-burberry .preview-badge.blue { background: #E8F0EC; color: #2D6A4F; }
+.theme-burberry .preview-badge.orange { background: #FDF0E2; color: #C67A2E; }
+.theme-burberry .preview-badge.red { background: #F5E3E4; color: #8B2E34; }
+.theme-burberry .preview-badge.green { background: #E8F0EC; color: #2D6A4F; }
+.theme-burberry .preview-link { color: #2D6A4F; }
+.theme-burberry .home-date { color: #8A7E74; }
 </style>
 </head>
 <body>
@@ -149,7 +252,7 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
 </div>
 
 <!-- ===== 岡部社長 ホーム ===== -->
-<div class="home-screen" id="homePresident">
+<div class="home-screen theme-hermes" id="homePresident">
   <div class="home-header">
     <div class="home-header-left">
       <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
@@ -190,7 +293,7 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
 </div>
 
 <!-- ===== 営業部長 ホーム ===== -->
-<div class="home-screen" id="homeSalesManager">
+<div class="home-screen theme-burberry" id="homeSalesManager">
   <div class="home-header">
     <div class="home-header-left">
       <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
@@ -228,7 +331,7 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
 </div>
 
 <!-- ===== 営業 ホーム ===== -->
-<div class="home-screen" id="homeSales">
+<div class="home-screen theme-burberry" id="homeSales">
   <div class="home-header">
     <div class="home-header-left">
       <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
@@ -262,7 +365,7 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
 </div>
 
 <!-- ===== 工場長 ホーム ===== -->
-<div class="home-screen" id="homeFactoryManager">
+<div class="home-screen theme-burberry" id="homeFactoryManager">
   <div class="home-header">
     <div class="home-header-left">
       <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
@@ -301,7 +404,7 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
 </div>
 
 <!-- ===== フロント事務 ホーム ===== -->
-<div class="home-screen" id="homeOffice">
+<div class="home-screen theme-burberry" id="homeOffice">
   <div class="home-header">
     <div class="home-header-left">
       <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
@@ -341,7 +444,7 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
 </div>
 
 <!-- ===== サービススタッフ ホーム ===== -->
-<div class="home-screen" id="homeWorker">
+<div class="home-screen theme-burberry" id="homeWorker">
   <div class="home-header">
     <div class="home-header-left">
       <div class="home-header-logo">タイヤホテル <span>OKABE</span></div>
