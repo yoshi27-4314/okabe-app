@@ -70,18 +70,19 @@ body {
   font-weight: 700;
   letter-spacing: 0.5px;
 }
-.header-logo span { color: #60a5fa; }
+.header-logo span { color: var(--accent); }
 .header-logo a { color: inherit; text-decoration: none; }
 .header-user {
   font-size: 11px;
-  color: #94a3b8;
+  color: #C4956A;
   margin-top: 1px;
+  letter-spacing: 0.5px;
 }
 .header-right { display: flex; gap: 6px; }
 .header-btn {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #fff;
+  background: rgba(212,175,55,0.12);
+  border: 1px solid rgba(212,175,55,0.25);
+  color: var(--accent);
   width: 38px;
   height: 38px;
   border-radius: var(--radius-sm);
@@ -205,6 +206,7 @@ body {
   margin-bottom: 10px;
   line-height: 1.6;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border-left: 3px solid var(--accent);
 }
 .help-tooltip.show { display: block; animation: fadeIn 0.15s ease-out; }
 
@@ -221,7 +223,7 @@ body {
   transition: all 0.15s;
 }
 .btn:active { transform: scale(0.98); }
-.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary { background: linear-gradient(135deg, #D4AF37 0%, #E0C05A 50%, #C9A030 100%); color: #fff; box-shadow: 0 2px 8px rgba(212,175,55,0.3); }
 .btn-success { background: var(--success); color: #fff; }
 .btn-secondary { background: var(--gray-bg); color: var(--sub); }
 
@@ -273,7 +275,7 @@ body {
   box-shadow: 0 1px 4px var(--shadow);
 }
 .chat-bubble.user {
-  background: var(--accent);
+  background: linear-gradient(135deg, #D4AF37 0%, #E0C05A 50%, #C9A030 100%);
   color: #fff;
   margin-left: auto;
   border-bottom-right-radius: 4px;
@@ -307,7 +309,7 @@ body {
 .chat-input:focus { border-color: var(--accent); }
 .chat-send-btn,
 .chat-camera-btn {
-  background: var(--accent);
+  background: linear-gradient(135deg, #D4AF37 0%, #E0C05A 50%, #C9A030 100%);
   border: none;
   color: #fff;
   width: 40px; height: 40px;
@@ -343,6 +345,9 @@ body {
   background: #fff;
   border-radius: var(--radius);
   box-shadow: 0 1px 3px var(--shadow);
+}
+.terms-article {
+  border-left: 3px solid var(--accent);
 }
 .terms-article h3 {
   font-size: 14px;

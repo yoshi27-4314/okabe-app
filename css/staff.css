@@ -84,6 +84,7 @@ body { padding-bottom: 64px; }
   font-size: 26px;
   font-weight: 700;
   line-height: 1;
+  font-family: 'Playfair Display', serif;
 }
 .summary-label {
   font-size: 10px;
@@ -184,7 +185,7 @@ body { padding-bottom: 64px; }
   gap: 6px;
 }
 .detail-value { font-size: 15px; font-weight: 500; }
-.detail-customer { font-size: 22px; font-weight: 700; }
+.detail-customer { font-size: 22px; font-weight: 700; font-family: 'Playfair Display', 'Noto Sans JP', serif; }
 .detail-vehicle { font-size: 14px; color: var(--sub); margin-top: 2px; }
 
 /* タイヤ4本表示 */
@@ -273,8 +274,8 @@ body { padding-bottom: 64px; }
   box-shadow: 0 2px 4px rgba(0,0,0,0.08);
 }
 .status-btn:active { transform: scale(0.98); }
-.status-btn.primary { background: var(--accent); color: #fff; }
-.status-btn.primary:active { background: #1d4ed8; }
+.status-btn.primary { background: linear-gradient(135deg, #D4AF37 0%, #E0C05A 50%, #C9A030 100%); color: #fff; box-shadow: 0 2px 8px rgba(212,175,55,0.3); }
+.status-btn.primary:active { opacity: 0.9; }
 .status-btn.success { background: var(--success); color: #fff; }
 .status-btn.success:active { background: #15803d; }
 .status-btn.secondary { background: var(--gray-bg); color: var(--sub); }
@@ -296,7 +297,7 @@ body { padding-bottom: 64px; }
 .camera-banner:active { transform: scale(0.98); }
 .camera-banner-icon { font-size: 30px; }
 .camera-banner-text { font-size: 15px; font-weight: 700; }
-.camera-banner-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+.camera-banner-sub { font-size: 11px; color: var(--accent); margin-top: 2px; }
 
 /* 画面切替 */
 .screen { display: none; }
@@ -363,7 +364,7 @@ body { padding-bottom: 64px; }
 .info-row .info-item { flex: 1; }
 .info-label { font-size: 10px; font-weight: 700; color: var(--sub); margin-bottom: 3px; letter-spacing: 0.5px; text-transform: uppercase; }
 .info-value { font-size: 14px; font-weight: 500; }
-.info-value-large { font-size: 18px; font-weight: 700; }
+.info-value-large { font-size: 18px; font-weight: 700; font-family: 'Playfair Display', serif; }
 
 .badge-new-cont {
   font-size: 10px;
