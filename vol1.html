@@ -6,20 +6,19 @@
 <title>タイヤホテル OKABE — Vol.1 方向性確認資料</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #1C1C1C;
-  --accent: #C4956A;
-  --accent-dark: #A67B52;
-  --accent-light: #F3EBE0;
-  --text: #2C2520;
-  --sub: #8A7E74;
-  --border: #E4DDD4;
-  --bg: #F8F5F0;
-  --success: #2D6A4F;
-  --warning: #C67A2E;
-  --danger: #8B2E34;
+  --primary: #0d1b2a;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --text: #1e293b;
+  --sub: #64748b;
+  --border: #e2e8f0;
+  --bg: #f8fafc;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -43,14 +42,14 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: #1C1C1C;
+  background: var(--primary);
   color: #fff;
   padding: 40px 24px;
 }
 .cover-badge {
   display: inline-block;
   padding: 6px 20px;
-  border: 2px solid rgba(196,149,106,0.4);
+  border: 2px solid rgba(255,255,255,0.3);
   border-radius: 20px;
   font-size: 13px;
   font-weight: 500;
@@ -58,38 +57,35 @@ body {
   margin-bottom: 24px;
 }
 .cover-title {
-  font-family: 'Playfair Display', 'Noto Sans JP', serif;
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 8px;
-  letter-spacing: 2px;
 }
-.cover-title span { color: #C4956A; }
+.cover-title span { color: var(--accent); }
 .cover-sub {
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 8px;
-  color: #A09590;
+  color: #94a3b8;
 }
 .cover-vol {
-  font-family: 'Playfair Display', 'Noto Sans JP', serif;
   font-size: 40px;
   font-weight: 700;
   margin: 32px 0 8px;
-  color: #C4956A;
+  color: var(--accent);
 }
 .cover-vol-sub {
   font-size: 16px;
-  color: #A09590;
+  color: #94a3b8;
 }
 .cover-date {
   margin-top: 48px;
   font-size: 14px;
-  color: #8A7E74;
+  color: #64748b;
 }
 .cover-from {
   font-size: 14px;
-  color: #A09590;
+  color: #94a3b8;
   margin-top: 8px;
 }
 
@@ -100,28 +96,28 @@ h2 {
   color: var(--primary);
   margin: 48px 0 16px;
   padding-bottom: 8px;
-  border-bottom: 3px solid #C4956A;
+  border-bottom: 3px solid var(--accent);
 }
 h3 {
   font-size: 17px;
   font-weight: 700;
-  color: #1C1C1C;
+  color: var(--primary);
   margin: 24px 0 8px;
 }
 p { margin-bottom: 12px; }
 
 /* 課題カード */
 .issue-card {
-  background: #F8F5F0;
+  background: var(--bg);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 16px;
-  border-left: 4px solid #8B2E34;
+  border-left: 4px solid var(--danger);
 }
 .issue-num {
   font-size: 12px;
   font-weight: 700;
-  color: #8B2E34;
+  color: var(--danger);
   margin-bottom: 4px;
 }
 .issue-title {
@@ -137,16 +133,16 @@ p { margin-bottom: 12px; }
 
 /* 解決カード */
 .solve-card {
-  background: #F0F8F4;
+  background: #f0fdf4;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 16px;
-  border-left: 4px solid #2D6A4F;
+  border-left: 4px solid var(--success);
 }
 .solve-label {
   font-size: 12px;
   font-weight: 700;
-  color: #2D6A4F;
+  color: var(--success);
   margin-bottom: 4px;
 }
 .solve-title {
@@ -173,13 +169,13 @@ th, td {
   border-bottom: 1px solid var(--border);
 }
 th {
-  background: #1C1C1C;
+  background: var(--primary);
   color: #fff;
   font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.5px;
 }
-tr:nth-child(even) { background: #F8F5F0; }
+tr:nth-child(even) { background: var(--bg); }
 
 /* フロー図 */
 .flow {
@@ -190,14 +186,14 @@ tr:nth-child(even) { background: #F8F5F0; }
   margin: 16px 0;
 }
 .flow-step {
-  background: #F3EBE0;
-  color: #1C1C1C;
+  background: var(--accent-light);
+  color: var(--primary);
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 13px;
   font-weight: 700;
 }
-.flow-arrow { color: #C4956A; font-size: 20px; font-weight: 700; }
+.flow-arrow { color: var(--accent); font-size: 20px; font-weight: 700; }
 
 /* フェーズ */
 .phase-card {
@@ -208,13 +204,13 @@ tr:nth-child(even) { background: #F8F5F0; }
   margin-bottom: 16px;
 }
 .phase-card.current {
-  border-color: #C4956A;
-  box-shadow: 0 2px 12px rgba(196,149,106,0.12);
+  border-color: var(--accent);
+  box-shadow: 0 2px 12px rgba(37,99,235,0.12);
 }
 .phase-num {
   font-size: 12px;
   font-weight: 700;
-  color: #C4956A;
+  color: var(--accent);
   margin-bottom: 4px;
 }
 .phase-title {
@@ -233,18 +229,17 @@ tr:nth-child(even) { background: #F8F5F0; }
   position: relative;
 }
 .phase-items li::before {
-  content: '\2713';
+  content: '✓';
   position: absolute;
   left: 0;
-  color: #2D6A4F;
+  color: var(--success);
   font-weight: 700;
 }
 
 /* 確認事項 */
 .confirm-card {
-  background: #FFFCF5;
-  border: 1px solid #E4DDD4;
-  border-left: 3px solid #C4956A;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 12px;
@@ -252,24 +247,24 @@ tr:nth-child(even) { background: #F8F5F0; }
 .confirm-label {
   font-size: 12px;
   font-weight: 700;
-  color: #A67B52;
+  color: #92400e;
   margin-bottom: 4px;
 }
 .confirm-title {
   font-size: 15px;
   font-weight: 700;
-  color: #A67B52;
+  color: #92400e;
   margin-bottom: 4px;
 }
 .confirm-detail {
   font-size: 13px;
-  color: #A67B52;
+  color: #92400e;
   line-height: 1.6;
 }
 
 /* デモリンク */
 .demo-box {
-  background: #F3EBE0;
+  background: var(--accent-light);
   border-radius: 12px;
   padding: 20px;
   text-align: center;
@@ -277,7 +272,7 @@ tr:nth-child(even) { background: #F8F5F0; }
 }
 .demo-box a {
   display: inline-block;
-  background: #C4956A;
+  background: var(--accent);
   color: #fff;
   padding: 12px 32px;
   border-radius: 8px;
@@ -288,7 +283,7 @@ tr:nth-child(even) { background: #F8F5F0; }
 }
 .demo-note {
   font-size: 12px;
-  color: #8A7E74;
+  color: var(--sub);
   margin-top: 8px;
 }
 
@@ -296,10 +291,10 @@ tr:nth-child(even) { background: #F8F5F0; }
 .footer {
   margin-top: 48px;
   padding-top: 24px;
-  border-top: 1px solid #E4DDD4;
+  border-top: 1px solid var(--border);
   text-align: center;
   font-size: 12px;
-  color: #8A7E74;
+  color: var(--sub);
   line-height: 1.8;
 }
 
@@ -477,7 +472,7 @@ tr:nth-child(even) { background: #F8F5F0; }
     <div class="flow-arrow">→</div>
     <div class="flow-step">✅ 確認して保存</div>
   </div>
-  <p style="font-size:14px; color:#8A7E74;">手書き・Excel転記がゼロになり、判定基準が統一されます。</p>
+  <p style="font-size:14px; color:var(--sub);">手書き・Excel転記がゼロになり、判定基準が統一されます。</p>
 
   <h3>データの管理方法</h3>
   <table>
@@ -489,7 +484,7 @@ tr:nth-child(even) { background: #F8F5F0; }
     <tr><td>作業</td><td>種別（履き替え/点検/預かり/返却）・予定日・完了日・ステータス・担当者</td></tr>
     <tr><td>約款</td><td>契約条項（アプリ内で閲覧＋PDF共有可能）</td></tr>
   </table>
-  <p style="font-size:14px; color:#8A7E74;">※ 現在の申込書（3枚綴り）に記載されている全項目を網羅しています。</p>
+  <p style="font-size:14px; color:var(--sub);">※ 現在の申込書（3枚綴り）に記載されている全項目を網羅しています。</p>
 
   <!-- 開発フェーズ -->
   <h2>5. 開発フェーズ</h2>

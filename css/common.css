@@ -1,17 +1,16 @@
-/* ===== OKABE GROUP 共通スタイル — Luxury Edition ===== */
+/* ===== OKABE GROUP 共通スタイル ===== */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg: #F8F5F0;
-  --card: #FFFFFF;
-  --primary: #1C1C1C;
-  --primary-light: #3A3632;
-  --accent: #C4956A;
-  --accent-light: #F3EBE0;
-  --accent-dark: #A67B52;
+  --bg: #FAF7F2;
+  --card: #ffffff;
+  --primary: #2C1810;
+  --primary-light: #4A3228;
+  --accent: #D4AF37;
+  --accent-light: #FDF6EC;
   --text: #2C2520;
   --sub: #8A7E74;
-  --border: #E4DDD4;
+  --border: #E8DFD2;
   --shadow: rgba(44,37,32,0.08);
   --success: #2D6A4F;
   --success-bg: #E8F0EC;
@@ -19,14 +18,18 @@
   --warning-bg: #FDF0E2;
   --danger: #8B2E34;
   --danger-bg: #F5E3E4;
-  --info: #C4956A;
-  --info-bg: #F3EBE0;
+  --info: #D4AF37;
+  --info-bg: #FDF6EC;
   --gray: #A09590;
   --gray-bg: #F3EEE8;
-  --radius: 8px;
-  --radius-sm: 6px;
-  --gold-gradient: linear-gradient(135deg, #C4956A 0%, #D4A97A 50%, #B8875E 100%);
-  --dark-gradient: linear-gradient(135deg, #1C1C1C 0%, #2C2824 100%);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+/* ブランドフォント */
+.header-logo, .home-header-logo, .login-logo, .terms-title, .modal-title {
+  font-family: 'Playfair Display', 'Noto Sans JP', serif;
+  letter-spacing: 1px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,56 +45,43 @@ body {
   overscroll-behavior-y: none;
   font-size: 15px;
   line-height: 1.6;
-  letter-spacing: 0.02em;
-}
-
-/* Luxury serif for branding */
-.brand-serif,
-.header-logo,
-.home-header-logo,
-.login-logo,
-.terms-title,
-.modal-title {
-  font-family: 'Playfair Display', 'Noto Sans JP', serif;
 }
 
 /* スムーズなページ遷移 */
-.screen { animation: fadeIn 0.3s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.screen { animation: fadeIn 0.2s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ===== ヘッダー ===== */
 .header {
-  background: var(--dark-gradient);
+  background: var(--primary);
   color: #fff;
-  padding: 16px 20px;
+  padding: 14px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-  border-bottom: 1px solid rgba(196,149,106,0.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 .header-left { display: flex; align-items: center; gap: 10px; }
 .header-logo {
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
-.header-logo span { color: var(--accent); }
+.header-logo span { color: #60a5fa; }
 .header-logo a { color: inherit; text-decoration: none; }
 .header-user {
   font-size: 11px;
-  color: #A09590;
-  margin-top: 2px;
-  letter-spacing: 0.5px;
+  color: #94a3b8;
+  margin-top: 1px;
 }
 .header-right { display: flex; gap: 6px; }
 .header-btn {
-  background: rgba(196,149,106,0.12);
-  border: 1px solid rgba(196,149,106,0.2);
-  color: var(--accent);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
   width: 38px;
   height: 38px;
   border-radius: var(--radius-sm);
@@ -100,9 +90,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: background 0.15s;
 }
-.header-btn:active { background: rgba(196,149,106,0.25); }
+.header-btn:active { background: rgba(255,255,255,0.2); }
 
 /* ===== 下タブ ===== */
 .bottom-nav {
@@ -117,7 +107,7 @@ body {
   display: flex;
   z-index: 100;
   padding-bottom: env(safe-area-inset-bottom, 0);
-  box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
 }
 .nav-item {
   flex: 1;
@@ -129,23 +119,23 @@ body {
   color: var(--sub);
   font-size: 10px;
   gap: 3px;
-  transition: color 0.2s;
+  transition: color 0.15s;
   text-decoration: none;
 }
 .nav-item.active { color: var(--accent); }
 .nav-icon { font-size: 22px; line-height: 1; }
-.nav-label { font-weight: 600; letter-spacing: 0.3px; }
+.nav-label { font-weight: 600; }
 
 /* ===== モーダル共通 ===== */
 .modal-overlay {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(28,28,28,0.55);
+  background: rgba(0,0,0,0.5);
   z-index: 200;
   justify-content: center;
   align-items: flex-end;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
 }
 .modal-overlay.active { display: flex; }
 .modal {
@@ -153,9 +143,9 @@ body {
   width: 100%;
   max-width: 480px;
   max-height: 90dvh;
-  border-radius: 16px 16px 0 0;
+  border-radius: 20px 20px 0 0;
   overflow-y: auto;
-  animation: slideUp 0.3s ease-out;
+  animation: slideUp 0.25s ease-out;
 }
 @keyframes slideUp {
   from { transform: translateY(100%); }
@@ -165,14 +155,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 20px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   background: #fff;
   z-index: 1;
 }
-.modal-title { font-size: 17px; font-weight: 600; letter-spacing: 0.5px; }
+.modal-title { font-size: 17px; font-weight: 700; }
 .modal-close {
   background: var(--gray-bg);
   border: none;
@@ -183,7 +173,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  transition: background 0.15s;
 }
 .modal-close:active { background: var(--border); }
 .modal-body { padding: 20px; }
@@ -200,7 +190,7 @@ body {
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background 0.15s;
 }
 .help-icon:active { background: var(--accent); color: #fff; }
 .help-tooltip {
@@ -209,15 +199,14 @@ body {
   color: #fff;
   font-size: 12px;
   font-weight: 400;
-  padding: 12px 16px;
+  padding: 10px 14px;
   border-radius: var(--radius-sm);
   margin-top: 6px;
   margin-bottom: 10px;
   line-height: 1.6;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  border-left: 3px solid var(--accent);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
-.help-tooltip.show { display: block; animation: fadeIn 0.2s ease-out; }
+.help-tooltip.show { display: block; animation: fadeIn 0.15s ease-out; }
 
 /* ===== ボタン共通 ===== */
 .btn {
@@ -226,14 +215,13 @@ body {
   border-radius: var(--radius);
   border: none;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.5px;
+  transition: all 0.15s;
 }
 .btn:active { transform: scale(0.98); }
-.btn-primary { background: var(--gold-gradient); color: #fff; box-shadow: 0 2px 8px rgba(196,149,106,0.3); }
+.btn-primary { background: var(--accent); color: #fff; }
 .btn-success { background: var(--success); color: #fff; }
 .btn-secondary { background: var(--gray-bg); color: var(--sub); }
 
@@ -252,7 +240,7 @@ body {
   font-family: inherit;
   background: var(--gray-bg);
   outline: none;
-  transition: all 0.2s;
+  transition: all 0.15s;
 }
 .search-input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px var(--accent-light); }
 .search-bar-wrap { position: relative; }
@@ -273,7 +261,7 @@ body {
 .chat-bubble {
   max-width: 82%;
   padding: 12px 16px;
-  border-radius: 14px;
+  border-radius: 16px;
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 10px;
@@ -283,10 +271,9 @@ body {
   color: var(--text);
   border-bottom-left-radius: 4px;
   box-shadow: 0 1px 4px var(--shadow);
-  border: 1px solid var(--border);
 }
 .chat-bubble.user {
-  background: var(--gold-gradient);
+  background: var(--accent);
   color: #fff;
   margin-left: auto;
   border-bottom-right-radius: 4px;
@@ -305,7 +292,7 @@ body {
   display: flex;
   gap: 8px;
   align-items: center;
-  box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
 }
 .chat-input {
   flex: 1;
@@ -315,12 +302,12 @@ body {
   font-size: 15px;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.15s;
 }
 .chat-input:focus { border-color: var(--accent); }
 .chat-send-btn,
 .chat-camera-btn {
-  background: var(--gold-gradient);
+  background: var(--accent);
   border: none;
   color: #fff;
   width: 40px; height: 40px;
@@ -330,7 +317,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.2s;
+  transition: opacity 0.15s;
   flex-shrink: 0;
 }
 .chat-send-btn:active, .chat-camera-btn:active { opacity: 0.7; }
@@ -345,25 +332,23 @@ body {
 }
 .terms-title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 20px;
   text-align: center;
   color: var(--primary);
-  letter-spacing: 1px;
 }
 .terms-article {
   margin-bottom: 20px;
-  padding: 16px;
+  padding: 14px;
   background: #fff;
   border-radius: var(--radius);
   box-shadow: 0 1px 3px var(--shadow);
-  border-left: 3px solid var(--accent);
 }
 .terms-article h3 {
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 6px;
-  color: var(--accent-dark);
+  color: var(--accent);
 }
 
 /* ===== 空状態 ===== */
@@ -376,5 +361,69 @@ body {
 .empty-state-icon {
   font-size: 40px;
   margin-bottom: 12px;
-  opacity: 0.4;
+  opacity: 0.5;
 }
+
+/* ================================================ */
+/* テーマ: 岡部社長 — Hermès × Van Cleef & Arpels   */
+/* 華やかなオレンジ×ゴールドの煌めき               */
+/* ================================================ */
+.theme-hermes .home-header {
+  background: linear-gradient(135deg, #E36319 0%, #D45A15 50%, #C85012 100%);
+  border-bottom: 2px solid rgba(212,175,55,0.4);
+}
+.theme-hermes .home-header-logo span { color: #FFF8E7; }
+.theme-hermes .home-header-user { color: #FFE8C8; }
+.theme-hermes .home-header-btn { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.2); color: #fff; }
+.theme-hermes .home-body { background: #FFFBF5; }
+.theme-hermes .summary-card { border: 1px solid #F0E4D4; background: linear-gradient(135deg,#FFFFFF,#FFFCF7); }
+.theme-hermes .summary-num { font-family: 'Playfair Display', serif; }
+.theme-hermes .summary-card.green .summary-num { color: #D4AF37; }
+.theme-hermes .summary-card.blue .summary-num { color: #E36319; }
+.theme-hermes .summary-card.orange .summary-num { color: #E36319; }
+.theme-hermes .summary-card.red .summary-num { color: #C04E0E; }
+.theme-hermes .action-card { border: 1px solid #F0E4D4; background: linear-gradient(135deg,#FFFFFF,#FFFCF7); }
+.theme-hermes .action-card:active { border-color: #D4AF37; }
+.theme-hermes .notice-card { background: #FFF8F0; border: 1px solid #F5DCC8; border-left: 3px solid #E36319; }
+.theme-hermes .notice-title { color: #C04E0E; }
+.theme-hermes .notice-text { color: #A6541A; }
+.theme-hermes .preview-card { border: 1px solid #F0E4D4; }
+.theme-hermes .preview-card.green { border-left-color: #D4AF37; }
+.theme-hermes .preview-card.blue { border-left-color: #E36319; }
+.theme-hermes .preview-badge.blue { background: #FEF0E5; color: #E36319; }
+.theme-hermes .preview-badge.green { background: #FDF6EC; color: #B8976A; }
+.theme-hermes .preview-link { color: #E36319; }
+.theme-hermes .home-date { color: #C4956A; }
+
+/* ================================================ */
+/* テーマ: 従業員 — Burberry × Old Gucci            */
+/* 華やかなグリーン×ゴールドの品格                  */
+/* ================================================ */
+.theme-gucci .home-header {
+  background: linear-gradient(135deg, #1A6B47 0%, #1B7A50 50%, #20855A 100%);
+  border-bottom: 2px solid rgba(212,175,55,0.4);
+}
+.theme-gucci .home-header-logo span { color: #D4AF37; }
+.theme-gucci .home-header-user { color: #C8E6D6; }
+.theme-gucci .home-header-btn { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); color: #fff; }
+.theme-gucci .home-body { background: #FDFAF5; }
+.theme-gucci .summary-card { border: 1px solid #E8DFD2; background: linear-gradient(135deg,#FFFFFF,#FFFCF7); }
+.theme-gucci .summary-num { font-family: 'Playfair Display', serif; }
+.theme-gucci .summary-card.green .summary-num { color: #1A6B47; }
+.theme-gucci .summary-card.blue .summary-num { color: #1A6B47; }
+.theme-gucci .summary-card.red .summary-num { color: #8B2E34; }
+.theme-gucci .summary-card.orange .summary-num { color: #C67A2E; }
+.theme-gucci .action-card { border: 1px solid #E8DFD2; background: linear-gradient(135deg,#FFFFFF,#FFFCF7); }
+.theme-gucci .action-card:active { border-color: #D4AF37; }
+.theme-gucci .notice-card { background: #F5FBF8; border: 1px solid #C8DDD0; border-left: 3px solid #1A6B47; }
+.theme-gucci .notice-title { color: #1A6B47; }
+.theme-gucci .notice-text { color: #2D5A42; }
+.theme-gucci .preview-card { border: 1px solid #E8DFD2; }
+.theme-gucci .preview-card.blue { border-left-color: #1A6B47; }
+.theme-gucci .preview-card.orange { border-left-color: #C67A2E; }
+.theme-gucci .preview-badge.blue { background: #E5F2EB; color: #1A6B47; }
+.theme-gucci .preview-badge.orange { background: #FDF0E2; color: #C67A2E; }
+.theme-gucci .preview-badge.red { background: #F5E3E4; color: #8B2E34; }
+.theme-gucci .preview-badge.green { background: #E5F2EB; color: #1A6B47; }
+.theme-gucci .preview-link { color: #1A6B47; }
+.theme-gucci .home-date { color: #C4956A; }
