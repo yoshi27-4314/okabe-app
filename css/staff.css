@@ -1,4 +1,4 @@
-/* ===== スタッフ画面固有スタイル ===== */
+/* ===== スタッフ画面固有スタイル — Luxury Edition ===== */
 body { padding-bottom: 64px; }
 
 /* ボトムナビ */
@@ -15,7 +15,7 @@ body { padding-bottom: 64px; }
   align-items: center;
   height: 60px;
   border-top: 1px solid var(--border);
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
   z-index: 900;
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
@@ -28,14 +28,14 @@ body { padding-bottom: 64px; }
   gap: 2px;
   cursor: pointer;
   padding: 6px 0;
-  transition: all 0.15s;
+  transition: all 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 .bottom-nav-item:active { transform: scale(0.9); }
 .bottom-nav-item.active .bottom-nav-icon { transform: scale(1.15); }
 .bottom-nav-item.active .bottom-nav-label { color: var(--accent); font-weight: 700; }
 .bottom-nav-icon { font-size: 20px; line-height: 1; }
-.bottom-nav-label { font-size: 9px; font-weight: 600; color: var(--sub); line-height: 1; }
+.bottom-nav-label { font-size: 9px; font-weight: 600; color: var(--sub); line-height: 1; letter-spacing: 0.3px; }
 
 /* 日付フィルター */
 .date-filter {
@@ -55,7 +55,7 @@ body { padding-bottom: 64px; }
   background: #fff;
   color: var(--sub);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s;
   white-space: nowrap;
 }
 .date-chip:active { transform: scale(0.96); }
@@ -63,7 +63,7 @@ body { padding-bottom: 64px; }
   background: var(--primary);
   color: #fff;
   border-color: var(--primary);
-  box-shadow: 0 2px 6px rgba(13,27,42,0.3);
+  box-shadow: 0 2px 8px rgba(28,28,28,0.25);
 }
 
 /* サマリー */
@@ -76,22 +76,25 @@ body { padding-bottom: 64px; }
   flex: 1;
   background: #fff;
   border-radius: var(--radius);
-  padding: 12px;
+  padding: 14px 12px;
   text-align: center;
   box-shadow: 0 1px 4px var(--shadow);
+  border: 1px solid var(--border);
 }
 .summary-count {
   font-size: 26px;
   font-weight: 700;
   line-height: 1;
+  font-family: 'Playfair Display', serif;
 }
 .summary-label {
   font-size: 10px;
   color: var(--sub);
   margin-top: 4px;
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
-.summary-item.info .summary-count { color: var(--info); }
+.summary-item.info .summary-count { color: var(--accent); }
 .summary-item.warning .summary-count { color: var(--warning); }
 .summary-item.success .summary-count { color: var(--success); }
 
@@ -102,7 +105,7 @@ body { padding-bottom: 64px; }
   color: var(--sub);
   padding: 14px 16px 6px;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
 }
 
 /* 作業カード */
@@ -113,14 +116,16 @@ body { padding-bottom: 64px; }
   padding: 14px 16px;
   box-shadow: 0 1px 4px var(--shadow);
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
-  border-left: 4px solid var(--gray);
+  transition: transform 0.15s, box-shadow 0.15s;
+  border-left: 3px solid var(--gray);
   position: relative;
+  border: 1px solid var(--border);
+  border-left-width: 3px;
 }
 .work-card:active { transform: scale(0.98); box-shadow: 0 1px 2px var(--shadow); }
-.work-card.status-reserved { border-left-color: var(--info); }
+.work-card.status-reserved { border-left-color: var(--accent); }
 .work-card.status-accepted { border-left-color: var(--warning); }
-.work-card.status-working { border-left-color: #f59e0b; }
+.work-card.status-working { border-left-color: var(--warning); }
 .work-card.status-done { border-left-color: var(--success); }
 
 .work-card-top {
@@ -133,11 +138,12 @@ body { padding-bottom: 64px; }
   font-size: 11px;
   font-weight: 700;
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: 10px;
+  letter-spacing: 0.3px;
 }
-.work-status.reserved { background: var(--info-bg); color: var(--info); }
+.work-status.reserved { background: var(--accent-light); color: var(--accent-dark); }
 .work-status.accepted { background: var(--warning-bg); color: var(--warning); }
-.work-status.working { background: #fef3c7; color: #b45309; }
+.work-status.working { background: var(--warning-bg); color: #b45309; }
 .work-status.done { background: var(--success-bg); color: var(--success); }
 .work-status.cancelled { background: var(--gray-bg); color: var(--gray); }
 
@@ -151,7 +157,7 @@ body { padding-bottom: 64px; }
   padding: 4px 12px;
   border-radius: var(--radius-sm);
   background: var(--accent-light);
-  color: var(--primary);
+  color: var(--accent-dark);
 }
 .work-action { display: flex; justify-content: flex-end; margin-top: 12px; }
 .work-action-btn {
@@ -163,11 +169,12 @@ body { padding-bottom: 64px; }
   font-family: inherit;
   cursor: pointer;
   color: #fff;
-  transition: all 0.15s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  letter-spacing: 0.3px;
 }
 .work-action-btn:active { transform: scale(0.95); }
-.work-action-btn.accept { background: var(--info); }
+.work-action-btn.accept { background: var(--accent); }
 .work-action-btn.start { background: var(--warning); }
 .work-action-btn.complete { background: var(--success); }
 
@@ -178,13 +185,14 @@ body { padding-bottom: 64px; }
   font-weight: 700;
   color: var(--sub);
   margin-bottom: 6px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   display: flex;
   align-items: center;
   gap: 6px;
+  text-transform: uppercase;
 }
 .detail-value { font-size: 15px; font-weight: 500; }
-.detail-customer { font-size: 22px; font-weight: 700; }
+.detail-customer { font-size: 22px; font-weight: 700; font-family: 'Playfair Display', 'Noto Sans JP', serif; }
 .detail-vehicle { font-size: 14px; color: var(--sub); margin-top: 2px; }
 
 /* タイヤ4本表示 */
@@ -199,9 +207,10 @@ body { padding-bottom: 64px; }
   padding: 14px 12px;
   text-align: center;
   position: relative;
-  transition: box-shadow 0.15s;
+  transition: box-shadow 0.2s;
+  border: 1px solid var(--border);
 }
-.tire-position { font-size: 11px; font-weight: 700; color: var(--sub); margin-bottom: 6px; text-transform: uppercase; }
+.tire-position { font-size: 11px; font-weight: 700; color: var(--sub); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
 .tire-size { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
 .tire-depth { font-size: 13px; margin-bottom: 6px; }
 .tire-condition {
@@ -217,15 +226,15 @@ body { padding-bottom: 64px; }
 .tire-camera-btn {
   position: absolute;
   top: 8px; right: 8px;
-  background: var(--accent);
+  background: var(--gold-gradient);
   color: #fff;
   border: none;
   width: 30px; height: 30px;
   border-radius: 50%;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-  transition: transform 0.1s;
+  box-shadow: 0 2px 4px rgba(196,149,106,0.3);
+  transition: transform 0.15s;
 }
 .tire-camera-btn:active { transform: scale(0.9); }
 
@@ -238,16 +247,18 @@ body { padding-bottom: 64px; }
   background: var(--gray-bg);
   color: var(--text);
   font-weight: 500;
+  border: 1px solid var(--border);
 }
 
 /* メモ */
 .memo-box {
-  background: #fffbeb;
-  border: 1px solid #fde68a;
+  background: #FFFCF5;
+  border: 1px solid var(--accent-light);
+  border-left: 3px solid var(--accent);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
   font-size: 13px;
-  color: #92400e;
+  color: var(--accent-dark);
   line-height: 1.6;
 }
 
@@ -269,20 +280,21 @@ body { padding-bottom: 64px; }
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  transition: all 0.15s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  letter-spacing: 0.5px;
 }
 .status-btn:active { transform: scale(0.98); }
-.status-btn.primary { background: var(--accent); color: #fff; }
-.status-btn.primary:active { background: #1d4ed8; }
+.status-btn.primary { background: var(--gold-gradient); color: #fff; }
+.status-btn.primary:active { opacity: 0.9; }
 .status-btn.success { background: var(--success); color: #fff; }
-.status-btn.success:active { background: #15803d; }
-.status-btn.secondary { background: var(--gray-bg); color: var(--sub); }
+.status-btn.success:active { background: #256B45; }
+.status-btn.secondary { background: var(--gray-bg); color: var(--sub); border: 1px solid var(--border); }
 
 /* カメラバナー */
 .camera-banner {
   margin: 12px 16px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  background: var(--dark-gradient);
   border-radius: var(--radius);
   padding: 16px 18px;
   display: flex;
@@ -290,13 +302,14 @@ body { padding-bottom: 64px; }
   gap: 14px;
   cursor: pointer;
   color: #fff;
-  transition: transform 0.1s;
-  box-shadow: 0 4px 12px rgba(13,27,42,0.3);
+  transition: transform 0.15s;
+  box-shadow: 0 4px 16px rgba(28,28,28,0.25);
+  border: 1px solid rgba(196,149,106,0.15);
 }
 .camera-banner:active { transform: scale(0.98); }
 .camera-banner-icon { font-size: 30px; }
-.camera-banner-text { font-size: 15px; font-weight: 700; }
-.camera-banner-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+.camera-banner-text { font-size: 15px; font-weight: 700; letter-spacing: 0.3px; }
+.camera-banner-sub { font-size: 11px; color: var(--accent); margin-top: 2px; }
 
 /* 画面切替 */
 .screen { display: none; }
@@ -307,12 +320,13 @@ body { padding-bottom: 64px; }
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 16px;
+  padding: 14px 16px;
   background: #fff;
   border-bottom: 1px solid var(--border);
   font-size: 16px;
-  font-weight: 700;
-  box-shadow: 0 1px 3px var(--shadow);
+  font-weight: 600;
+  box-shadow: 0 1px 4px var(--shadow);
+  letter-spacing: 0.3px;
 }
 .back-btn {
   background: none;
@@ -333,11 +347,12 @@ body { padding-bottom: 64px; }
   text-align: center;
   box-shadow: 0 1px 4px var(--shadow);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
 }
 .home-action-card:active { transform: scale(0.95); box-shadow: 0 1px 2px var(--shadow); }
 .home-action-icon { font-size: 28px; margin-bottom: 8px; }
-.home-action-label { font-size: 12px; font-weight: 700; color: var(--text); }
+.home-action-label { font-size: 12px; font-weight: 700; color: var(--text); letter-spacing: 0.3px; }
 
 /* 情報カード */
 .info-card {
@@ -346,6 +361,7 @@ body { padding-bottom: 64px; }
   padding: 18px;
   box-shadow: 0 1px 4px var(--shadow);
   margin-bottom: 14px;
+  border: 1px solid var(--border);
 }
 .info-card-header {
   font-size: 14px;
@@ -357,13 +373,14 @@ body { padding-bottom: 64px; }
   gap: 8px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
+  letter-spacing: 0.3px;
 }
 .info-grid { display: flex; flex-direction: column; gap: 10px; }
 .info-row { display: flex; gap: 12px; }
 .info-row .info-item { flex: 1; }
-.info-label { font-size: 10px; font-weight: 700; color: var(--sub); margin-bottom: 3px; letter-spacing: 0.5px; text-transform: uppercase; }
+.info-label { font-size: 10px; font-weight: 700; color: var(--sub); margin-bottom: 3px; letter-spacing: 1px; text-transform: uppercase; }
 .info-value { font-size: 14px; font-weight: 500; }
-.info-value-large { font-size: 18px; font-weight: 700; }
+.info-value-large { font-size: 18px; font-weight: 700; font-family: 'Playfair Display', serif; }
 
 .badge-new-cont {
   font-size: 10px;
@@ -371,7 +388,7 @@ body { padding-bottom: 64px; }
   padding: 3px 10px;
   border-radius: 8px;
   background: var(--accent-light);
-  color: var(--accent);
+  color: var(--accent-dark);
 }
 
 /* タイヤセットタブ */
@@ -385,19 +402,19 @@ body { padding-bottom: 64px; }
   padding: 12px;
   text-align: center;
   border-radius: var(--radius);
-  border: 2px solid var(--border);
+  border: 1.5px solid var(--border);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   background: #fff;
-  transition: all 0.15s;
+  transition: all 0.2s;
   line-height: 1.4;
 }
 .tire-set-tab:active { transform: scale(0.97); }
 .tire-set-tab.active {
   border-color: var(--accent);
   background: var(--accent-light);
-  box-shadow: 0 2px 6px rgba(37,99,235,0.15);
+  box-shadow: 0 2px 8px rgba(196,149,106,0.15);
 }
 .tire-set-status {
   font-size: 10px;
@@ -407,7 +424,7 @@ body { padding-bottom: 64px; }
   display: inline-block;
   margin-top: 2px;
 }
-.tire-set-status.storing { background: var(--info-bg); color: var(--info); }
+.tire-set-status.storing { background: var(--accent-light); color: var(--accent-dark); }
 .tire-set-status.mounted { background: var(--success-bg); color: var(--success); }
 
 .tire-set-panel { display: none; }
@@ -429,6 +446,7 @@ body { padding-bottom: 64px; }
   align-items: center;
   justify-content: center;
   font-size: 22px;
+  border: 1px solid var(--border);
 }
 .photo-thumb.add {
   background: var(--accent-light);
@@ -436,9 +454,9 @@ body { padding-bottom: 64px; }
   font-size: 20px;
   cursor: pointer;
   border: 2px dashed var(--accent);
-  transition: background 0.15s;
+  transition: background 0.2s;
 }
-.photo-thumb.add:active { background: #bfdbfe; }
+.photo-thumb.add:active { background: #E8D9CA; }
 
 /* フォーム */
 .form-group {
@@ -451,7 +469,8 @@ body { padding-bottom: 64px; }
   font-weight: 700;
   color: var(--sub);
   margin-bottom: 5px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 .form-group input,
 .form-group select,
@@ -464,7 +483,7 @@ body { padding-bottom: 64px; }
   font-family: inherit;
   background: #fff;
   outline: none;
-  transition: all 0.15s;
+  transition: all 0.2s;
   color: var(--text);
 }
 .form-group input:focus,
@@ -478,7 +497,7 @@ body { padding-bottom: 64px; }
   gap: 10px;
 }
 .camera-scan-btn {
-  background: var(--accent);
+  background: var(--gold-gradient);
   color: #fff;
   border: none;
   width: 46px;
@@ -486,8 +505,8 @@ body { padding-bottom: 64px; }
   font-size: 20px;
   cursor: pointer;
   flex-shrink: 0;
-  box-shadow: 0 2px 4px rgba(37,99,235,0.3);
-  transition: all 0.15s;
+  box-shadow: 0 2px 4px rgba(196,149,106,0.3);
+  transition: all 0.2s;
 }
 .camera-scan-btn:active { transform: scale(0.95); }
 
@@ -527,5 +546,8 @@ body { padding-bottom: 64px; }
   border-radius: var(--radius);
   padding: 14px 16px;
   box-shadow: 0 1px 4px var(--shadow);
-  border-left: 4px solid var(--warning);
+  border-left: 3px solid var(--warning);
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  border-left-color: var(--warning);
 }

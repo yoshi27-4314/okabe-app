@@ -6,27 +6,28 @@
 <title>タイヤホテル OKABE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#0d1b2a">
+<meta name="theme-color" content="#1C1C1C">
 <link rel="stylesheet" href="css/common.css">
 <style>
 body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0; }
 
 .login-screen { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; }
-.login-logo { font-size:28px; font-weight:700; color:var(--primary); text-align:center; margin-bottom:4px; }
-.login-logo span { color:#60a5fa; }
-.login-sub { font-size:13px; color:var(--sub); text-align:center; margin-bottom:24px; }
+.login-logo { font-size:28px; font-weight:700; color:#1C1C1C; text-align:center; margin-bottom:4px; font-family:'Playfair Display', 'Noto Sans JP', serif; letter-spacing:1.5px; }
+.login-logo span { color:#C4956A; }
+.login-sub { font-size:13px; color:#8A7E74; text-align:center; margin-bottom:24px; }
 
 /* ログインフォーム */
 .login-form { width:100%; margin-bottom:20px; }
-.login-form input { width:100%; padding:14px; border:1.5px solid var(--border); border-radius:10px; font-size:15px; font-family:inherit; margin-bottom:8px; outline:none; background:#fff; }
-.login-form input:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-light); }
-.login-form button { width:100%; padding:16px; border-radius:12px; border:none; background:var(--accent); color:#fff; font-size:16px; font-weight:700; font-family:inherit; cursor:pointer; box-shadow:0 2px 8px rgba(37,99,235,0.3); }
+.login-form input { width:100%; padding:14px; border:1.5px solid #E4DDD4; border-radius:10px; font-size:15px; font-family:inherit; margin-bottom:8px; outline:none; background:#fff; }
+.login-form input:focus { border-color:#C4956A; box-shadow:0 0 0 3px #F3EBE0; }
+.login-form button { width:100%; padding:16px; border-radius:12px; border:none; background:linear-gradient(135deg, #C4956A 0%, #D4A97A 50%, #B8875E 100%); color:#fff; font-size:16px; font-weight:700; font-family:inherit; cursor:pointer; box-shadow:0 2px 8px rgba(196,149,106,0.3); }
 .login-form button:active { transform:scale(0.98); }
-.login-error { color:var(--danger); font-size:12px; margin-top:8px; text-align:center; display:none; }
-.login-divider { font-size:12px; color:var(--sub); margin:16px 0; text-align:center; }
+.login-error { color:#8B2E34; font-size:12px; margin-top:8px; text-align:center; display:none; }
+.login-divider { font-size:12px; color:#8A7E74; margin:16px 0; text-align:center; }
 
 /* ロール選択 */
 .role-grid { width:100%; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -36,43 +37,43 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
   align-items:center; gap:6px; border:2px solid transparent;
   cursor:pointer; transition:all 0.15s; text-align:center;
 }
-.role-card:active { transform:scale(0.97); }
+.role-card:active { transform:scale(0.97); border-color:#C4956A; }
 .role-card .role-icon { font-size:28px; }
-.role-card .role-name { font-size:14px; font-weight:700; color:var(--text); }
-.role-card .role-desc { font-size:10px; color:var(--sub); }
+.role-card .role-name { font-size:14px; font-weight:700; color:#2C2520; }
+.role-card .role-desc { font-size:10px; color:#8A7E74; }
 
 .login-footer { margin-top:32px; text-align:center; font-size:11px; color:var(--gray); line-height:1.6; }
 
 /* ホーム画面共通 */
 .home-screen { display:none; flex-direction:column; flex:1; }
 .home-screen.active { display:flex; }
-.home-header { background:var(--primary); color:#fff; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
+.home-header { background:#1C1C1C; color:#fff; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
 .home-header-left {}
-.home-header-logo { font-size:16px; font-weight:700; letter-spacing:0.5px; }
-.home-header-logo span { color:#60a5fa; }
-.home-header-user { font-size:11px; color:#94a3b8; margin-top:2px; }
+.home-header-logo { font-size:16px; font-weight:700; letter-spacing:1.5px; font-family:'Playfair Display', 'Noto Sans JP', serif; }
+.home-header-logo span { color:#C4956A; }
+.home-header-user { font-size:11px; color:#A09590; margin-top:2px; }
 .home-header-right { display:flex; gap:6px; }
 .home-header-btn { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); color:#fff; width:38px; height:38px; border-radius:8px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
 .home-header-btn:active { background:rgba(255,255,255,0.2); }
 .home-body { padding:16px; flex:1; overflow-y:auto; }
-.home-date { font-size:13px; font-weight:700; color:var(--sub); margin-bottom:12px; }
+.home-date { font-size:13px; font-weight:700; color:#8A7E74; margin-bottom:12px; }
 
 .summary-row { display:flex; gap:8px; margin-bottom:16px; }
 .summary-card { flex:1; background:#fff; border-radius:12px; padding:14px; text-align:center; box-shadow:0 1px 4px var(--shadow); }
 .summary-num { font-size:28px; font-weight:700; line-height:1; }
-.summary-lbl { font-size:10px; color:var(--sub); margin-top:4px; font-weight:600; }
+.summary-lbl { font-size:10px; color:#8A7E74; margin-top:4px; font-weight:600; }
 .summary-card.blue .summary-num { color:var(--info); }
 .summary-card.orange .summary-num { color:var(--warning); }
 .summary-card.green .summary-num { color:var(--success); }
 .summary-card.red .summary-num { color:var(--danger); }
 
 .action-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:20px; }
-.action-card { background:#fff; border-radius:12px; padding:16px 8px; text-align:center; box-shadow:0 1px 4px var(--shadow); cursor:pointer; transition:all 0.15s; text-decoration:none; color:var(--text); }
+.action-card { background:#fff; border-radius:12px; padding:16px 8px; text-align:center; box-shadow:0 1px 4px var(--shadow); cursor:pointer; transition:all 0.15s; text-decoration:none; color:#2C2520; }
 .action-card:active { transform:scale(0.95); }
 .action-icon { font-size:28px; margin-bottom:6px; }
 .action-label { font-size:11px; font-weight:700; }
 
-.preview-title { font-size:11px; font-weight:700; color:var(--sub); margin-bottom:8px; letter-spacing:1px; text-transform:uppercase; }
+.preview-title { font-size:11px; font-weight:700; color:#8A7E74; margin-bottom:8px; letter-spacing:1px; text-transform:uppercase; }
 .preview-card { background:#fff; border-radius:12px; padding:14px; box-shadow:0 1px 4px var(--shadow); margin-bottom:8px; border-left:4px solid var(--gray); }
 .preview-card.blue { border-left-color:var(--info); }
 .preview-card.orange { border-left-color:var(--warning); }
@@ -83,14 +84,14 @@ body { display:flex; flex-direction:column; min-height:100dvh; padding-bottom:0;
 .preview-badge.orange { background:var(--warning-bg); color:var(--warning); }
 .preview-badge.green { background:var(--success-bg); color:var(--success); }
 .preview-badge.red { background:var(--danger-bg); color:var(--danger); }
-.preview-time { font-size:11px; color:var(--sub); }
+.preview-time { font-size:11px; color:#8A7E74; }
 .preview-name { font-size:15px; font-weight:700; }
-.preview-sub { font-size:12px; color:var(--sub); }
-.preview-link { display:block; text-align:center; margin-top:10px; font-size:13px; color:var(--accent); font-weight:600; cursor:pointer; }
+.preview-sub { font-size:12px; color:#8A7E74; }
+.preview-link { display:block; text-align:center; margin-top:10px; font-size:13px; color:#C4956A; font-weight:600; cursor:pointer; }
 
-.notice-card { background:#fffbeb; border:1px solid #fde68a; border-radius:12px; padding:14px; margin-bottom:16px; }
-.notice-title { font-size:12px; font-weight:700; color:#92400e; margin-bottom:4px; }
-.notice-text { font-size:12px; color:#92400e; line-height:1.6; }
+.notice-card { background:#FFFCF5; border:1px solid #E4DDD4; border-left:3px solid #C4956A; border-radius:12px; padding:14px; margin-bottom:16px; }
+.notice-title { font-size:12px; font-weight:700; color:#A67B52; margin-bottom:4px; }
+.notice-text { font-size:12px; color:#A67B52; line-height:1.6; }
 </style>
 </head>
 <body>

@@ -6,33 +6,33 @@
 <title>タイヤホテル OKABE — スタッフ（デモ）</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ===== OKABE GROUP — Luxury Automotive Style ===== */
 :root {
-  --bg: #f7f7f5;
+  --bg: #F8F5F0;
   --card: #ffffff;
-  --primary: #0b1829;
-  --primary-light: #1a3050;
-  --accent: #7eadd4;
-  --accent-light: #eaf2f9;
-  --text: #1a1a1a;
-  --sub: #7c8694;
-  --border: #e8e8e4;
-  --shadow: rgba(10,18,30,0.05);
-  --success: #3a7d5c;
-  --success-bg: #edf5f1;
-  --warning: #a08030;
-  --warning-bg: #faf5ea;
-  --danger: #a0293e;
-  --danger-bg: #f9eaed;
-  --info: #7eadd4;
-  --info-bg: #eaf2f9;
-  --gray: #9da5af;
-  --gray-bg: #f2f2ef;
+  --primary: #1C1C1C;
+  --primary-light: #3A3632;
+  --accent: #C4956A;
+  --accent-light: #F3EBE0;
+  --text: #2C2520;
+  --sub: #8A7E74;
+  --border: #E4DDD4;
+  --shadow: rgba(44,37,32,0.08);
+  --success: #2D6A4F;
+  --success-bg: #E8F0EC;
+  --warning: #C67A2E;
+  --warning-bg: #FDF0E2;
+  --danger: #8B2E34;
+  --danger-bg: #F5E3E4;
+  --info: #C4956A;
+  --info-bg: #F3EBE0;
+  --gray: #A09590;
+  --gray-bg: #F3EEE8;
   --radius: 8px;
-  --radius-sm: 5px;
-  --gold: #b09060;
+  --radius-sm: 6px;
+  --gold: #C4956A;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -48,7 +48,7 @@ body {
   overscroll-behavior-y: none;
   font-size: 14px;
   line-height: 1.75;
-  padding-bottom: 64px;
+  padding-bottom: 0;
   font-weight: 400;
   letter-spacing: 0.03em;
 }
@@ -81,7 +81,7 @@ body {
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .header-left { display: flex; align-items: center; gap: 10px; }
-.header-logo { font-size: 15px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; }
+.header-logo { font-size: 15px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; font-family: 'Playfair Display', 'Noto Sans JP', serif; }
 .header-logo span { color: var(--accent); font-weight: 500; }
 .header-user { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px; letter-spacing: 1px; font-weight: 300; }
 .header-right { display: flex; gap: 6px; }
@@ -113,7 +113,7 @@ body {
   align-items: center;
   height: 60px;
   border-top: 1px solid var(--border);
-  box-shadow: 0 -1px 8px rgba(10,22,40,0.04);
+  box-shadow: 0 -1px 8px rgba(44,37,32,0.04);
   z-index: 900;
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
@@ -141,7 +141,7 @@ body {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 60px;
-  background: rgba(10,22,40,0.25);
+  background: rgba(44,37,32,0.25);
   z-index: 899;
   backdrop-filter: blur(3px);
 }
@@ -156,7 +156,7 @@ body {
   background: #ffffff;
   border-radius: 16px 16px 0 0;
   padding: 18px 18px 22px;
-  box-shadow: 0 -4px 20px rgba(10,22,40,0.10);
+  box-shadow: 0 -4px 20px rgba(44,37,32,0.10);
   animation: slideUp 0.2s ease-out;
   border-top: 1px solid var(--border);
 }
@@ -197,7 +197,7 @@ body {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(10,22,40,0.4);
+  background: rgba(44,37,32,0.4);
   z-index: 200;
   justify-content: center;
   align-items: flex-end;
@@ -274,7 +274,7 @@ body {
   outline: none;
   transition: all 0.15s;
 }
-.search-input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(91,155,213,0.15); }
+.search-input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(196,149,106,0.15); }
 .search-bar-wrap { position: relative; }
 .search-bar-icon {
   position: absolute;
@@ -395,7 +395,7 @@ body {
   background: var(--primary);
   color: #fff;
   border-color: var(--primary);
-  box-shadow: 0 2px 8px rgba(10,22,40,0.25);
+  box-shadow: 0 2px 8px rgba(44,37,32,0.25);
 }
 
 /* サマリー */
@@ -444,9 +444,9 @@ body {
 
 .work-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .work-status { font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 12px; letter-spacing: 0.3px; }
-.work-status.reserved { background: var(--info-bg); color: #3a7bc8; }
+.work-status.reserved { background: var(--info-bg); color: #C4956A; }
 .work-status.accepted { background: var(--warning-bg); color: var(--warning); }
-.work-status.working { background: var(--warning-bg); color: #8b6914; }
+.work-status.working { background: var(--warning-bg); color: #C67A2E; }
 .work-status.done { background: var(--success-bg); color: var(--success); }
 
 .work-time { font-size: 12px; color: var(--sub); font-weight: 400; }
@@ -500,7 +500,7 @@ body {
   border-radius: 50%;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(10,22,40,0.2);
+  box-shadow: 0 2px 6px rgba(44,37,32,0.2);
   transition: transform 0.1s;
 }
 .tire-camera-btn:active { transform: scale(0.9); }
@@ -535,7 +535,7 @@ body {
   font-family: inherit;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 2px 6px rgba(10,22,40,0.08);
+  box-shadow: 0 2px 6px rgba(44,37,32,0.08);
   letter-spacing: 0.5px;
 }
 .status-btn:active { transform: scale(0.98); }
@@ -553,7 +553,7 @@ body {
   cursor: pointer;
   color: #fff;
   transition: transform 0.15s;
-  box-shadow: 0 4px 16px rgba(10,22,40,0.25);
+  box-shadow: 0 4px 16px rgba(44,37,32,0.25);
 }
 .camera-banner:active { transform: scale(0.98); }
 .camera-banner-icon { font-size: 28px; }
@@ -636,7 +636,7 @@ body {
 .tire-set-tab.active {
   border-color: var(--accent);
   background: var(--accent-light);
-  box-shadow: 0 2px 6px rgba(91,155,213,0.15);
+  box-shadow: 0 2px 6px rgba(196,149,106,0.15);
 }
 .tire-set-status {
   font-size: 10px; font-weight: 700;
@@ -664,7 +664,7 @@ body {
   border: 2px dashed var(--accent);
   transition: background 0.15s;
 }
-.photo-thumb.add:active { background: #d0e4f5; }
+.photo-thumb.add:active { background: #E8D5C4; }
 
 /* フォーム */
 .form-group { margin-bottom: 14px; flex: 1; }
@@ -687,7 +687,7 @@ body {
 }
 .form-group input:focus, .form-group select:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(91,155,213,0.15);
+  box-shadow: 0 0 0 3px rgba(196,149,106,0.15);
 }
 .form-group input::placeholder { color: var(--gray); }
 .form-row { display: flex; gap: 10px; }
@@ -700,7 +700,7 @@ body {
   font-size: 20px;
   cursor: pointer;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(10,22,40,0.2);
+  box-shadow: 0 2px 6px rgba(44,37,32,0.2);
   transition: all 0.15s;
 }
 .camera-scan-btn:active { transform: scale(0.95); }
@@ -708,7 +708,7 @@ body {
 /* ステップインジケーター */
 .step-dot { transition: all 0.3s; }
 .step-dot.active { background: var(--accent) !important; }
-.step-dot.current { box-shadow: 0 0 0 4px rgba(91,155,213,0.2); transform: scale(1.2); }
+.step-dot.current { box-shadow: 0 0 0 4px rgba(196,149,106,0.2); transform: scale(1.2); }
 
 /* OCR確認チェック */
 .ocr-verify {
@@ -752,7 +752,7 @@ body {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(10,22,40,0.4);
+  background: rgba(44,37,32,0.4);
   z-index: 998;
   align-items: center;
   justify-content: center;
@@ -766,17 +766,17 @@ body {
   width: calc(100% - 48px);
   max-width: 340px;
   animation: slideUp 0.2s ease-out;
-  box-shadow: 0 8px 32px rgba(10,22,40,0.15);
+  box-shadow: 0 8px 32px rgba(44,37,32,0.15);
 }
 
 /* デモバナー */
 .demo-banner {
   background: var(--accent-light);
-  border: 1px solid rgba(91,155,213,0.25);
+  border: 1px solid rgba(196,149,106,0.25);
   border-radius: var(--radius-sm);
   padding: 8px 12px;
   font-size: 11px;
-  color: #3a6b99;
+  color: #C4956A;
   text-align: center;
   font-weight: 500;
   margin: 10px 16px;
@@ -786,21 +786,81 @@ body {
 </head>
 <body>
 
+<!-- ===== ログイン画面 ===== -->
+<div id="loginScreen" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100dvh; padding:24px;">
+  <div style="text-align:center; margin-bottom:8px;">
+    <div style="font-size:24px; font-weight:500; letter-spacing:3px; color:var(--primary); text-transform:uppercase;">タイヤホテル <span style="color:var(--accent);">OKABE</span></div>
+    <div style="font-size:12px; color:var(--sub); margin-top:4px; letter-spacing:1px;">業務管理システム</div>
+  </div>
+
+  <!-- 岡部社長ログインフォーム（初期非表示） -->
+  <div id="loginForm" style="display:none; width:100%; margin-bottom:20px;">
+    <input type="email" id="loginEmail" placeholder="メールアドレス" style="width:100%; padding:14px; border:1.5px solid var(--border); border-radius:var(--radius); font-size:14px; font-family:inherit; margin-bottom:8px; outline:none; background:#fff;">
+    <input type="password" id="loginPassword" placeholder="パスワード" style="width:100%; padding:14px; border:1.5px solid var(--border); border-radius:var(--radius); font-size:14px; font-family:inherit; margin-bottom:8px; outline:none; background:#fff;">
+    <button onclick="handlePresidentLogin()" style="width:100%; padding:14px; border-radius:var(--radius); border:none; background:var(--primary); color:#fff; font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; letter-spacing:1px;">ログイン</button>
+    <div id="loginError" style="color:var(--danger); font-size:12px; margin-top:8px; text-align:center; display:none;"></div>
+    <div style="text-align:center; margin-top:12px;">
+      <a href="#" onclick="hideLoginForm(); return false;" style="font-size:12px; color:var(--sub); letter-spacing:0.5px;">← 戻る</a>
+    </div>
+  </div>
+
+  <div id="demoDivider" style="font-size:11px; color:var(--sub); margin:20px 0 16px; text-align:center; letter-spacing:1px;">— ロールを選択 —</div>
+
+  <div id="roleGrid" style="width:100%; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+    <div onclick="showLoginForm()" style="background:#fff; border-radius:var(--radius); padding:18px 12px; box-shadow:0 1px 4px var(--shadow); display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:all 0.15s; text-align:center; border:1px solid var(--border);">
+      <div style="font-size:26px;">👔</div>
+      <div style="font-size:13px; font-weight:600; color:var(--text);">岡部社長</div>
+      <div style="font-size:10px; color:var(--sub);">経営全体</div>
+    </div>
+    <div onclick="loginAs('sales_manager','鈴木部長（営業部長）')" style="background:#fff; border-radius:var(--radius); padding:18px 12px; box-shadow:0 1px 4px var(--shadow); display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:all 0.15s; text-align:center; border:1px solid var(--border);">
+      <div style="font-size:26px;">📈</div>
+      <div style="font-size:13px; font-weight:600; color:var(--text);">営業部長</div>
+      <div style="font-size:10px; color:var(--sub);">営業管理</div>
+    </div>
+    <div onclick="loginAs('sales','山本健一（営業）')" style="background:#fff; border-radius:var(--radius); padding:18px 12px; box-shadow:0 1px 4px var(--shadow); display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:all 0.15s; text-align:center; border:1px solid var(--border);">
+      <div style="font-size:26px;">🤝</div>
+      <div style="font-size:13px; font-weight:600; color:var(--text);">営業</div>
+      <div style="font-size:10px; color:var(--sub);">顧客対応</div>
+    </div>
+    <div onclick="loginAs('factory_manager','山田工場長')" style="background:#fff; border-radius:var(--radius); padding:18px 12px; box-shadow:0 1px 4px var(--shadow); display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:all 0.15s; text-align:center; border:1px solid var(--border);">
+      <div style="font-size:26px;">🏭</div>
+      <div style="font-size:13px; font-weight:600; color:var(--text);">山田工場長</div>
+      <div style="font-size:10px; color:var(--sub);">作業管理</div>
+    </div>
+    <div onclick="loginAs('office','佐藤美咲（フロント事務）')" style="background:#fff; border-radius:var(--radius); padding:18px 12px; box-shadow:0 1px 4px var(--shadow); display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:all 0.15s; text-align:center; border:1px solid var(--border);">
+      <div style="font-size:26px;">📋</div>
+      <div style="font-size:13px; font-weight:600; color:var(--text);">フロント事務</div>
+      <div style="font-size:10px; color:var(--sub);">受付・台帳</div>
+    </div>
+    <div onclick="loginAs('service','田中太郎（サービススタッフ）')" style="background:#fff; border-radius:var(--radius); padding:18px 12px; box-shadow:0 1px 4px var(--shadow); display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; transition:all 0.15s; text-align:center; border:1px solid var(--border);">
+      <div style="font-size:26px;">🔧</div>
+      <div style="font-size:13px; font-weight:600; color:var(--text);">サービススタッフ</div>
+      <div style="font-size:10px; color:var(--sub);">現場作業</div>
+    </div>
+  </div>
+
+  <div style="margin-top:32px; text-align:center; font-size:10px; color:var(--gray); line-height:1.6; letter-spacing:0.5px;">株式会社 OKABE GROUP<br>タイヤホテル事業 業務管理システム</div>
+</div>
+
+<!-- ===== メイン画面（ログイン後表示） ===== -->
+<div id="mainApp" style="display:none;">
+
 <!-- ===== ヘッダー ===== -->
 <div class="header">
   <div class="header-left">
     <div>
       <div class="header-logo">タイヤホテル <span>OKABE</span></div>
-      <div class="header-user">サービススタッフ（デモ）</div>
+      <div class="header-user" id="headerUserName">サービススタッフ（デモ）</div>
     </div>
   </div>
   <div class="header-right">
     <button class="header-btn" onclick="switchTab('chat')">💬</button>
     <button class="header-btn" onclick="alert('通知はありません')">🔔</button>
+    <button class="header-btn" onclick="doLogout()" title="ログアウト">🚪</button>
   </div>
 </div>
 
-<div class="demo-banner">デモモード — ログイン不要・データはすべてサンプルです</div>
+<div class="demo-banner">デモモード — データはすべてサンプルです</div>
 
 <!-- ========================================== -->
 <!-- ===== ホーム画面 ===== -->
@@ -1449,6 +1509,46 @@ body {
     <div class="bottom-nav-label">アクション</div>
   </div>
 </nav>
+
+</div><!-- /mainApp -->
+
+<script>
+// ===== ログイン・ログアウト =====
+function showLoginForm() {
+  document.getElementById('loginForm').style.display = 'block';
+  document.getElementById('roleGrid').style.display = 'none';
+  document.getElementById('demoDivider').style.display = 'none';
+}
+function hideLoginForm() {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('roleGrid').style.display = 'grid';
+  document.getElementById('demoDivider').style.display = 'block';
+}
+function handlePresidentLogin() {
+  var email = document.getElementById('loginEmail').value;
+  var password = document.getElementById('loginPassword').value;
+  var errorEl = document.getElementById('loginError');
+  errorEl.style.display = 'none';
+  if (!email || !password) { errorEl.textContent = 'メールアドレスとパスワードを入力してください'; errorEl.style.display = 'block'; return; }
+  // デモ用：何でもOK
+  loginAs('president', '岡部社長');
+}
+function loginAs(role, displayName) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('mainApp').style.display = 'block';
+  document.getElementById('headerUserName').textContent = displayName;
+  document.body.style.paddingBottom = '64px';
+  initApp();
+}
+function doLogout() {
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.body.style.paddingBottom = '0';
+  document.querySelectorAll('.screen').forEach(function(el) { el.classList.remove('active'); });
+  document.getElementById('homeScreen').classList.add('active');
+  hideLoginForm();
+}
+</script>
 
 <script>
 // ===== サンプルデータ =====
@@ -2107,7 +2207,7 @@ function checkDeliveryComparison() {
 }
 
 // ===== 初期化 =====
-document.addEventListener('DOMContentLoaded', function() {
+function initApp() {
   setTodayDate();
   renderHomeWorkCards();
   renderWorkList();
@@ -2116,7 +2216,8 @@ document.addEventListener('DOMContentLoaded', function() {
   renderTireInputs();
 
   // Hide chat input area initially
-  document.getElementById('chatInputArea').style.display = 'none';
+  var chatArea = document.getElementById('chatInputArea');
+  if (chatArea) chatArea.style.display = 'none';
 
   // Close modal on overlay click
   document.getElementById('detailModal').addEventListener('click', function(e) {
@@ -2125,7 +2226,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('registerChoiceModal').addEventListener('click', function(e) {
     if (e.target === this) closeRegisterChoice();
   });
-});
+}
 </script>
 </body>
 </html>
