@@ -402,7 +402,6 @@ async function handleLogin() {
 
 // デモモード
 function loginAs(role) {
-  document.getElementById('loginScreen').style.display = 'none';
   var screens = {
     president: 'homePresident',
     sales_manager: 'homeSalesManager',
@@ -411,7 +410,10 @@ function loginAs(role) {
     office: 'homeOffice',
     service: 'homeWorker'
   };
-  if (screens[role]) document.getElementById(screens[role]).classList.add('active');
+  if (screens[role]) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById(screens[role]).classList.add('active');
+  }
 }
 
 async function logout() {
