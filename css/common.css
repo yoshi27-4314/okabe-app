@@ -770,45 +770,45 @@ a:hover { text-decoration: underline; }
   line-height: 1;
 }
 
-.monitor-grid {
+/* ===== 共通：セクション見出し ===== */
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  color: #B5A887;
+  margin: 0 0 16px;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+/* ===== 3層：進行中カード ===== */
+.monitor-active {
+  margin-bottom: 40px;
+}
+
+.active-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
 }
 
-.monitor-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 2px solid #3A332A;
+.active-card {
   border-radius: 16px;
-  padding: 32px 24px;
+  padding: 24px;
   text-align: center;
-  transition: all 0.3s ease;
+  border: 2px solid;
 }
 
-.monitor-card.status-reserved {
-  background: rgba(148, 163, 184, 0.08);
-  border-color: rgba(148, 163, 184, 0.3);
-  color: #94A3B8;
-}
-
-.monitor-card.status-received {
-  background: rgba(232, 197, 71, 0.12);
-  border-color: rgba(232, 197, 71, 0.5);
-  color: #F4D666;
-}
-
-.monitor-card.status-working {
-  background: linear-gradient(135deg, rgba(224, 118, 66, 0.3) 0%, rgba(212, 91, 31, 0.3) 100%);
-  border-color: var(--color-accent-orange);
+.active-card.status-working {
+  background: linear-gradient(135deg, rgba(224, 118, 66, 0.4) 0%, rgba(212, 91, 31, 0.4) 100%);
+  border-color: #D45B1F;
   color: white;
   animation: pulse 2s ease-in-out infinite;
 }
 
-.monitor-card.status-completed {
-  background: rgba(107, 142, 78, 0.15);
-  border-color: rgba(107, 142, 78, 0.5);
-  color: #8FB76C;
-  opacity: 0.7;
+.active-card.status-received {
+  background: rgba(232, 197, 71, 0.2);
+  border-color: rgba(232, 197, 71, 0.7);
+  color: #F4D666;
 }
 
 @keyframes pulse {
@@ -822,38 +822,142 @@ a:hover { text-decoration: underline; }
   }
 }
 
-.monitor-card-time {
-  font-family: var(--font-display);
+.active-card-time {
+  font-family: 'Playfair Display', serif;
   font-size: 1.5rem;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   letter-spacing: 0.05em;
 }
 
-.monitor-card-customer {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  line-height: 1.3;
-}
-
-.monitor-card-vehicle {
-  font-family: var(--font-mono);
-  font-size: 1.25rem;
-  margin-bottom: 16px;
-  letter-spacing: 0.05em;
-  word-break: break-all;
-}
-
-.monitor-card-status {
+.active-card-customer {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 12px;
+  line-height: 1.3;
 }
 
-.monitor-card-times {
-  font-family: var(--font-mono);
+.active-card-vehicle {
+  font-family: 'SF Mono', monospace;
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.active-card-status {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.active-card-times {
+  font-family: 'SF Mono', monospace;
   font-size: 1rem;
+  opacity: 0.9;
+}
+
+.active-empty {
+  text-align: center;
+  padding: 32px;
+  color: #6B6157;
+  font-style: italic;
+  font-size: 1.125rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px dashed #3A332A;
+}
+
+/* ===== 4層：本日の全予定（表形式） ===== */
+.monitor-schedule {
+  margin-bottom: 24px;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #3A332A;
+}
+
+.schedule-table thead {
+  background: rgba(184, 152, 90, 0.15);
+}
+
+.schedule-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #B5A887;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #3A332A;
+}
+
+.schedule-table th.col-time { width: 80px; }
+.schedule-table th.col-status { width: 130px; }
+.schedule-table th.col-times { width: 140px; }
+
+.schedule-table td {
+  padding: 10px 16px;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.schedule-table tr:last-child td {
+  border-bottom: none;
+}
+
+.schedule-table tr.status-completed {
+  color: #8FB76C;
   opacity: 0.8;
+}
+
+.schedule-table tr.status-working {
+  background: rgba(212, 91, 31, 0.15);
+  color: white;
+  font-weight: 600;
+}
+
+.schedule-table tr.status-working td {
+  position: relative;
+}
+
+.schedule-table tr.status-working td:first-child::before {
+  content: '';
+  color: #F4D666;
+  margin-right: 4px;
+}
+
+.schedule-table tr.status-received {
+  color: #F4D666;
+  background: rgba(232, 197, 71, 0.08);
+}
+
+.schedule-table tr.status-reserved {
+  color: #94A3B8;
+}
+
+.schedule-table .col-time {
+  font-family: 'SF Mono', monospace;
+  font-weight: 700;
+}
+
+.schedule-table .col-vehicle {
+  font-family: 'SF Mono', monospace;
+  font-size: 0.95rem;
+}
+
+.schedule-table .col-status {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.schedule-table .col-times {
+  font-family: 'SF Mono', monospace;
+  font-size: 0.95rem;
+  opacity: 0.85;
 }
 
 /* ===== ローディングモーダル ===== */
@@ -1151,6 +1255,13 @@ a:hover { text-decoration: underline; }
 
 @media (max-width: 900px) {
   .summary-counters { grid-template-columns: repeat(2, 1fr); }
+  .active-cards { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .schedule-table { font-size: 0.875rem; }
+  .schedule-table th,
+  .schedule-table td { padding: 8px; }
 }
 
 @media (max-width: 767px) {

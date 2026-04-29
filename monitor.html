@@ -17,34 +17,44 @@
       <div class="monitor-clock" id="clock">--:--</div>
     </header>
 
-    <!-- 上層：ステータス別カウンター -->
+    <!-- 1層：ステータス別カウンター -->
     <section class="monitor-summary">
-      <div class="summary-counters" id="summary-counters">
-        <!-- JSで動的生成 -->
-      </div>
-      <div class="summary-total" id="summary-total">
-        <!-- JSで動的生成 -->
-      </div>
+      <div class="summary-counters" id="summary-counters"></div>
+      <div class="summary-total" id="summary-total"></div>
     </section>
 
-    <!-- 中層：時系列プログレスバー -->
+    <!-- 2層：時系列プログレスバー -->
     <section class="monitor-timeline">
       <div class="timeline-labels">
-        <span class="timeline-label-start">08:00</span>
-        <span class="timeline-label-end">18:00</span>
+        <span>08:00</span>
+        <span>18:00</span>
       </div>
-      <div class="timeline-bar" id="timeline-bar">
-        <!-- JSで動的生成 -->
-      </div>
-      <div class="timeline-now" id="timeline-now">
-        <!-- 現在時刻マーカー -->
-      </div>
+      <div class="timeline-bar" id="timeline-bar"></div>
+      <div class="timeline-now" id="timeline-now"></div>
     </section>
 
-    <!-- 下層：個別カードグリッド -->
-    <main class="monitor-grid" id="monitor-grid">
-      <!-- 動的に生成 -->
-    </main>
+    <!-- 3層：進行中（カード形式） -->
+    <section class="monitor-active">
+      <h2 class="section-heading">進行中</h2>
+      <div class="active-cards" id="active-cards"></div>
+    </section>
+
+    <!-- 4層：本日の全予定（表形式） -->
+    <section class="monitor-schedule">
+      <h2 class="section-heading">本日の全予定</h2>
+      <table class="schedule-table" id="schedule-table">
+        <thead>
+          <tr>
+            <th class="col-time">時刻</th>
+            <th class="col-customer">顧客</th>
+            <th class="col-vehicle">識別子</th>
+            <th class="col-status">状態</th>
+            <th class="col-times">作業時間</th>
+          </tr>
+        </thead>
+        <tbody id="schedule-tbody"></tbody>
+      </table>
+    </section>
   </div>
 
   <script src="js/mock-data.js"></script>
