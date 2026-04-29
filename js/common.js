@@ -67,7 +67,7 @@ function showToast(message, type) {
       '<div class="toast-detail">' + (message.detail || '') + '</div>' +
     '</div>';
   document.body.appendChild(toast);
-  setTimeout(function() { toast.remove(); }, 3000);
+  setTimeout(function() { toast.remove(); }, 5000);
 }
 
 // ===== モーダル =====

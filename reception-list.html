@@ -50,9 +50,18 @@ function renderReservationList() {
     var subName = r.customerSubName ? '<div class="reservation-detail">' + r.customerSubName + '</div>' : '';
     var suffix = r.customerType === 'individual' ? ' 様' : '';
     var actionBtn = '';
+    var timeInfo = '';
 
     if (r.status === 'reserved') {
       actionBtn = '<div class="reservation-actions"><button class="btn btn-primary" onclick="receiveReservation(\'' + r.id + '\')">受付する</button></div>';
+    } else if (r.status === 'received') {
+      actionBtn = '<div class="reservation-actions"><button class="btn btn-important" onclick="goToTasks(\'' + r.id + '\')">作業へ</button></div>';
+    }
+
+    if (r.status === 'completed' && r.startTime && r.endTime) {
+      timeInfo = '<div class="reservation-detail" style="margin-top:4px;">作業時間：' + r.startTime + '-' + r.endTime + '</div>';
+    } else if (r.status === 'working' && r.startTime) {
+      timeInfo = '<div class="reservation-detail" style="margin-top:4px;">開始：' + r.startTime + '</div>';
     }
 
     return '<div class="reservation-card status-' + r.status + '">' +
@@ -67,6 +76,7 @@ function renderReservationList() {
       '<div class="reservation-detail">' + r.vehicleNumber + '・' + r.vehicleModel + '</div>' +
       '<div class="reservation-id">識別子：' + (r.contractIdentifier || '—') + '</div>' +
       '<div class="reservation-detail" style="margin-top:4px;">' + r.workType + '</div>' +
+      timeInfo +
       actionBtn +
       '</div>';
   }).join('');
@@ -76,6 +86,10 @@ function receiveReservation(id) {
   updateReservation(id, { status: 'received' });
   renderReservationList();
   showToast({ title: '受付完了', detail: 'ステータスを受付済に変更しました' });
+}
+
+function goToTasks(id) {
+  window.location.href = 'staff-tasks.html?role=service';
 }
 
 document.addEventListener('DOMContentLoaded', function() {

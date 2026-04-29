@@ -28,6 +28,14 @@
   --font-display: 'Playfair Display', 'Noto Serif JP', serif;
   --font-body: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic', sans-serif;
   --font-mono: 'SF Mono', 'Consolas', 'Courier New', monospace;
+
+  /* サイズ */
+  --font-size-h1: 2.5rem;
+  --font-size-h2: 1.75rem;
+  --font-size-h3: 1.25rem;
+  --font-size-body: 1rem;
+  --font-size-small: 0.875rem;
+  --font-size-mono: 1.125rem;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -337,7 +345,7 @@ a:hover { text-decoration: underline; }
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   border-left: 4px solid var(--color-status-completed);
   z-index: 2000;
-  animation: slide-in 0.3s ease, slide-out 0.3s ease 2.7s forwards;
+  animation: slide-in 0.3s ease, slide-out 0.3s ease 4.7s forwards;
 }
 
 @keyframes slide-in {
