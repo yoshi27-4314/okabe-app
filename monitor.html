@@ -17,6 +17,31 @@
       <div class="monitor-clock" id="clock">--:--</div>
     </header>
 
+    <!-- 上層：ステータス別カウンター -->
+    <section class="monitor-summary">
+      <div class="summary-counters" id="summary-counters">
+        <!-- JSで動的生成 -->
+      </div>
+      <div class="summary-total" id="summary-total">
+        <!-- JSで動的生成 -->
+      </div>
+    </section>
+
+    <!-- 中層：時系列プログレスバー -->
+    <section class="monitor-timeline">
+      <div class="timeline-labels">
+        <span class="timeline-label-start">08:00</span>
+        <span class="timeline-label-end">18:00</span>
+      </div>
+      <div class="timeline-bar" id="timeline-bar">
+        <!-- JSで動的生成 -->
+      </div>
+      <div class="timeline-now" id="timeline-now">
+        <!-- 現在時刻マーカー -->
+      </div>
+    </section>
+
+    <!-- 下層：個別カードグリッド -->
     <main class="monitor-grid" id="monitor-grid">
       <!-- 動的に生成 -->
     </main>

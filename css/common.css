@@ -981,10 +981,176 @@ a:hover { text-decoration: underline; }
   color: var(--color-text);
 }
 
+/* ===== 上層：ステータス別カウンター ===== */
+.monitor-summary {
+  margin-bottom: 32px;
+}
+
+.summary-counters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.summary-counter {
+  background: rgba(255, 255, 255, 0.04);
+  border: 2px solid #3A332A;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.summary-counter.status-completed {
+  background: rgba(107, 142, 78, 0.15);
+  border-color: rgba(107, 142, 78, 0.5);
+  color: #8FB76C;
+}
+
+.summary-counter.status-working {
+  background: linear-gradient(135deg, rgba(224, 118, 66, 0.3) 0%, rgba(212, 91, 31, 0.3) 100%);
+  border-color: #D45B1F;
+  color: white;
+}
+
+.summary-counter.status-received {
+  background: rgba(232, 197, 71, 0.12);
+  border-color: rgba(232, 197, 71, 0.5);
+  color: #F4D666;
+}
+
+.summary-counter.status-reserved {
+  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.3);
+  color: #94A3B8;
+}
+
+.summary-counter-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.summary-counter-label {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.summary-total {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #B5A887;
+  font-family: 'SF Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+.summary-total-percent {
+  color: #F4D666;
+  font-weight: 700;
+}
+
+/* ===== 中層：時系列プログレスバー ===== */
+.monitor-timeline {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 40px;
+  border: 1px solid #3A332A;
+  position: relative;
+}
+
+.timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'SF Mono', monospace;
+  font-size: 1rem;
+  color: #B5A887;
+  margin-bottom: 12px;
+}
+
+.timeline-bar {
+  position: relative;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  display: flex;
+  overflow: hidden;
+}
+
+.timeline-block {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.timeline-block:last-child { border-right: none; }
+
+.timeline-block.status-completed {
+  background: rgba(107, 142, 78, 0.4);
+  color: #8FB76C;
+}
+.timeline-block.status-working {
+  background: linear-gradient(135deg, #E07642 0%, #D45B1F 100%);
+  color: white;
+  animation: pulse-bg 2s ease-in-out infinite;
+}
+.timeline-block.status-received {
+  background: rgba(232, 197, 71, 0.4);
+  color: #F4D666;
+}
+.timeline-block.status-reserved {
+  background: rgba(148, 163, 184, 0.2);
+  color: #94A3B8;
+}
+.timeline-block.status-empty { background: transparent; }
+
+@keyframes pulse-bg {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.timeline-now {
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: #F4D666;
+  box-shadow: 0 0 8px #F4D666;
+  pointer-events: none;
+}
+
+.timeline-now::before {
+  content: attr(data-time);
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #F4D666;
+  color: #1A1612;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'SF Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 /* ===== レスポンシブ ===== */
 
 @media (max-width: 1023px) and (min-width: 768px) {
   .role-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .summary-counters { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 767px) {
