@@ -102,12 +102,7 @@ function loadMonitorData() {
     renderTimeline(reservations);
   }
 
-  // 3層：進行中カード
-  if (document.getElementById('active-cards')) {
-    renderActive(reservations);
-  }
-
-  // 4層：本日の全予定
+  // 3層：本日の全予定
   if (document.getElementById('schedule-tbody')) {
     renderSchedule(reservations);
   }
@@ -209,34 +204,7 @@ function renderTimeline(reservations) {
   }
 }
 
-// ===== 3層：進行中カード =====
-
-function renderActive(reservations) {
-  var active = reservations.filter(function(r) {
-    return r.status === 'working' || r.status === 'received';
-  });
-
-  var container = document.getElementById('active-cards');
-
-  if (active.length === 0) {
-    container.innerHTML = '<div class="active-empty">現在進行中の作業はありません</div>';
-    return;
-  }
-
-  container.innerHTML = active.map(function(r) {
-    var subName = r.customerSubName ? '<br>' + r.customerSubName : '';
-    var timesHtml = r.startTime ? '<div class="active-card-times">' + r.startTime + '-</div>' : '';
-    return '<div class="active-card status-' + r.status + '">' +
-      '<div class="active-card-time">' + r.time + '</div>' +
-      '<div class="active-card-customer">' + r.customerName + subName + '</div>' +
-      '<div class="active-card-vehicle">' + (r.contractIdentifier || r.vehicleNumber) + '</div>' +
-      '<div class="active-card-status">' + getStatusLabel(r.status) + '</div>' +
-      timesHtml +
-      '</div>';
-  }).join('');
-}
-
-// ===== 4層：本日の全予定（表形式） =====
+// ===== 3層：本日の全予定（表形式） =====
 
 function renderSchedule(reservations) {
   var tbody = document.getElementById('schedule-tbody');

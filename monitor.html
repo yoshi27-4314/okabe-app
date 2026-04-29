@@ -33,13 +33,7 @@
       <div class="timeline-now" id="timeline-now"></div>
     </section>
 
-    <!-- 3層：進行中（カード形式） -->
-    <section class="monitor-active">
-      <h2 class="section-heading">進行中</h2>
-      <div class="active-cards" id="active-cards"></div>
-    </section>
-
-    <!-- 4層：本日の全予定（表形式） -->
+    <!-- 3層：本日の全予定（表形式） -->
     <section class="monitor-schedule">
       <h2 class="section-heading">本日の全予定</h2>
       <table class="schedule-table" id="schedule-table">
@@ -63,7 +57,6 @@
     initMonitor();
     setInterval(updateClock, 1000);
     setInterval(loadMonitorData, 5000);
-    updateClock();
   </script>
 </body>
 </html>
