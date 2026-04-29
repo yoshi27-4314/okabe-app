@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新規受付 - OKABE GROUP</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+  <a href="../" class="back-to-compare">&larr; 3案比較ページに戻る</a>
+
+<header class="app-header">
+  <div class="app-header-inner">
+    <div class="app-logo">
+      <a href="index.html" class="logo-link">OKABE GROUP</a>
+    </div>
+    <div class="app-user">
+      <span class="user-role">フロントメンバー</span>
+      <a href="index.html" class="role-switch">ロール変更 ▾</a>
+    </div>
+  </div>
+</header>
+
+<main class="page-content" style="max-width:800px;">
+  <a href="reception-list.html?role=front" class="back-link">← 受付一覧に戻る</a>
+  <h1 class="page-title">新規受付</h1>
+
+  <!-- 顧客の特定 -->
+  <div class="card form-section">
+    <div class="form-section-title">顧客の特定</div>
+    <div class="form-group">
+      <label>既存顧客を検索</label>
+      <input type="text" id="customer-search" placeholder="🔍 名前・電話・ナンバーで検索">
+    </div>
+    <div style="text-align:center;color:var(--color-text-sub);margin:16px 0;">または</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button class="btn btn-important" onclick="ocrVehicleInspection()" style="flex:1;min-width:200px;">📷 車検証を撮影してOCR読取</button>
+      <button class="btn btn-secondary" onclick="ocrVehicleInspection()" style="flex:1;min-width:200px;">📁 ファイルから車検証を読み込み</button>
+    </div>
+  </div>
+
+  <!-- 顧客情報 -->
+  <div class="card form-section">
+    <div class="form-section-title">顧客情報</div>
+    <div class="form-hint">💡 車検証OCRで自動入力されます</div>
+
+    <div class="form-group">
+      <label>個人/法人</label>
+      <div class="form-radio-group">
+        <label><input type="radio" name="customer-type" value="individual" checked> 個人</label>
+        <label><input type="radio" name="customer-type" value="corporate"> 法人</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>姓</label>
+        <input type="text" id="customer-last-name" placeholder="田中">
+      </div>
+      <div class="form-group">
+        <label>名</label>
+        <input type="text" id="customer-first-name" placeholder="花子">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>フリガナ</label>
+      <input type="text" id="customer-furigana" placeholder="タナカ ハナコ">
+    </div>
+
+    <div class="form-group">
+      <label>住所</label>
+      <input type="text" id="customer-address" placeholder="岐阜県岐阜市茜部本郷1-2-3">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>電話</label>
+        <input type="tel" id="customer-phone" placeholder="058-123-4567">
+      </div>
+      <div class="form-group">
+        <label>携帯</label>
+        <input type="tel" id="customer-mobile" placeholder="090-1234-5678">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>メール</label>
+      <input type="email" id="customer-email" placeholder="tanaka.hanako@example.com">
+    </div>
+  </div>
+
+  <!-- 車両情報 -->
+  <div class="card form-section">
+    <div class="form-section-title">車両情報</div>
+
+    <div class="form-group">
+      <label>ナンバー</label>
+      <input type="text" id="vehicle-number" placeholder="岐阜500あ1234">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>メーカー</label>
+        <input type="text" id="vehicle-manufacturer" placeholder="ホンダ">
+      </div>
+      <div class="form-group">
+        <label>車種</label>
+        <input type="text" id="vehicle-model" placeholder="フリード">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>車体番号</label>
+        <input type="text" id="vehicle-chassis" placeholder="GB7-1234567">
+      </div>
+      <div class="form-group">
+        <label>型式</label>
+        <input type="text" id="vehicle-type" placeholder="DBA-GB7">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>色</label>
+      <input type="text" id="vehicle-color" placeholder="パールホワイト">
+    </div>
+  </div>
+
+  <!-- タイヤ情報 -->
+  <div class="card form-section">
+    <div class="form-section-title">タイヤ情報（4本）</div>
+
+    <div class="form-group">
+      <label>シーズン</label>
+      <div class="form-radio-group">
+        <label><input type="radio" name="tire-season" value="winter" checked> 冬タイヤ</label>
+        <label><input type="radio" name="tire-season" value="summer"> 夏タイヤ</label>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-bottom:20px;">
+      <button class="btn btn-important" onclick="ocrTires()" style="flex:1;">📷 4本を撮影してOCR読取</button>
+      <button class="btn btn-secondary" style="flex:1;">手入力で補正</button>
+    </div>
+
+    <div class="tire-grid-input" id="tire-grid">
+      <!-- 動的に生成 -->
+    </div>
+
+    <div style="margin-top:20px;">
+      <div class="form-row">
+        <div class="form-group">
+          <label>ホイール種類</label>
+          <div class="form-radio-group">
+            <label><input type="radio" name="wheel-type" value="genuine" checked> 純正</label>
+            <label><input type="radio" name="wheel-type" value="aftermarket"> 社外</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>ホイール材質</label>
+          <div class="form-radio-group">
+            <label><input type="radio" name="wheel-material" value="alloy" checked> アルミ</label>
+            <label><input type="radio" name="wheel-material" value="steel"> 鉄</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>ホイールキャップ</label>
+          <div class="form-radio-group">
+            <label><input type="radio" name="hubcap" value="yes" checked> 有</label>
+            <label><input type="radio" name="hubcap" value="no"> 無</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>ナット種別</label>
+          <div class="form-radio-group">
+            <label><input type="radio" name="lug-nuts" value="shared" checked> 共用</label>
+            <label><input type="radio" name="lug-nuts" value="separate"> 別</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 契約情報 -->
+  <div class="card form-section">
+    <div class="form-section-title">契約情報</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>保管場所</label>
+        <select id="storage-location">
+          <option value="A">保管場所A</option>
+          <option value="B">保管場所B</option>
+          <option value="C">保管場所C</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>保管No</label>
+        <input type="text" id="storage-no" placeholder="A-127" value="A-127">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>預かり日</label>
+        <input type="date" id="start-date">
+      </div>
+      <div class="form-group">
+        <label>返却予定日</label>
+        <input type="date" id="return-date">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>料金（税別）</label>
+      <input type="text" id="fee" value="¥5,500" placeholder="¥5,500">
+    </div>
+
+    <div class="form-hint">💡 契約識別子は自動採番されます</div>
+    <div class="form-group">
+      <label>契約識別子</label>
+      <div id="contract-identifier" style="font-family:var(--font-mono);font-size:1.1rem;font-weight:700;color:var(--color-accent-gold);padding:8px 0;">—</div>
+    </div>
+
+    <div class="form-group">
+      <label>備考</label>
+      <textarea class="memo-textarea" id="reception-memo" rows="3" placeholder="特記事項があれば記入"></textarea>
+    </div>
+  </div>
+
+  <button class="btn btn-important" style="width:100%;padding:18px;font-size:1.1rem;" onclick="completeReception()">受付完了</button>
+  <div style="height:40px;"></div>
+</main>
+
+<!-- ローディングモーダル -->
+<div class="modal loading-modal" id="loading-modal">
+  <div class="modal-content">
+    <div class="loading-spinner"></div>
+    <div id="loading-message" style="font-size:1.1rem;font-weight:600;">読み取り中...</div>
+  </div>
+</div>
+
+<!-- 完了モーダル -->
+<div class="modal" id="completion-modal">
+  <div class="modal-content" style="text-align:center;">
+    <div class="completion-icon">✓</div>
+    <h2 class="modal-title">受付完了</h2>
+    <p id="completion-customer" style="font-size:1.1rem;margin-bottom:8px;"></p>
+    <p style="color:var(--color-text-sub);margin-bottom:24px;">受付が完了しました</p>
+
+    <div class="label-preview">
+      <div class="label-preview-id" id="label-id">—</div>
+      <div class="label-preview-location" id="label-location">保管場所：—</div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="printLabel()">ラベル印字</button>
+      <button class="btn btn-primary" onclick="location.href='reception-list.html?role=front'">受付一覧へ</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/mock-data.js"></script>
+<script src="js/common.js"></script>
+<script>
+// 今日の日付をデフォルトセット
+document.addEventListener('DOMContentLoaded', function() {
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('start-date').value = today;
+
+  // 半年後
+  var returnDate = new Date();
+  returnDate.setMonth(returnDate.getMonth() + 6);
+  document.getElementById('return-date').value = returnDate.toISOString().split('T')[0];
+
+  renderTireGrid([]);
+});
+
+function renderTireGrid(tires) {
+  var positions = ['右前', '右後', '左前', '左後'];
+  var grid = document.getElementById('tire-grid');
+
+  grid.innerHTML = positions.map(function(pos, i) {
+    var t = tires[i] || {};
+    var depthLabel = '';
+    if (t.treadDepth) {
+      if (t.treadDepth >= 4) depthLabel = '<div class="tire-status good">● 良好</div>';
+      else if (t.treadDepth >= 2) depthLabel = '<div class="tire-status caution">● 要注意</div>';
+      else depthLabel = '<div class="tire-status replace">● 交換推奨</div>';
+    }
+
+    return '<div class="tire-cell-input">' +
+      '<div class="tire-position">' + pos + '</div>' +
+      '<div class="tire-info">' + (t.manufacturer || '—') + '</div>' +
+      '<div class="tire-info">' + (t.pattern || '') + '</div>' +
+      '<div class="tire-info">' + (t.size || '—') + '</div>' +
+      '<div class="tire-info">' + (t.manufactureDate || '') + '</div>' +
+      (t.treadDepth ? '<div class="tire-depth">' + t.treadDepth + 'mm</div>' : '<div class="tire-depth" style="color:var(--color-text-sub);">—</div>') +
+      depthLabel +
+      '</div>';
+  }).join('');
+}
+
+function ocrVehicleInspection() {
+  document.getElementById('loading-message').textContent = '車検証を読み取っています...';
+  showModal('loading-modal');
+
+  setTimeout(function() {
+    hideModal('loading-modal');
+
+    var d = OCR_VEHICLE_INSPECTION_DATA;
+    document.getElementById('customer-last-name').value = d.customer.lastName;
+    document.getElementById('customer-first-name').value = d.customer.firstName;
+    document.getElementById('customer-furigana').value = d.customer.furigana;
+    document.getElementById('customer-address').value = d.customer.address;
+    document.getElementById('customer-phone').value = d.customer.phone;
+    document.getElementById('customer-mobile').value = d.customer.mobile;
+    document.getElementById('customer-email').value = d.customer.email;
+
+    document.getElementById('vehicle-number').value = d.vehicle.number;
+    document.getElementById('vehicle-manufacturer').value = d.vehicle.manufacturer;
+    document.getElementById('vehicle-model').value = d.vehicle.model;
+    document.getElementById('vehicle-chassis').value = d.vehicle.chassisNumber;
+    document.getElementById('vehicle-type').value = d.vehicle.vehicleType;
+    document.getElementById('vehicle-color').value = d.vehicle.color;
+
+    updateContractIdentifier();
+    showToast({ title: '車検証を読み取りました', detail: '顧客情報・車両情報を自動入力しました' });
+  }, 1000);
+}
+
+function ocrTires() {
+  document.getElementById('loading-message').textContent = 'タイヤを読み取っています...';
+  showModal('loading-modal');
+
+  setTimeout(function() {
+    hideModal('loading-modal');
+    renderTireGrid(OCR_TIRE_DATA);
+    showToast({ title: 'タイヤ4本を読み取りました', detail: 'メーカー・サイズ・残溝を自動入力しました' });
+  }, 1000);
+}
+
+function updateContractIdentifier() {
+  var number = document.getElementById('vehicle-number').value;
+  var idEl = document.getElementById('contract-identifier');
+  if (number) {
+    idEl.textContent = number + '-A';
+  } else {
+    idEl.textContent = '—';
+  }
+}
+
+document.getElementById('vehicle-number').addEventListener('input', updateContractIdentifier);
+
+function completeReception() {
+  var vehicleNumber = document.getElementById('vehicle-number').value;
+  var lastName = document.getElementById('customer-last-name').value;
+  var firstName = document.getElementById('customer-first-name').value;
+
+  if (!vehicleNumber || !lastName) {
+    alert('顧客名とナンバーを入力してください');
+    return;
+  }
+
+  if (!confirm('受付を完了します。よろしいですか？')) return;
+
+  var contractId = vehicleNumber + '-A';
+  var storageNo = document.getElementById('storage-no').value;
+  var customerName = lastName + ' ' + firstName;
+  var vehicleModel = document.getElementById('vehicle-manufacturer').value + ' ' + document.getElementById('vehicle-model').value;
+
+  // 予約データに追加
+  var newReservation = {
+    id: 'R' + String(Date.now()).slice(-6),
+    time: getCurrentTime(),
+    customerName: customerName,
+    customerType: 'individual',
+    vehicleNumber: vehicleNumber,
+    vehicleModel: vehicleModel,
+    workType: '新規預かり',
+    status: 'received',
+    contractIdentifier: contractId,
+    storageNo: storageNo
+  };
+  addReservation(newReservation);
+
+  // 完了モーダル表示
+  document.getElementById('completion-customer').textContent = customerName + ' 様の受付が';
+  document.getElementById('label-id').textContent = contractId;
+  document.getElementById('label-location').textContent = '保管場所：' + storageNo;
+  showModal('completion-modal');
+}
+
+function printLabel() {
+  showToast({ title: 'ラベル印字', detail: 'テプラにラベルデータを送信しました' });
+}
+</script>
+
+</body>
+</html>

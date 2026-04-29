@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作業モニター - OKABE GROUP</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+</head>
+<body class="monitor-page">
+  <a href="../" class="back-to-compare">← 3案比較ページに戻る</a>
+  <div class="monitor-container">
+    <header class="monitor-header">
+      <div class="monitor-title-block">
+        <h1 class="monitor-title">OKABE GROUP</h1>
+        <p class="monitor-subtitle">本日の作業状況</p>
+      </div>
+      <div class="monitor-clock" id="clock">--:--</div>
+    </header>
+
+    <main class="monitor-grid" id="monitor-grid"></main>
+  </div>
+
+  <script src="js/mock-data.js"></script>
+  <script src="js/common.js"></script>
+  <script>
+    initMonitor();
+    setInterval(updateClock, 1000);
+    setInterval(loadMonitorData, 5000);
+  </script>
+</body>
+</html>

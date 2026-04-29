@@ -1,65 +1,350 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OKABE GROUP タイヤホテル業務管理システム</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/common.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OKABE GROUP モニター画面 比較版</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #FAF7F2;
+      --color-text: #2C2820;
+      --color-text-sub: #6B6157;
+      --color-accent-gold: #B8985A;
+      --color-card: #FFFFFF;
+      --color-border: #E5DFD3;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+
+    .compare-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .compare-hero {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .compare-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin: 0 0 16px;
+      background: linear-gradient(135deg, #C9A876 0%, #B8985A 50%, #9C7E3F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .compare-subtitle {
+      font-size: 1.25rem;
+      color: var(--color-text-sub);
+      margin: 0 0 8px;
+    }
+
+    .compare-instruction {
+      font-size: 1rem;
+      color: var(--color-text-sub);
+      max-width: 700px;
+      margin: 24px auto 0;
+      line-height: 1.7;
+    }
+
+    .compare-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-bottom: 60px;
+    }
+
+    @media (min-width: 1024px) {
+      .compare-cards { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .compare-card {
+      background: var(--color-card);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 4px 16px rgba(44, 40, 32, 0.08);
+      border: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .compare-card.recommended {
+      border-color: var(--color-accent-gold);
+      border-width: 2px;
+      position: relative;
+    }
+
+    .compare-card.recommended::before {
+      content: '推奨';
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: linear-gradient(135deg, #C9A876 0%, #B8985A 100%);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 16px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .compare-card-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.875rem;
+      color: var(--color-accent-gold);
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+    }
+
+    .compare-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 16px;
+    }
+
+    .compare-card-summary {
+      color: var(--color-text-sub);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    .compare-card-section { margin-bottom: 16px; }
+
+    .compare-card-section-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .compare-card-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--color-text-sub);
+      line-height: 1.7;
+    }
+
+    .compare-card-list li {
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .compare-card-list li::before {
+      content: '・';
+      position: absolute;
+      left: 0;
+    }
+
+    .compare-card-buttons {
+      margin-top: auto;
+      padding-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .compare-btn {
+      padding: 14px 24px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      display: block;
+    }
+
+    .compare-btn-primary {
+      background: linear-gradient(135deg, #C9A876 0%, #B8985A 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(184, 152, 90, 0.3);
+    }
+
+    .compare-btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(184, 152, 90, 0.4);
+    }
+
+    .compare-btn-secondary {
+      background: white;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+
+    .compare-btn-secondary:hover {
+      background: var(--color-bg);
+    }
+
+    .compare-note {
+      background: rgba(184, 152, 90, 0.08);
+      border-left: 4px solid var(--color-accent-gold);
+      padding: 20px 24px;
+      border-radius: 8px;
+      margin-bottom: 60px;
+      color: var(--color-text);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .compare-note-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--color-text);
+    }
+
+    .compare-footer {
+      padding-top: 40px;
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+      color: var(--color-text-sub);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .compare-footer-question {
+      font-size: 1.25rem;
+      color: var(--color-text);
+      font-weight: 600;
+      margin-bottom: 16px;
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
 </head>
-<body class="role-selection-page">
-  <main class="role-selection-container">
-    <header class="hero">
-      <h1 class="hero-title">OKABE GROUP</h1>
-      <p class="hero-subtitle">タイヤホテル業務管理システム</p>
+<body>
+  <main class="compare-container">
+    <header class="compare-hero">
+      <h1 class="compare-title">OKABE GROUP</h1>
+      <p class="compare-subtitle">タイヤホテル業務管理システム</p>
+      <p class="compare-instruction">
+        工場・事務所に設置する作業モニター画面の表示方法について、3つの案を作成しました。<br>
+        実際にご覧いただき、お好みの方向性をお聞かせください。
+      </p>
     </header>
 
-    <section class="role-cards">
-      <h2 class="section-title">ロールを選択してください</h2>
-
-      <div class="role-grid">
-        <a href="staff-tasks.html?role=service" class="role-card">
-          <div class="role-icon">🔧</div>
-          <div class="role-name">サービススタッフ</div>
-        </a>
-
-        <a href="reception-list.html?role=front" class="role-card">
-          <div class="role-icon">📋</div>
-          <div class="role-name">フロントメンバー</div>
-        </a>
-
-        <a href="staff-tasks.html?role=manager" class="role-card">
-          <div class="role-icon">🏭</div>
-          <div class="role-name">工場長</div>
-          <div class="role-staff">山田</div>
-        </a>
-
-        <a href="staff-tasks.html?role=sales" class="role-card">
-          <div class="role-icon">💼</div>
-          <div class="role-name">営業</div>
-          <div class="role-staff">寺嶋</div>
-        </a>
-
-        <a href="staff-tasks.html?role=sales-manager" class="role-card">
-          <div class="role-icon">📈</div>
-          <div class="role-name">営業部長</div>
-          <div class="role-staff">藤井</div>
-        </a>
-
-        <a href="staff-tasks.html?role=president" class="role-card">
-          <div class="role-icon">👔</div>
-          <div class="role-name">社長</div>
-          <div class="role-staff">岡部</div>
-        </a>
+    <div class="compare-note">
+      <div class="compare-note-title">大画面モニターでの確認について</div>
+      <div>
+        各案は壁掛けの大型モニター（55〜65インチ・横長）での表示を想定しています。<br>
+        画面サイズに応じて自動的にレイアウトが調整されます。<br>
+        実機での確認のため、フルスクリーン表示でご覧いただくことを推奨します。
       </div>
+    </div>
 
-      <a href="monitor.html" class="monitor-link">
-        🖥 工場モニター（表示専用）
-      </a>
-    </section>
+    <div class="compare-cards">
+      <article class="compare-card">
+        <div class="compare-card-label">案 A</div>
+        <h2 class="compare-card-title">カードグリッド</h2>
+        <p class="compare-card-summary">
+          1件ごとに大きなカードで表示。視覚的なインパクトが強く、状態色で進捗が分かりやすい。
+        </p>
+        <div class="compare-card-section">
+          <div class="compare-card-section-title">良い点</div>
+          <ul class="compare-card-list">
+            <li>カード1枚1枚が大きく目立つ</li>
+            <li>状態色とアニメで動きがある</li>
+            <li>遠くからでも見やすい</li>
+          </ul>
+        </div>
+        <div class="compare-card-section">
+          <div class="compare-card-section-title">課題</div>
+          <ul class="compare-card-list">
+            <li>件数が多いと画面に収まらない</li>
+            <li>全体把握しにくい</li>
+          </ul>
+        </div>
+        <div class="compare-card-buttons">
+          <a href="v1/" class="compare-btn compare-btn-primary">この案を体験する</a>
+          <a href="v1/monitor.html" class="compare-btn compare-btn-secondary">モニター画面だけ見る</a>
+        </div>
+      </article>
+
+      <article class="compare-card">
+        <div class="compare-card-label">案 B</div>
+        <h2 class="compare-card-title">ハイブリッド</h2>
+        <p class="compare-card-summary">
+          サマリー、進行中カード、全予定表を組み合わせた多層構造。情報の重み付けがある。
+        </p>
+        <div class="compare-card-section">
+          <div class="compare-card-section-title">良い点</div>
+          <ul class="compare-card-list">
+            <li>進行中の作業が大きく目立つ</li>
+            <li>全体の予定も表で見える</li>
+            <li>情報の階層が分かりやすい</li>
+          </ul>
+        </div>
+        <div class="compare-card-section">
+          <div class="compare-card-section-title">課題</div>
+          <ul class="compare-card-list">
+            <li>レイアウトが少し複雑</li>
+            <li>件数が多いと表が見えにくい</li>
+          </ul>
+        </div>
+        <div class="compare-card-buttons">
+          <a href="v2/" class="compare-btn compare-btn-primary">この案を体験する</a>
+          <a href="v2/monitor.html" class="compare-btn compare-btn-secondary">モニター画面だけ見る</a>
+        </div>
+      </article>
+
+      <article class="compare-card recommended">
+        <div class="compare-card-label">案 C</div>
+        <h2 class="compare-card-title">全予定表中心</h2>
+        <p class="compare-card-summary">
+          サマリーとタイムラインを左に、全予定表を右に配置。15件すべてが1画面に確実に収まる。
+        </p>
+        <div class="compare-card-section">
+          <div class="compare-card-section-title">良い点</div>
+          <ul class="compare-card-list">
+            <li>件数が多くても全件1画面</li>
+            <li>業務的でシンプル</li>
+            <li>横長モニターで左右分割表示</li>
+          </ul>
+        </div>
+        <div class="compare-card-section">
+          <div class="compare-card-section-title">課題</div>
+          <ul class="compare-card-list">
+            <li>カードの華やかさはない</li>
+            <li>表が業務的すぎる印象も</li>
+          </ul>
+        </div>
+        <div class="compare-card-buttons">
+          <a href="v3/" class="compare-btn compare-btn-primary">この案を体験する</a>
+          <a href="v3/monitor.html" class="compare-btn compare-btn-secondary">モニター画面だけ見る</a>
+        </div>
+      </article>
+    </div>
+
+    <footer class="compare-footer">
+      <p class="compare-footer-question">
+        どの方向性がお好みですか？<br>
+        または、これらを参考に新しいアイデアがあればお聞かせください。
+      </p>
+      <p>
+        各案を実際にお試しいただき、フィードバックをお願いします。<br>
+        受付・作業の機能はどの案も共通です。
+      </p>
+    </footer>
   </main>
-
-  <script src="js/mock-data.js"></script>
-  <script src="js/common.js"></script>
 </body>
 </html>
