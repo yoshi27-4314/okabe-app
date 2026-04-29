@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作業一覧 - OKABE GROUP</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="app-header-inner">
+    <div class="app-logo">
+      <a href="index.html" class="logo-link">OKABE GROUP</a>
+    </div>
+    <div class="app-user">
+      <span class="user-role"></span>
+      <a href="index.html" class="role-switch">ロール変更 ▾</a>
+    </div>
+  </div>
+</header>
+
+<main class="page-content">
+  <h1 class="page-title">本日の作業一覧</h1>
+  <p class="page-subtitle"><span class="today-date"></span>　<span id="current-time"></span></p>
+
+  <div class="tab-group">
+    <button class="tab-btn active" onclick="switchTab(this, 'mine')">自分の作業</button>
+    <button class="tab-btn" onclick="switchTab(this, 'all')">全体プール</button>
+  </div>
+
+  <div id="task-list">
+    <!-- 動的に生成 -->
+  </div>
+</main>
+
+<!-- ナンバー入力モーダル -->
+<div class="modal" id="number-input-modal">
+  <div class="modal-content">
+    <h2 class="modal-title" id="modal-action-title">作業開始の確認</h2>
+    <div class="modal-context">
+      <div id="modal-customer-name"></div>
+      <div class="context-vehicle" id="modal-vehicle-number"></div>
+    </div>
+    <p class="modal-instruction">車両のナンバー4桁を入力してください</p>
+    <input type="text" class="number-input" id="number-input" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="0000">
+    <div id="number-error" style="color:var(--color-status-overdue);text-align:center;margin-bottom:16px;font-size:0.9rem;display:none;"></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="hideModal('number-input-modal')">キャンセル</button>
+      <button class="btn btn-important" id="modal-confirm-btn" onclick="confirmNumberInput()">開始する</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/mock-data.js"></script>
+<script src="js/common.js"></script>
+<script>
+var currentTab = 'mine';
+var pendingAction = null; // { id, action: 'start' | 'complete', last4: '1234' }
+
+function switchTab(btn, tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderTaskList();
+}
+
+function renderTaskList() {
+  var role = getCurrentRole();
+  var all = getReservations();
+  var tasks = getVisibleTasks(role, all);
+  var container = document.getElementById('task-list');
+
+  if (tasks.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:48px;color:var(--color-text-sub);">表示する作業がありません</div>';
+    return;
+  }
+
+  container.innerHTML = tasks.map(function(r) {
+    var suffix = r.customerType === 'individual' ? ' 様' : '';
+    var subName = r.customerSubName ? '<div class="task-detail">' + r.customerSubName + '</div>' : '';
+    var actionHtml = '';
+    var memoHtml = '';
+
+    if (r.status === 'received') {
+      actionHtml = '<div class="task-actions"><button class="btn btn-important" onclick="startWork(\'' + r.id + '\')">作業開始</button></div>';
+    } else if (r.status === 'working') {
+      memoHtml = '<div class="memo-section">' +
+        '<label>特記事項（あれば記入）</label>' +
+        '<textarea class="memo-textarea" id="memo-' + r.id + '" rows="3" placeholder="例：ナットが固着していた、ホイールに小キズあり">' + (r.memo || '') + '</textarea>' +
+        '</div>';
+      actionHtml = '<div class="task-actions"><button class="btn btn-important" onclick="completeWork(\'' + r.id + '\')">作業完了</button></div>';
+    }
+
+    var timesHtml = '';
+    if (r.startTime) {
+      timesHtml = '<div class="task-detail" style="margin-top:4px;">開始: ' + r.startTime + (r.endTime ? ' → 完了: ' + r.endTime : '') + '</div>';
+    }
+
+    return '<div class="task-card status-' + r.status + '">' +
+      '<div class="task-card-header">' +
+        '<div><div class="reservation-time">' + r.time + '</div></div>' +
+        '<span class="status-badge status-' + r.status + '">' + getStatusLabel(r.status) + '</span>' +
+      '</div>' +
+      '<div class="task-customer">' + r.customerName + suffix + '</div>' +
+      subName +
+      '<div class="task-id">識別子：' + (r.contractIdentifier || '—') + '</div>' +
+      '<div class="task-detail">車両：' + r.vehicleModel + '</div>' +
+      '<div class="task-detail">作業：' + r.workType + '</div>' +
+      '<div class="task-detail">保管：' + (r.storageNo || '—') + '</div>' +
+      timesHtml +
+      memoHtml +
+      actionHtml +
+      '</div>';
+  }).join('');
+}
+
+function extractLast4(vehicleNumber) {
+  var nums = vehicleNumber.replace(/[^0-9]/g, '');
+  return nums.slice(-4);
+}
+
+function startWork(id) {
+  var reservations = getReservations();
+  var r = reservations.find(function(x) { return x.id === id; });
+  if (!r) return;
+
+  pendingAction = { id: id, action: 'start', last4: extractLast4(r.vehicleNumber) };
+
+  document.getElementById('modal-action-title').textContent = '作業開始の確認';
+  document.getElementById('modal-customer-name').textContent = r.customerName;
+  document.getElementById('modal-vehicle-number').textContent = r.vehicleNumber;
+  document.getElementById('modal-confirm-btn').textContent = '開始する';
+  document.getElementById('number-input').value = '';
+  document.getElementById('number-error').style.display = 'none';
+  showModal('number-input-modal');
+  setTimeout(function() { document.getElementById('number-input').focus(); }, 100);
+}
+
+function completeWork(id) {
+  var reservations = getReservations();
+  var r = reservations.find(function(x) { return x.id === id; });
+  if (!r) return;
+
+  // メモを保存
+  var memoEl = document.getElementById('memo-' + id);
+  if (memoEl) {
+    updateReservation(id, { memo: memoEl.value });
+  }
+
+  pendingAction = { id: id, action: 'complete', last4: extractLast4(r.vehicleNumber) };
+
+  document.getElementById('modal-action-title').textContent = '作業完了の確認';
+  document.getElementById('modal-customer-name').textContent = r.customerName;
+  document.getElementById('modal-vehicle-number').textContent = r.vehicleNumber;
+  document.getElementById('modal-confirm-btn').textContent = '完了する';
+  document.getElementById('number-input').value = '';
+  document.getElementById('number-error').style.display = 'none';
+  showModal('number-input-modal');
+  setTimeout(function() { document.getElementById('number-input').focus(); }, 100);
+}
+
+function confirmNumberInput() {
+  if (!pendingAction) return;
+
+  var input = document.getElementById('number-input').value;
+  var errorEl = document.getElementById('number-error');
+
+  if (input.length !== 4) {
+    errorEl.textContent = '4桁を入力してください';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  if (input !== pendingAction.last4) {
+    errorEl.textContent = 'ナンバーが一致しません';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  hideModal('number-input-modal');
+
+  var reservations = getReservations();
+  var r = reservations.find(function(x) { return x.id === pendingAction.id; });
+
+  if (pendingAction.action === 'start') {
+    updateReservation(pendingAction.id, {
+      status: 'working',
+      startTime: getCurrentTime()
+    });
+    renderTaskList();
+    showToast({ title: '作業開始', detail: r.customerName + ' の作業を開始しました' });
+  } else if (pendingAction.action === 'complete') {
+    updateReservation(pendingAction.id, {
+      status: 'completed',
+      endTime: getCurrentTime()
+    });
+    renderTaskList();
+    showToast({ title: '作業完了', detail: r.customerName + ' の作業が完了しました' });
+  }
+
+  pendingAction = null;
+}
+
+// Enterキーで確定
+document.getElementById('number-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') confirmNumberInput();
+});
+
+// 時刻更新
+function updateTimeDisplay() {
+  var el = document.getElementById('current-time');
+  if (el) el.textContent = getCurrentTime();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderTaskList();
+  updateTimeDisplay();
+  setInterval(updateTimeDisplay, 10000);
+});
+</script>
+
+</body>
+</html>
